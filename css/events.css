@@ -1,0 +1,80 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.timeline {
+    position: relative;
+    min-width: 800px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: #333;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+}
+
+.timeline-item {
+    padding: 10px 20px;
+    position: relative;
+    background: white;
+    border-radius: 6px;
+    margin: 10px 0;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+    transform: translateX(0);
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.timeline-content {
+    padding: 10px 20px;
+    position: relative;
+}
+
+.timeline-content h2 {
+    margin-top: 0;
+}
+
+.date {
+    display: block;
+    font-size: 0.9em;
+    color: #555;
+}
+
+@media (max-width: 600px) {
+    .timeline-item {
+        width: 100%;
+        left: 0;
+        transform: none;
+    }
+
+    .timeline::before {
+        left: 10px;
+        margin-left: 0;
+    }
+}
+/* Agrega al final del archivo styles.css */
+.timeline-item.highlight {
+    background-color: #e0f7fa;
+    border: 1px solid #4db6ac;
+}

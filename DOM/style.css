@@ -1,0 +1,15 @@
+*{
+    font-family: sans-serif;
+}
+body{
+    background-color: bisque;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.parrafos{
+    color: red;
+}
