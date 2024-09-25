@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <style>
         /* Ensure no strikethrough is applied */
         .input-box label {
@@ -17,11 +14,6 @@
         #error-message {
             color: red;
             display: none;
-        }
-        .wrapper{
-            background: url("img/tkd-bg.jpg");
-            background-size: cover;
-            background-position: center;  
         }
     </style>
 </head>

@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 historia.classList.add('show');
             }
         });
-    }
+    }   
     
     if (buttonLinaje) {
         buttonLinaje.addEventListener('click', function() {

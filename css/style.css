@@ -1,6 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 /* Reseteo de estilo para eliminar los márgenes y paddings por defecto 
    y establecer el sistema de caja como border-box para un cálculo más intuitivo */
+
+   * {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#offcanvasDarkNavbarLabel{
+    font-size: 30px;
+    text-align: center;
+}
+.nav-link{
+    font-size: 20px;
+}
+.navbar-brand img {
+    width: 60px;
+    height: 60px;
+}
+#navbar-brand {
+    font-size: 30px;
+}
+.navbar-toggler-icon {
+    position: relative;
+    padding: 5px;
+}
+@media (max-width: 768px) {
+    #navbar-brand {
+        font-size: 22px;
+    }
+    .navbar-brand img {
+        width: 40px;
+        height: 40px;
+    }
+    .navbar-toggler {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    #navbar-brand {
+        font-size: 15px;
+    }
+    .navbar-brand img {
+        width: 25px;
+        height: 25px;
+    }
+    .navbar-toggler {
+        width: 25px;
+        height: 25px;
+        overflow: hidden;
+    }
+}
+.card-header {
+    width: 100%;
+    text-align: center;
+}
+
+#redes img{
+    width: 50px; 
+    height: 50px;
+}
+
+
 * {
     padding: 0;
     margin: 0;
@@ -17,6 +79,7 @@ body {
     background-size: cover; /* Escala la imagen para cubrir todo el fondo */
     background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
 
+    padding-top: 120px;
     display: flex; /* Utiliza flexbox para el layout del body */
     flex-direction: column; /* Alinea los elementos hijos verticalmente */
     overflow: hidden; /* Evita el desplazamiento en el cuerpo */

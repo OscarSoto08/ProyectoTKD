@@ -1,5 +1,4 @@
-<?
-<<<<<<< HEAD
+<?php
 class conexion{
     private $mysqlconexion;
     private $resultado;
@@ -38,34 +37,4 @@ class conexion{
     }
 }
 
-=======
-class Conexion{
-    private $conn;
-    public function iniciarConexion(){
-        $conn = new mysqli("localhost", "root", "", "proyecto_tkd");
-        $conn -> set_charset("utf-8");
-
-        if($this -> conn -> connect_error){
-            die("Conexión fallida: ". $this -> conn -> connect_error);
-        }
-    }
-    public function prepararConsulta($sql){
-        return $this -> conn -> prepare($sql);
-    }
-    public function ejecutarConsulta($sql){
-        return $this -> conn -> query($sql);
-    }
-    public function numFilas($resultado){
-        return ($resultado != null) ? $resultado -> num_rows : 0;
-    }
-    public function extraer($resultado){
-        return $resultado -> fetch_assoc();
-    }
-    public function obtenerKey(){
-        return $this -> conn -> insert_id;
-    }
-    public function cerrarConexion(){
-        $this -> conn -> close();
-    }
-}
->>>>>>> 260d967 (Versión 2: Diseño de la página principal mejorado y resposivo)
+?>

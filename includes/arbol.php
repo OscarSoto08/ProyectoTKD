@@ -3,8 +3,8 @@
     <h1>Arbol Genealógico</h1>
 </div>
 <div class="card-body">    
-    <div class="containerSeg">
-        <div class="tree">
+    <div class="tree">
+        <div class="container">
             <ul>
                 <li>
                     <div class="parent">
