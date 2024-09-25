@@ -7,76 +7,29 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
     <style>
-        /* Ensure no strikethrough is applied */
-        .input-box label {
-            text-decoration: none;
-        }
-        #error-message {
-            color: red;
-            display: none;
-        }
+        /* Estilos CSS aquí */
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="login-box">
-            <form id="login-form">
-                <h2>Inicio de Sesion</h2>
-                <div class="input-box">
-                    <span class="icon">
-                        <ion-icon name="mail"></ion-icon>
-                    </span>
-                    <input type="email" id="email" required>
-                    <label>Correo Electronico</label>
+    <section class="container">
+        <div class="login-container">
+            <div class="circle circle-one"></div>
+            <div class="form-container">
+                <img id="kopulso-login-img" src="img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
+                <h1 class="opacity">Iniciar Sesion</h1>
+                <form>
+                    <input type="text" placeholder="USERNAME" />
+                    <input type="password" placeholder="PASSWORD" />
+                    <button class="opacity">INGRESAR</button>
+                </form>
+                <div class="register-forget opacity">
+                    <a href="includes/registro.php">REGISTRARSE</a>
+                    <a href="">OLVIDÉ MI CLAVE</a>
                 </div>
-                <div class="input-box">
-                    <span class="icon">
-                        <ion-icon name="lock-closed"></ion-icon>
-                    </span>
-                    <input type="password" id="password" required>
-                    <label>Contraseña</label>
-                </div>
-                <div class="remember-forgot">
-                    <label><input type="checkbox"> Recuerdame</label>
-                    <a id="recuperar-contraseña" href="#">¿Olvidaste tu contaseña?</a>
-                </div>
-                <button type="submit">Ingresar</button>
-                <img src="img/kopulsoNOchiquito.png" alt="Logo-de-kopulso">
-                <p id="error-message"></p>
-            </form>
+            </div>
+            <div class="circle circle-two"></div>
         </div>
-    </div>
-    <script>
-        document.getElementById('login-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
+    </section>
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('error-message');
-
-            try {
-                const response = await fetch('login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                });
-                
-                const result = await response.json();
-
-                if (result.success) {
-                    // Redirigir a la página personal del usuario
-                    window.location.href = `/profile.html?userId=${result.user.id}`;
-                } else {
-                    // Mostrar mensaje de error
-                    errorMessage.textContent = result.message;
-                    errorMessage.style.display = 'block';
-                }
-            } catch (error) {
-                console.error('Error al iniciar sesión:', error);
-            }
-        });
-    </script>
 </body>
 </html>

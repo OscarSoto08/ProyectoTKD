@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid d-flex justify-content-between">
-            <a class="navbar-brand" href="#"><img src="img/image.png" alt="Logo de kopulso"></a>
-            <a class="navbar-brand" href="#" id="navbar-brand">LTA (Learning Taekwondo Application)</a>
+            <a class="navbar-brand" href="index.php"><img src="img/image.png" alt="Logo de kopulso"></a>
+            <a class="navbar-brand" href="index.php">LTA (Learning Taekwondo Application)</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,18 +24,11 @@
                                 <li><a class="dropdown-item" data-page="includes/arbol.php">Arbol Genealógico</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                Ingresar
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" data-page="includes/login.php" href="#">Iniciar Sesion</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" data-page="includes/registro.php" href="#">Registrarse</a></li>                                
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" data-page="includes/login.php">Autenticarse</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="events.html">Eventos</a>
+                            <a class="nav-link" href="includes/events.php">Eventos</a>
                         </li>
                     </ul>
                     <!-- <h5 class="mx-auto">Siguenos en nuestras redes sociales</h5> -->

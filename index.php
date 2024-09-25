@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="kopulso, club de taekwondo, LTA, Learning Taekwondo Application"> 
     <title>LTA - Kopulso</title>
+    <link rel="shortcut icon" href="img/image.png">
+
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -224,7 +224,7 @@ main {
 
 .container h1 {
     color: #0a0a23; /* Color del texto */
-    margin: auto;
+    margin: 15px;
 }
 
 h2{
@@ -277,7 +277,6 @@ h2{
     position: relative;
     top: 15px;
     margin: 10px 17px;
-    border: 2px solid black;
     min-width: 410px;
     max-width: 410px;
     min-height: 300px;
@@ -285,9 +284,11 @@ h2{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0);
+    background-color: transparent;
     border-radius: 5px;
     z-index: 5;
+    border: 1px solid black;
+    border-radius: 30px;
     overflow: hidden;
 }
 /*Estilos de letras*/
@@ -308,14 +309,16 @@ h2{
 
 h3{
     padding: 10px;
-    margin: 0 50px;
+    margin: 15px 50px;
+}
+
+.center{
+    justify-content: center;
 }
 /**/
 .figure img{
-    object-fit: fill;
-    width: 400px;
-    height: 400px;
-    height: inherit;
+    object-fit: scale-down;
+    height: 300px;
 }
 
 .left{
@@ -328,7 +331,7 @@ h3{
 
 .separator{
     border-bottom: 1.8px solid #888989;
-    margin: 15px auto;
+    margin: 22px auto;
     width: 90%;
 }
 
