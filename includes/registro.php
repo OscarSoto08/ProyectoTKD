@@ -15,8 +15,10 @@
         <div class="login-container">
             <div class="circle circle-one"></div>
             <div class="form-container">
-                <img id="kopulso-login-img" src="../img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
-                <h1 class="opacity">Registro</h1>
+                <a href="../index.php">
+                    <img id="kopulso-login-img" src="../img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
+                </a>
+               <h1 class="opacity">Registro</h1>
                 <form >
                     <label for="nombre">Nombre Completo</label>
                     <input id="nombre" type="text" placeholder="NOMBRES" />
@@ -30,7 +32,7 @@
                     <button class="opacity">INGRESAR</button>
                 </form>
                 <div class="register-forget opacity">
-                    <a href="includes/login.php" >INICIAR SESION</a>
+                    <a href="login.php">INICIAR SESION</a>
                 </div>
             </div>
             <div class="circle circle-two"></div>

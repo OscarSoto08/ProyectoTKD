@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
     <style>
         /* Estilos CSS aquí */
     </style>
@@ -15,7 +15,9 @@
         <div class="login-container">
             <div class="circle circle-one"></div>
             <div class="form-container">
-                <img id="kopulso-login-img" src="img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
+                <a href="../index.php">
+                <img id="kopulso-login-img" src="../img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
+                </a>
                 <h1 class="opacity">Iniciar Sesion</h1>
                 <form>
                     <input type="text" placeholder="USERNAME" />
@@ -23,7 +25,7 @@
                     <button class="opacity">INGRESAR</button>
                 </form>
                 <div class="register-forget opacity">
-                    <a href="includes/registro.php">REGISTRARSE</a>
+                    <a href="registro.php">REGISTRARSE</a>
                     <a href="">OLVIDÉ MI CLAVE</a>
                 </div>
             </div>
