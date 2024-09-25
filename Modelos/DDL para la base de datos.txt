@@ -5,7 +5,11 @@ create table Profesor(
     apellido varchar(45) not null,
     foto varchar(255) null,
     correo varchar(45) not null,
+<<<<<<< HEAD
     clave varchar(45) not null, 
+=======
+    clave varchar(45) null, 
+>>>>>>> 260d967 (Versión 2: Diseño de la página principal mejorado y resposivo)
     jerarquia int not null -- Es para el arbol genealógico
 );
 
@@ -42,7 +46,11 @@ create table Estudiante(
     foto varchar(255) null,
     Grado_idGrado int not null,
     correo varchar(45) not null,
+<<<<<<< HEAD
     clave varchar(45) not null,
+=======
+    clave varchar(45) null,
+>>>>>>> 260d967 (Versión 2: Diseño de la página principal mejorado y resposivo)
 	foreign key(Grado_idGrado) references Grado(idGrado) -- La razón de esta relación se debe a que permite el bajo acomplamiento y evita la redundancia horizontal de tuplas
 );
 
@@ -72,7 +80,11 @@ create table Administrador(
     apellido varchar(45) not null,
     foto varchar(255) null,
     correo varchar(45) not null,
+<<<<<<< HEAD
     clave varchar(45) not null
+=======
+    clave varchar(45) null
+>>>>>>> 260d967 (Versión 2: Diseño de la página principal mejorado y resposivo)
 );
 
 

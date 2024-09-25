@@ -3,170 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="keywords" content="kopulso, club de taekwondo kopulso, LTA Kopulso, Learning Taekwondo Application, Taekwondo">
+    <meta name="keywords" content="kopulso, club de taekwondo, LTA, Learning Taekwondo Application"> 
     <title>LTA - Kopulso</title>
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/script.js" defer></script>
     
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/stylesAG.css">
-    <link rel="shortcut icon" href="img/image.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/styleAG.css">
     <style>
-        main{
-            background: url("img/tkd-bg.jpg");
-            background-size: cover;
-            background-position: center;  
+        * {
+            font-family: 'Noto Sans KR', sans-serif;
         }
+        body {
+            height: 100vh;
+            padding-top: 120px;
+        }
+        .navbar-brand img {
+            width: 60px;
+            height: 60px;
+        }
+        #navbar-brand {
+            font-size: 30px;
+        }
+        .navbar-toggler-icon {
+            position: relative;
+            padding: 5px;
+        }
+        @media (max-width: 768px) {
+            #navbar-brand {
+                font-size: 22px;
+            }
+            .navbar-brand img {
+                width: 40px;
+                height: 40px;
+            }
+            .navbar-toggler {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #navbar-brand {
+                font-size: 15px;
+            }
+            .navbar-brand img {
+                width: 25px;
+                height: 25px;
+            }
+            .navbar-toggler {
+                width: 25px;
+                height: 25px;
+                overflow: hidden;
+            }
+        }
+        .card-header {
+            width: 100%;
+            text-align: center;
+        }
+
+        #redes img{
+            width: 50px; 
+            height: 50px;
+        }
+        
     </style>
 </head>
-
 <body>
-    <header>
-        <img src="img/image.png" alt="Logo de kopulso">
-        <h1>LTA (Learning Taekwondo Application)</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="login.html">Iniciar Sesión</a></li>
-                <li><a href="events.html">Eventos</a></li>
-            </ul>
-        </nav>
-        <div class="redes-img">
-            <a href="https://www.instagram.com/kopulsotkd/" target="_blank"><img src="img/ig-icon.png" alt="Instagram Kopulso"></a>
-            <a href="https://wa.me/3132694132" target="_blank"><img src="img/wpp-icon.png" alt="WhatsApp Kopulso"></a>
-            <a href="https://www.facebook.com/kopulsoTKD" target="_blank"><img src="img/fb-icon.png" alt="Facebook Kopulso"></a>
-        </div>
-    </header>
-    <main>
-        <div class="menu-inicio">
-            <ul class="opciones">
-                <li><a href="#" id="button-info-general">Información general</a></li>
-                <li><a href="#" id="button-historia">Historia</a></li>
-                <li><a href="#" id="button-linaje">Linaje KOPULSO</a></li>
-            </ul>
-        </div>
-        <div class="home-page">
-            <div class="container">
-                <div id="info-general" class="seccion show">
-                    <div class="titulo">
-                        <h2>Bienvenido al Mundo del Taekwondo</h2>
-                    </div>
-                    <div class="info">
-                        <p>El taekwondo, un arte marcial de origen coreano con una historia rica y una filosofía profunda, 
-                            no solo es una forma de autodefensa, sino también un camino hacia el desarrollo personal y
-                             el bienestar integral. 
-                             <br>Con una combinación única de técnicas de piernas y puños, el taekwondo se distingue por su énfasis 
-                             en la precisión, la agilidad y la disciplina mental.</p>
-                        
-                        <p><br>El taekwondo no es solo un deporte; es una verdadera arte marcial que está profundamente arraigada 
-                            en principios y valores que van más allá del simple entrenamiento físico. 
-                            <br> Estos principios no solo moldean la forma en que se practican las técnicas, 
-                            sino que también influyen en la vida cotidiana de quienes lo practican. 
-                            <div class="italic">
-                                <i>¿Cómo estos principios fundamentales del taekwondo pueden enriquecer tu vida y tu desarrollo personal?</i>
-                            </div>
-                        </p>
-                        <div class="figure left">
-                            <img src="img/home-page-img1.jpg" alt="" srcset="">
-                        </div>
-                        <h3>Cortesia</h3>
-
-                        <p>La cortesía es el pilar básico del taekwondo. 
-                            No se trata solo de ser educado con los demás, sino de mostrar respeto en cada acción y decisión.
-                            
-                            <br>En el taekwondo, la cortesía se refleja en la forma en que tratas a tus compañeros de entrenamiento, 
-                            a tus instructores y a ti mismo. Aprender a ser cortés te enseña a valorar y respetar las diferencias, 
-                            a escuchar activamente y a actuar con amabilidad y consideración, tanto dentro como fuera del dojang 
-                            (lugar de entrenamiento).</p>
-                            
-                            <div class="separator short-right"></div>
-                        <h3>Integridad</h3>
-                        <p>La integridad es la práctica de hacer lo correcto, incluso cuando nadie está mirando. 
-                            En el taekwondo, esto significa ser honesto contigo mismo y con los demás, mantener altos estándares 
-                            morales y actuar con rectitud. Este principio fomenta la transparencia y la sinceridad, 
-                            ayudando a construir un carácter sólido y confiable. 
-                            <br> La integridad en el taekwondo también 
-                            te impulsa a ser responsable de tus acciones y a vivir de acuerdo con tus valores personales.
-                        </p>
-                          
-                        <div class="separator"></div>
-                        <h3>Perseverancia</h3>
-                        <p>La perseverancia es la capacidad de seguir adelante a pesar de los desafíos y las dificultades. <br>
-                            En el taekwondo, esto se manifiesta en la persistencia para mejorar tus técnicas, 
-                            superar obstáculos y alcanzar tus metas. Cada patada, cada golpe y cada técnica que practicas requieren
-                             dedicación y esfuerzo continuo. La perseverancia en el taekwondo enseña la importancia de la constancia
-                              y la resiliencia, habilidades que son valiosas en todas las áreas de la vida.</p>
-                        <div class="separator"></div>
-
-                        <h3>Autocontrol</h3>
-                        <p>
-                            El autocontrol es fundamental para la práctica efectiva del taekwondo y para la vida en general. 
-                            Implica la capacidad de controlar tus emociones, reacciones y acciones. 
-                            <br>En el taekwondo, esto significa mantener la calma en situaciones de estrés, regular la intensidad de tus movimientos y 
-                            evitar el uso indebido de tus habilidades. El autocontrol te ayuda a manejar la ira, el miedo y el estrés, 
-                            promoviendo un enfoque equilibrado y centrado en tus metas.
-                        </p>
-
-                        <div class="separator"></div>
-                        <div class="figure right">
-                            <img src="img/home-page-img2.jpg" alt="" srcset="">
-                        </div>  
-                        <h3>Espíritu Indomable</h3>
-                        <p>
-                            El espíritu indomable es la cualidad de enfrentar las adversidades con valentía y determinación
-                            inquebrantable. En el taekwondo, esto se traduce en no rendirse ante los desafíos y mantener una
-                            actitud positiva frente a los obstáculos. Un espíritu indomable te impulsa a seguir luchando y 
-                            a mantener tu energía y motivación incluso en los momentos más difíciles.
-                            <br> Este principio inspira a perseverar y a luchar por tus objetivos con fuerza y pasión.
-
-                        </p>
-                        <div class="separator short-left"></div>
-                        <h3>Ciencia</h3>
-                        <p>
-                            El taekwondo, como arte marcial, también se basa en la ciencia del movimiento y la técnica.
-                            Cada técnica y estrategia se fundamenta en principios científicos de biomecánica y física, 
-                            lo que permite ejecutar movimientos precisos y efectivos. <br>Entender la ciencia detrás de las
-                            técnicas te ayuda a mejorar tu habilidad y a practicar de manera más eficiente. 
-                        </p>
-                        <div class="separator"></div>
-                        <h3>Amor</h3>
-                        <p>
-                            Aunque el amor no es un principio tradicionalmente mencionado en todas las artes marciales, 
-                            en el taekwondo se considera fundamental en su práctica. Este amor se manifiesta como el amor 
-                            propio y el amor por los demás. Implica el respeto por uno mismo y por los compañeros, así como 
-                            el compromiso de crecer y ayudar a otros a crecer. <br>El amor en el taekwondo también se expresa a 
-                            través de la dedicación a la disciplina y el aprecio por la filosofía del arte marcial.
-
-                        </p>
-                    </div>                    
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="img/image.png" alt="Logo de kopulso"></a>
+            <a class="navbar-brand" href="#" id="navbar-brand">LTA (Learning Taekwondo Application)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Club de Taekwondo KOPULSO</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 
-                <div id="historia" class="seccion">   
-                    <div class="titulo">
-                        <h2>Historia</h2>
-                    </div>
-                    <div class="info">
-                        <div class="info">
-                            <h3>Historia del taekwondo</h3>
-                            <p>El taekwondo se remonta a más de mil años atrás en la península coreana, donde evolucionó desde técnicas de combate tradicionales hasta convertirse en un sistema estructurado de entrenamiento físico y mental. Más que una serie de movimientos, el taekwondo abarca valores fundamentales como el respeto, la perseverancia y el autocontrol, guiando a sus practicantes hacia una vida equilibrada y consciente.</p></div>
-                        </div>
-                </div>
-                <div id="linaje" class="seccion">
-                    <div class="titulo"><h2>Linaje KOPULSO</h2></div>
-                    <div class="info">
-                        <p>Ya sea que seas un principiante entusiasmado o un competidor experimentado, nuestra comunidad de taekwondo te ofrece un espacio acogedor y enriquecedor para explorar tu potencial. Con programas adaptados para todas las edades y niveles de habilidad, estamos comprometidos a compartir el legado del taekwondo mientras creamos experiencias memorables y forjamos vínculos duraderos entre nuestros miembros.</p>
-                    </div>
-                    <div class="tree info">
-                        <?php
-                            require_once './family-tree.html';
-                        ?>
-                    </div>
+                <div class="offcanvas-body d-flex flex-column justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 pe-3">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Inicio
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item"  data-page="includes/info-general.php">Información General</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" data-page="includes/historia.php">Historia</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" data-page="includes/arbol.php">Arbol Genealógico</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Ingresar
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" data-page="includes/info-general.php" href="#">Iniciar Sesion</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" data-page="includes/historia.php" href="#">Registrarse</a></li>                                
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="events.html">Eventos</a>
+                        </li>
+                    </ul>
+                    <!-- <h5 class="mx-auto">Siguenos en nuestras redes sociales</h5> -->
+                    <ul class="d-flex mt-6 justify-content-evenly" id="redes">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <img src="img/wpp-icon.png"  alt="Logo-wpp">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <img src="img/fb-icon.png" alt="">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <img src="img/ig-icon.png" alt="" srcset="">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </main>
-    <script src="javascript/main.js"></script>
+    </nav>
+    <div id="datos">
+        <div class="row mb-10 container mx-auto">
+            <div class="col">
+                <!-- CONTENIDO DINAMICO -->
+                <div class="card border-dark p-7" id="content">
+                    <?php require_once('includes/info-general.php')?>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

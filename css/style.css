@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+/* Reseteo de estilo para eliminar los márgenes y paddings por defecto 
+   y establecer el sistema de caja como border-box para un cálculo más intuitivo */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Zilla Slab', sans-serif; /* Fuente personalizada de Google Fonts */
+    box-sizing: border-box;
+}
+
+/* Estilo para el cuerpo del documento */
+body {
+    width: 100%;
+    height: 100vh; /* Mantiene la altura de la ventana visible */
+    background-image: url(../img/tkd-bg.jpg);
+    background-size: cover; /* Escala la imagen para cubrir todo el fondo */
+    background-repeat: no-repeat; /* Evita la repetición de la imagen de fondo */
+
+    display: flex; /* Utiliza flexbox para el layout del body */
+    flex-direction: column; /* Alinea los elementos hijos verticalmente */
+    overflow: hidden; /* Evita el desplazamiento en el cuerpo */
+}
+
+/* Estilos para el encabezado */
+header {
+    font-family: "Baskervville SC";
+    background-color: #000; /* Color de fondo negro */
+    color: #fff; /* Color del texto blanco */
+    width: 100%;
+    height: 11vh; /* Altura del encabezado como porcentaje del viewport */
+    display: flex; /* Flexbox para alinear los elementos */
+    justify-content: space-around; /* Espacia los elementos de manera uniforme */
+    align-items: center; /* Centra los elementos verticalmente */
+    border-bottom: 1vh solid #d8d6d6; /* Borde inferior del encabezado */
+    padding: 10px 20px; /* Espaciado interno */
+    position: relative; /* Posicionamiento relativo para control de layout */
+    z-index: 10; /* Asegura que el encabezado esté por encima de otros elementos */
+}
+
+header img {
+    width: 80px; /* Ancho de la imagen del logo */
+    height: auto; /* Mantiene la proporción original de la imagen */
+}
+
+/* Estilo de navegación */
+nav ul {
+    display: flex; /* Flexbox para alinear los elementos de la lista */
+    list-style: none; /* Elimina los marcadores de lista */
+    padding: 0; /* Elimina el padding por defecto */
+}
+
+nav ul li {
+    margin: 0 15px; /* Margen horizontal entre los elementos de la lista */
+}
+
+nav ul li a {
+    color: #fff; /* Color de texto blanco para los enlaces */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    transition: color 0.3s ease; /* Transición suave para cambios de color */
+    font-size: 19.5px; /*Define el tamaño de la fuente Inicio, Iniciar Sesion y eventos*/
+}
+
+nav ul li a:hover {
+    color: #dfdfe2; /* Color de texto al pasar el ratón por encima */
+}
+
+/* Estilos para los iconos de redes sociales en el encabezado */
+.redes-img {
+    display: flex; /* Flexbox para alinear los iconos horizontalmente */
+    gap: 10px; /* Espaciado entre los iconos */
+}
+
+.redes-img img {
+    width: 45px; /* Ancho de cada icono */
+    height: 45px; /* Alto de cada icono */
+}
+
+/* Estilo para el área principal del contenido */
+main {
+    flex-grow: 1; /* Permite que el main ocupe el espacio restante */
+    display: flex; /* Flexbox para layout del contenido principal */
+    justify-content: space-between; /* Distribuye los elementos horizontalmente */
+    align-items: flex-start; /* Alinea los elementos verticalmente */
+    padding: 50px; /* Espaciado interno */
+    overflow: hidden; /* Evita el desplazamiento del contenido de main */
+    
+}
+
+/* Estilo para el menú interactivo */
+.menu-inicio {
+    max-width: 170px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    width: 400px; /* Ancho del menú */
+    padding: 20px; /* Espaciado interno */
+    box-shadow: 1px -1px 15px 2px #0a0a23; /* Sombra para dar efecto de elevación */
+    border-radius: 15px; /* Esquinas redondeadas */
+    display: flex; /* Flexbox para el contenido del menú */
+    flex-direction: column; /* Alinea los elementos verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones para efectos */
+}
+
+.menu-inicio:hover {
+    transform: scale(1.05); /* Escala el menú al pasar el ratón por encima */
+    box-shadow: 1px -1px 25px 4px #0a0a23; /* Aumenta la sombra al pasar el ratón */
+}
+
+.menu-inicio .opciones {
+    list-style: square; /* Elimina los marcadores de lista */
+    padding: 0; /* Elimina el padding por defecto */
+}
+
+.menu-inicio .opciones li {
+    margin-bottom: 10px; /* Espaciado entre elementos de la lista */
+}
+
+.menu-inicio .opciones li a {
+    color: #1b1b32; /* Color de texto */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    font-weight: bold; /* Texto en negrita */
+    transition: color 0.3s ease; /* Transición suave para cambios de color */
+}
+
+.menu-inicio .opciones li a:hover {
+    color: #4e4e61; /* Cambia el color del texto al pasar el ratón por encima */
+}
+
+/* Estilo para la página de inicio */
+.home-page {
+    max-width: 70%;
+    flex-grow: 1; /* Permite que esta sección crezca para llenar el espacio disponible */
+    display: flex; /* Flexbox para el contenido de la página de inicio */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    margin: 0 auto;
+}
+
+.container {
+    overflow: auto;
+
+    align-items: flex-start;
+    background-color: transparent;
+  }
+
+  #content{
+    background-color: rgba(255, 255, 255, 0.6); /* Fondo semitransparente */
+
+    width: 100%; /* Ancho del contenedor */
+    height: 80vh; /* Altura fija para habilitar el desplazamiento interno */
+    padding: 10px 0 ; /* Espaciado interno */
+    box-shadow: 1px -1px 15px 2px #0a0a23; /* Sombra para dar efecto de elevación */
+    border-radius: 10px; /* Esquinas redondeadas */
+    display: flex; /* Flexbox para el contenido del contenedor */
+    /* justify-content: flex-start; Alinea el contenido horizontalmente al inicio */
+    /* align-items: flex-start; Alinea el contenido verticalmente al inicio */
+    flex-direction: column; /* Organiza los elementos en columna */
+    overflow-y: auto; /* Permite el desplazamiento vertical dentro del contenedor */
+    scroll-behavior: smooth;
+  }
+
+.container h1 {
+    color: #0a0a23; /* Color del texto */
+    margin: auto;
+}
+
+h2{
+  color: #cdcecf;
+  padding: 1rem 0.75rem;
+  font-size: 1.75rem;
+}
+
+.titulo{
+    margin: 22px 0;
+    width: 100%;
+    background-color: #0a0a23;
+    display: flex;
+    justify-content: center;
+    border-top: 4px double rgba(255, 255, 255, 0.8);
+    border-bottom: 4px double rgba(255, 255, 255, 0.8);
+}
+
+.titulo button{
+    position: relative;
+    left: 20%;
+}
+
+
+.info{
+    padding: 0 25px 30px 25px;
+    font-size: 18px;
+    text-align: justify;/* Justificar el texto */
+}
+/*Configuracion de los botones hide y show*/
+
+.seccion{
+    opacity: 0;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+    min-width: 100%;
+    max-height: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+ /* Estilo cuando el elemento está visible */
+.seccion.show{
+    margin-bottom: auto;
+    opacity: 1;
+}
+/**/
+
+.figure{
+    position: relative;
+    top: 15px;
+    margin: 10px 17px;
+    border: 2px solid black;
+    min-width: 410px;
+    max-width: 410px;
+    min-height: 300px;
+    max-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0);
+    border-radius: 5px;
+    z-index: 5;
+    overflow: hidden;
+}
+/*Estilos de letras*/
+.italic{
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 15px 0;
+    position: relative;
+    top: 7px; 
+}
+
+.italic i{
+    padding-bottom: 4px;
+    border-bottom: 1.2px solid gray;
+}
+
+h3{
+    padding: 10px;
+    margin: 0 50px;
+}
+/**/
+.figure img{
+    object-fit: fill;
+    width: 400px;
+    height: 400px;
+    height: inherit;
+}
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+.separator{
+    border-bottom: 1.8px solid #888989;
+    margin: 15px auto;
+    width: 90%;
+}
+
+.separator.short-left{
+    width: 50%;
+    position: relative;
+    right: 260px;
+}
+
+.separator.short-right{
+    width: 50%;
+    position: relative;
+    left: 220px;
+}
