@@ -5,13 +5,31 @@ class conexion{
 
     public function iniciarConexion(){
         $this -> mysqlconexion = new mysqli("localhost", "root", "", "proyecto_tkd");
-        $this -> mysqlconexion -> set_charset("utf-8");
+       // $this -> mysqlconexion -> set_charset("utf-8");
 
         if($this -> mysqlconexion -> connect_error){
             die("Conexión fallida: ". $this -> mysqlconexion -> connect_error);
-        }
+        }//else{
+           // echo "Conectado Con exito";
+        //}
     }
 
+    // Método para preparar y ejecutar una consulta con parámetros
+    public function prepararConsulta($consulta, $tipos, $valores) {
+        // Preparar la consulta
+        if ($stmt = $this->mysqlconexion->prepare(query: $consulta)){
+            $stmt -> bind_param($tipos, ...$valores);
+
+            if($stmt -> execute()){
+                $this -> resultado = $stmt -> get_result();
+            }else{
+                echo "Error al realizar la consulta: ". $stmt -> error;
+            }
+            $stmt -> close();
+        } else {
+            echo "Error en la preparación de la consulta: " . $this->mysqlconexion->error;
+        }
+    }
     public function ejecutarConsulta($query){
         $this -> resultado = $this -> mysqlconexion -> query($query); 
     }
@@ -22,10 +40,6 @@ class conexion{
 
     public function extraer(){
         return $this -> resultado -> fetch_row();
-    }
-
-    public function preparar($sql){
-        return $this -> mysqlconexion -> prepare($sql);
     }
 
     public function obtenerKey(){

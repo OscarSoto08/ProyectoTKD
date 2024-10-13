@@ -1,5 +1,4 @@
-<?
-require('Conexion.php');
+<?php
 abstract class DAO{
     protected $conexion;
     protected function getConexion(){
@@ -8,7 +7,6 @@ abstract class DAO{
     protected function setConexion($conexion){
         $this->conexion = $conexion;
     }
-
     public function __construct(Conexion $conexion){
         $this -> conexion = $conexion;
     }
@@ -18,28 +16,5 @@ abstract class DAO{
     abstract function insertar($objeto);
     abstract function actualizar($objeto);
     abstract function eliminar($objeto);
-
-    //Metodos de la clase conexion para un mejor acceso a la base de datos
-    protected function iniciarConexion(){
-        $this -> conexion -> iniciarConexion();
-    }
-    protected function ejecutarConsulta($query){
-        $this -> conexion -> ejecutarConsulta($query);
-    }
-    protected function numFilas(){
-        return $this -> conexion -> numFilas();
-    }
-    protected function extraer(){
-        return $this -> extraer();
-    }
-    protected function preparar($sql){
-        return $this -> preparar($sql);
-    }
-    protected function obtenerKey(){
-        return $this -> obtenerKey();
-    }
-    protected function cerrarConexion(){
-        $this -> cerrarConexion();
-    }
-
 }
+?>

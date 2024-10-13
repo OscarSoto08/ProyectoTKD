@@ -1,135 +1,123 @@
 -- Tabla profesor
 create table Profesor(
-    idProfesor int primary key auto_increment,
-    nombre varchar(45) not null,
-    apellido varchar(45) not null,
-    foto varchar(255) null,
-    correo varchar(45) not null,
-<<<<<<< HEAD
-    clave varchar(45) not null, 
-=======
-    clave varchar(45) null, 
->>>>>>> 260d967 (Versión 2: Diseño de la página principal mejorado y resposivo)
-    jerarquia int not null -- Es para el arbol genealógico
+idProfesor int primary key auto_increment,
+nombre varchar(45) not null,
+apellido varchar(45) not null,
+foto varchar(255) null,
+correo varchar(45) not null,
+clave varchar(45) not null, 
+jerarquia int not null -- Es para el arbol genealógico
 );
 
 
 -- Tabla curso
 create table Curso(
-    idCurso int primary key auto_increment,
-    nombre varchar(45) not null -- poomsae, combate, exhibicion, han-gul, etc...
+idCurso int primary key auto_increment,
+nombre varchar(45) not null -- poomsae, combate, exhibicion, han-gul, etc...
 );
 
 -- Como mi proyecto es una plataforma web de educación para la comunidad de taekwondo, es importante que varios profesores puedan colaborar en un curso
 create table Participacion(
-	Profesor_idProfesor int not null,
-    Curso_idCurso int not null,
-    fecha_inicio date not null,
-    fecha_fin date null,
-    
-    primary key(Profesor_idProfesor, Curso_idCurso),
-    foreign key(Profesor_idProfesor) references Profesor(idProfesor),
-    foreign key(Curso_idCurso) references Curso(idCurso)
+Profesor_idProfesor int not null,
+Curso_idCurso int not null,
+fecha_inicio date not null,
+fecha_fin date null,
+
+primary key(Profesor_idProfesor, Curso_idCurso),
+foreign key(Profesor_idProfesor) references Profesor(idProfesor),
+foreign key(Curso_idCurso) references Curso(idCurso)
 );
 
 -- 	Cada estudiante de taekwondo tiene un grado de cinturon, para esto la tabla grado
 create table Grado(
-    idGrado int primary key auto_increment,
-	nombre varchar not null
+idGrado int primary key auto_increment,
+nombre varchar(45) not null
 );
 
 -- Tabla estudiante
 create table Estudiante(
-    idEstudiante int primary key auto_increment,
-    nombre varchar(45) not null, 
-    apellido varchar(45) not null,
-    foto varchar(255) null,
-    Grado_idGrado int not null,
-    correo varchar(45) not null,
-<<<<<<< HEAD
-    clave varchar(45) not null,
-=======
-    clave varchar(45) null,
->>>>>>> 260d967 (Versión 2: Diseño de la página principal mejorado y resposivo)
-	foreign key(Grado_idGrado) references Grado(idGrado) -- La razón de esta relación se debe a que permite el bajo acomplamiento y evita la redundancia horizontal de tuplas
+idEstudiante int primary key auto_increment,
+nombre varchar(45) not null, 
+apellido varchar(45) not null,
+foto varchar(255) null,
+Grado_idGrado int not null,
+correo varchar(45) not null,
+clave varchar(45) not null,
+foreign key(Grado_idGrado) references Grado(idGrado) -- La razón de esta relación se debe a que permite el bajo acomplamiento y evita la redundancia horizontal de tuplas
 );
 
 -- Tabla grupo (niños, mayores, padres de familia, etc...)
 create table Grupo(
-    idGrupo int primary key auto_increment,
-    nombre varchar(45) not null
+idGrupo int primary key auto_increment,
+nombre varchar(45) not null
 );
 
 -- Relación muchos a muchos, para que un curso pueda tener varios estudiantes y el estudiante tenga varios cursos
 create table Curso_Estudiante(
-    Curso_idCurso int not null,
-    Estudiante_idEstudiante int not null,
-    Grupo_idGrupo int not null unique,
-    
-    primary key(Curso_idCurso, Estudiante_idEstudiante),
-    
-    foreign key(Curso_idCurso) references Curso(idCurso),
-    foreign key(Estudiante_idEstudiante) references Estudiante(idEstudiante),
-    foreign key(Grupo_idGrupo) references Grupo(idGrupo)
+Curso_idCurso int not null,
+Estudiante_idEstudiante int not null,
+Grupo_idGrupo int not null unique,
+
+primary key(Curso_idCurso, Estudiante_idEstudiante),
+
+foreign key(Curso_idCurso) references Curso(idCurso),
+foreign key(Estudiante_idEstudiante) references Estudiante(idEstudiante),
+foreign key(Grupo_idGrupo) references Grupo(idGrupo)
 );
 
 -- Es eficiente que un administrador tenga acceso al calendario de eventos de kopulso
 create table Administrador(
-    idAdministrador int primary key auto_increment,
-    nombre varchar(45) not null, 
-    apellido varchar(45) not null,
-    foto varchar(255) null,
-    correo varchar(45) not null,
-<<<<<<< HEAD
-    clave varchar(45) not null
-=======
-    clave varchar(45) null
->>>>>>> 260d967 (Versión 2: Diseño de la página principal mejorado y resposivo)
+idAdministrador int primary key auto_increment,
+nombre varchar(45) not null, 
+apellido varchar(45) not null,
+foto varchar(255) null,
+correo varchar(45) not null,
+clave varchar(45) not null
 );
 
 
 -- El calendario tiene varios eventos, y cada calendario corresponde a cada año, sin embargo debido a que los eventos pueden repetirse, se necesita una relación muchos a muchos, en este orden, para incrementar la supervision y control y el desarrollo de talento, es preciso que varios administradores tengan acceso a los calendarios
 
 create table Calendario(
-    idCalendario int primary key auto_increment,
-	año varchar(45) not null
+idCalendario int primary key auto_increment,
+año varchar(45) not null
 );
-    
+
 create table Administrador_Calendario(
-	Administrador_idAdministrador int not null,
-    Calendario_idCalendario int not null,
-    fecha_asignacion date not null,
-    fecha_fin date null,
-    estado enum('Activo','Inactivo') not null,
-    notas text not null,
-    permisos set('crear_eventos', 'modificar_eventos', 'eliminar_eventos'),
-    primary key(Administrador_idAdministrador,Calendario_idCalendario),
-    foreign key(Administrador_idAdministrador) references Administrador(idAdministrador),
-    foreign key(Calendario_idCalendario) references Calendario(idCalendario)
+Administrador_idAdministrador int not null,
+Calendario_idCalendario int not null,
+fecha_asignacion date not null,
+fecha_fin date null,
+estado enum('Activo','Inactivo') not null,
+notas text not null,
+permisos set('crear_eventos', 'modificar_eventos', 'eliminar_eventos'),
+primary key(Administrador_idAdministrador,Calendario_idCalendario),
+foreign key(Administrador_idAdministrador) references Administrador(idAdministrador),
+foreign key(Calendario_idCalendario) references Calendario(idCalendario)
 );
 
 
 create table Evento(
-    idEvento int primary key auto_increment,
-    nombre varchar(45) not null, 
-	fecha date not null
+idEvento int primary key auto_increment,
+nombre varchar(45) not null, 
+fecha date not null
 );
 
 
 
 create table Galeria_Eventos(
-    idImagen int primary key auto_increment,
-    url varchar(255),
-    Evento_idEvento int not null,
-    foreign key(Evento_idEvento) references Evento(idEvento)
+idImagen int primary key auto_increment,
+url varchar(255),
+Evento_idEvento int not null,
+foreign key(Evento_idEvento) references Evento(idEvento)
 );
 
 create table Calendario_Evento(
-    Calendario_idCalendario int not null,
-    Evento_idEvento int not null,
-    
-    foreign key(Evento_idEvento) references Evento(idEvento),
-    foreign key(Calendario_idCalendario) references Calendario(idCalendario)
+Calendario_idCalendario int not null,
+Evento_idEvento int not null,
+
+foreign key(Evento_idEvento) references Evento(idEvento),
+foreign key(Calendario_idCalendario) references Calendario(idCalendario)
 );
 
 
