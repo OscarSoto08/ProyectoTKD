@@ -4,6 +4,12 @@
     <link rel="stylesheet" href="css/styleAG.css">
 </head>
 <body>
+    <?php 
+    session_start();
+    if (isset($_GET['cerrarSesion'])) {
+        session_destroy();
+    }
+    ?>
     <div id="datos">
         <div class="row mb-10 container mx-auto">
             <div class="col container">

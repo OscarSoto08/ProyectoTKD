@@ -1,10 +1,10 @@
 <?php
 abstract class DAO{
     protected $conexion;
-    protected function getConexion(){
+    public function getConexion(){
         return $this -> conexion;
     }
-    protected function setConexion($conexion){
+    public function setConexion($conexion){
         $this->conexion = $conexion;
     }
     public function __construct(Conexion $conexion){

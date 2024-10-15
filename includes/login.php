@@ -2,6 +2,7 @@
 session_start();
 require '../logica/Persona.php';
 require '../logica/Administrador.php';
+require '../servicios/adminServicio.php';
 
 $CamposIncompletos = false;
 $errorAuth = false;
@@ -11,12 +12,12 @@ $clave = '';
 if (isset($_POST['autenticar'])) {
     $correo = $_POST['correo'];
     $clave = md5($_POST['clave']);
-
     if (empty($correo) || empty($clave)) {
         $CamposIncompletos = true;
     } else {
         $admin = new Administrador(null,null,null,$correo, $clave, null,null,null);
-        if($admin -> autenticar()){
+        $adminServicio = new AdminServicio();
+        if($adminServicio -> autenticar($admin)){
             $_SESSION["id"] = $admin -> getIdPersona(); 
             header("Location: adminProfile.php");
         }else{

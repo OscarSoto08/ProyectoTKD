@@ -3,6 +3,10 @@ class conexion{
     private $mysqlconexion;
     private $resultado;
 
+    public function getResultado(){
+        return $this->resultado;
+    }
+
     public function iniciarConexion(){
         $this -> mysqlconexion = new mysqli("localhost", "root", "", "proyecto_tkd");
        // $this -> mysqlconexion -> set_charset("utf-8");

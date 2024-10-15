@@ -2,38 +2,29 @@
 require('DAO.php');
 class AdministradorDAO extends DAO{
 
-    private $idPersona;
-    private $nombre;
-    private $apellido;
-    private $correo;
-    private $clave;
-    private $foto;
-    private $telefono;
-    private $estado;
-
-    public function __construct($idPersona=0, $nombre="", $apellido="", $correo="", $clave="", $foto="", $telefono="", $estado=null, $conexion=null) {
-        $this -> idPersona = $idPersona;
-        $this -> nombre = $nombre;
-        $this-> apellido = $apellido;
-        $this->correo = $correo;
-        $this -> clave = $clave;
-        $this->foto = $foto;
-        $this->telefono = $telefono;
-        $this -> estado = $estado;
-        $this->conexion = $conexion;
+    public function __construct($conexion=null) {
+        parent::__construct( $conexion);
     }
-    public function autenticar(){
+    public function autenticar($admin){
         $consulta = "SELECT idAdministrador 
                     FROM Administrador 
                     WHERE correo = ? and clave = ?";
         $tipos = "ss";
-        $valores = array($this->correo, $this->clave);
+        $valores = array($admin -> getCorreo(), $admin -> getClave());
         $this->conexion -> prepararConsulta($consulta, $tipos, $valores);
     }
     public function consultarTodos(){
         
     }
-    public function consultarPorId($id){}
+    public function consultarPorId($id){
+        $consulta = "SELECT nombre, apellido, correo
+                    FROM Administrador
+                    WHERE idAdministrador = ?;
+        ";
+        $tipos = "i";
+        $valores = array($id);
+        $this -> conexion -> prepararConsulta($consulta, $tipos, $valores);
+    }
     public function insertar($objeto){}
     public function actualizar($objeto){}
     public function eliminar($objeto){}

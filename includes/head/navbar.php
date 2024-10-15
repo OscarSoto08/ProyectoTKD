@@ -1,3 +1,4 @@
+<?php ?>
 <nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid d-flex justify-content-between">
         <a class="navbar-brand" href="index.php">

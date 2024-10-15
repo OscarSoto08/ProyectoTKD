@@ -19,20 +19,5 @@ class Administrador extends Persona {
     public function setFoto($foto) { $this -> foto = $foto;}
     public function setEstado($estado) { $this -> estado = $estado;}
 
-    //Métodos del login
-    public function autenticar(){
-        $conn = new Conexion();
-        $conn -> iniciarConexion();
-        $adminDao = new AdministradorDAO(null,null,null,$this->correo,$this->clave,null,null,null,$conn);
-        $adminDao -> autenticar();
-        $conn -> cerrarConexion();
-        if($conn -> numFilas() > 0){
-            $registro = $conn -> extraer();
-            $this -> idPersona = $registro[0];
-            return true;
-        }else{
-            return false;
-        }
-    }
 }
  
