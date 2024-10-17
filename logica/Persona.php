@@ -1,5 +1,5 @@
 <?php
-require_once '../Persistencia/Conexion.php';
+require_once '../../Persistencia/Conexion.php';
 class Persona{
     protected $idPersona;
     protected $nombre;

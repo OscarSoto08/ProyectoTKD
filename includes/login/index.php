@@ -1,8 +1,8 @@
 <?php
 session_start();
-require '../logica/Persona.php';
-require '../logica/Administrador.php';
-require '../servicios/adminServicio.php';
+require '../../logica/Persona.php';
+require '../../logica/Administrador.php';
+require '../../servicios/adminServicio.php';
 
 $CamposIncompletos = false;
 $errorAuth = false;
@@ -19,7 +19,7 @@ if (isset($_POST['autenticar'])) {
         $adminServicio = new AdminServicio();
         if($adminServicio -> autenticar($admin)){
             $_SESSION["id"] = $admin -> getIdPersona(); 
-            header("Location: adminProfile.php");
+            header("Location: ../persona/adminProfile.php");
         }else{
             $errorAuth = true;
         }
@@ -36,8 +36,8 @@ if (isset($_POST['autenticar'])) {
     <title>Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/login.css">
     <style>
         /* Estilos CSS aquí */
     </style>
@@ -47,11 +47,11 @@ if (isset($_POST['autenticar'])) {
         <div class="login-container">
             <div class="circle circle-one"></div>
             <div class="form-container">
-                <a href="../index.php">
-                <img id="kopulso-login-img" src="../img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
+                <a href="../../index.php">
+                <img id="kopulso-login-img" src="../../img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
                 </a>
                 <h1 class="opacity">Iniciar Sesion</h1>
-                <form action="login.php" method="post">
+                <form action="index.php" method="post">
                     <input type="email" name="correo" placeholder="USERNAME" />
                     <input type="password" name="clave" placeholder="PASSWORD" />
                     <button class="opacity" type="submit" name="autenticar" value="true">INGRESAR</button>

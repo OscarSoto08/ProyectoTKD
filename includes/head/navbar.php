@@ -21,17 +21,17 @@
                             Inicio
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" data-page="includes/info-general.php">Información General</a></li>
-                            <li><a class="dropdown-item" data-page="includes/historia.php">Historia</a></li>
+                            <li><a class="dropdown-item" data-page="includes/inicio/info-general.php">Información General</a></li>
+                            <li><a class="dropdown-item" data-page="includes/inicio/historia.php">Historia</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" data-page="includes/arbol.php">Árbol Genealógico</a></li>
+                            <li><a class="dropdown-item" data-page="includes/inicio/arbol.php">Árbol Genealógico</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="includes/login.php" data-page="includes/login.php">Autenticarse</a>
+                        <a class="nav-link" href="includes/login" data-page="includes/login">Autenticarse</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="includes/events.php" data-page="includes/events.php">Eventos</a>
+                        <a class="nav-link" href="includes/inicio/events.php" data-page="includes/inicio/events.php">Eventos</a>
                     </li>
                 </ul>
                 <!-- Redes sociales -->

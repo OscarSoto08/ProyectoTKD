@@ -1,5 +1,5 @@
-<?php require 'head/header.php'; ?>
-<link rel="stylesheet" href="../css/profile.css">
+<?php require '../head/header.php'; ?>
+<link rel="stylesheet" href="../../css/profile.css">
 </head> 
 <body>
 <?php 
@@ -10,9 +10,9 @@ if (!isset($_SESSION['id'])) {
 }
 
 $id = $_SESSION["id"];
-require '../logica/Persona.php';
-require '../logica/Administrador.php';
-require '../servicios/adminServicio.php';
+require '../../logica/Persona.php';
+require '../../logica/Administrador.php';
+require '../../servicios/adminServicio.php';
 
 $administrador = new Administrador($id);
 $adminService = new AdminServicio();
@@ -63,7 +63,7 @@ $adminService->consultarPorId($administrador);
                     <div class="btn-group me-2">
                         <button class="btn btn-sm btn-outline-secondary">Notificaciones</button>
                         <button class="btn btn-sm btn-outline-secondary">Configuraciones</button>
-                        <a class="btn btn-sm btn-danger" href="../index.php?cerrarSesion=true">Cerrar Sesion</a>
+                        <a class="btn btn-sm btn-danger" href="../../index.php?cerrarSesion=true">Cerrar Sesion</a>
                     </div>
                 </div>
             </div>

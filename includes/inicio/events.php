@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/events.css">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/events.css">
     
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,19 +14,19 @@
 </head>
 <body>
     <header>
-        <img src="/img/image.png" alt="Logo-de-kopulso">
+        <img src="../../img/image.png" alt="Logo-de-kopulso">
         <h1>LTA (Learning Taekwondo Aplication)</h1>
         <nav>
             <ul>
-                <li><a href="inicioTKD.html">Inicio</a></li>
-                <li><a href="login.html">Iniciar Sesion</a></li>
-                <li><a href="events.html">Eventos</a></li>
+                <li><a href="../../">Inicio</a></li>
+                <li><a href="../login">Iniciar Sesion</a></li>
+                <li><a href="events.php">Eventos</a></li>
             </ul>
         </nav>
         <div class="redes-img">
-            <a href="https://www.instagram.com/kopulsotkd/" target="_blank"><img src="/img/ig-icon.png" alt="ig-kopulso"></a>
-            <a href="https://wa.me/3132694132" target="_blank"><img src="/img/wpp-icon.png" alt="wpp-kopulso"></a>
-            <a href="https://www.facebook.com/kopulsoTKD" target="_blank"><img src="/img/fb-icon.png" alt="fb-kopulso"></a>
+            <a href="https://www.instagram.com/kopulsotkd/" target="_blank"><img src="../../img/ig-icon.png" alt="ig-kopulso"></a>
+            <a href="https://wa.me/3132694132" target="_blank"><img src="../../img/wpp-icon.png" alt="wpp-kopulso"></a>
+            <a href="https://www.facebook.com/kopulsoTKD" target="_blank"><img src="../../img/fb-icon.png" alt="fb-kopulso"></a>
         </div>
         </header>
         <main>
@@ -61,6 +61,6 @@
                 </div>
             </div>
         </main>
-        <script src="/javascript/events.js"></script>
+        <script src="../../js/events.js"></script>
 </body>
 </html>
