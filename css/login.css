@@ -3,7 +3,67 @@
   --color: #000000;
   --primary-color: #000000;
 }
+html, body {
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: "poppins";
+    background: var(--background);
+    color: var(--color);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    padding-top: 30px; /* Ajuste para que el formulario esté un poco más arriba */
+}
+
+.login-container {
+    width: 22.2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.form-container {
+    border: 1px solid hsla(0, 0%, 65%, 0.158);
+    box-shadow: 0 0 36px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+}
+
+.circle {
+    width: 8rem;
+    height: 8rem;
+    background: var(--primary-color);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.circle-one {
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transform: translate(-45%, -45%);
+}
+
+.circle-two {
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    transform: translate(45%, 45%);
+}
 * {
   box-sizing: border-box;
 }
@@ -11,12 +71,20 @@
 html {
   scroll-behavior: smooth;
 }
+html, body {
+  scroll-behavior: smooth; /* Asegura desplazamiento suave */
+  margin: 0;
+  padding: 0;
+}
 
+form {
+  margin-top: 0; /* Asegura que no haya márgenes innecesarios arriba */
+}
 body {
-  
+  overflow-x: hidden; /* Para evitar desplazamiento horizontal */
+  overflow-y: auto;  /* Para asegurar que solo haya desplazamiento vertical */
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
   font-family: "poppins";
   background: var(--background);
   color: var(--color);
@@ -216,4 +284,137 @@ h1 {
       -ms-transform: scale(1);
       -o-transform: scale(1);
   }
+}
+
+/* Aqui van los radio */
+
+
+input[type="radio"] {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 20px !important;
+	height: 20px !important;
+	border: 1px solid #fff;
+	border-radius: 50%;
+	margin-right: 10px;
+	background-color: transparent;
+	position: relative;
+	top: 6px;
+}
+
+input[type="radio"]:checked::before {
+	content: "";
+	width: 12px;
+	height: 12px;
+	background-color: #ca8489;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	animation: appear 0.8s;
+}
+
+label {
+	font-size: 24px;
+	font-weight: bold;
+	color: #fff;
+  margin-left: 14px;
+}
+/* 
+div {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+} */
+ .radio{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  height: 40px;
+  margin: 10px 0;
+ }
+
+@keyframes appear {
+	0% {
+		transform: translate(-50%, -50%) scale(0);
+		background-color: #fff;
+	}
+	45% {
+		transform: translate(-50%, -50%) scale(1.6);
+		background-color: #64aedf;
+	}
+	50% {
+		transform: translate(-50%, -50%) scale(1.7);
+		background-color: #ad97b3;
+	}
+	55% {
+		transform: translate(-50%, -50%) scale(1.6);
+	}
+	100% {
+		transform: translate(-50%, -50%) scale(1);
+		background-color: #ca8489;
+	}
+}
+html, body {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: "poppins";
+  background: var(--background);
+  color: var(--color);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  padding-top: 30px; /* Ajuste para que el formulario esté un poco más arriba */
+}
+
+.login-container {
+  width: 22.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.form-container {
+  border: 1px solid hsla(0, 0%, 65%, 0.158);
+  box-shadow: 0 0 36px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+}
+
+.circle {
+  width: 8rem;
+  height: 8rem;
+  background: var(--primary-color);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.circle-one {
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transform: translate(-45%, -45%);
+}
+
+.circle-two {
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  transform: translate(45%, 45%);
 }

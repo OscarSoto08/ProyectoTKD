@@ -1,8 +1,10 @@
 <?php
 session_start();
-require '../../logica/Persona.php';
-require '../../logica/Administrador.php';
-require '../../servicios/adminServicio.php';
+require '../../Persistencia/Conexion.php';
+require '../../Persistencia/AdministradorDAO.php';
+require '../../model/Persona.php';
+require '../../model/Administrador.php';
+require '../../service/persona/adminServicio.php';
 
 $CamposIncompletos = false;
 $errorAuth = false;
@@ -19,7 +21,7 @@ if (isset($_POST['autenticar'])) {
         $adminServicio = new AdminServicio();
         if($adminServicio -> autenticar($admin)){
             $_SESSION["id"] = $admin -> getIdPersona(); 
-            header("Location: ../persona/adminProfile.php");
+            header("Location: ../persona/admin");
         }else{
             $errorAuth = true;
         }

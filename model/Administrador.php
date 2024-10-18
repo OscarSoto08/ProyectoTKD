@@ -1,6 +1,5 @@
 <?php
 require_once('Persona.php');
-require '../../Persistencia/AdministradorDAO.php';
 class Administrador extends Persona {
     private $estado;
     

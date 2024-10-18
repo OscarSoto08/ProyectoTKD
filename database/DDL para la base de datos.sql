@@ -31,6 +31,9 @@ CREATE TABLE IF NOT EXISTS Estudiante (
   clave VARCHAR(255) NOT NULL,
   Grado_idGrado INT NOT NULL,
   estado ENUM('activo', 'retirado', 'sancionado') NOT NULL,
+  imagen VARCHAR(100) NULL DEFAULT 'https://i.ibb.co/1TLZ2Tg/rhino-Adult.png',
+  fechaNac DATE NOT NULL,
+
   PRIMARY KEY (idEstudiante),
   UNIQUE (correo),
   INDEX fk_Estudiante_Grado_idx (Grado_idGrado ASC),
@@ -51,6 +54,9 @@ CREATE TABLE IF NOT EXISTS Profesor (
   correo VARCHAR(100) NOT NULL,
   clave VARCHAR(255) NOT NULL,
   estado ENUM('activo', 'retirado') NOT NULL,
+  imagen VARCHAR(100) NULL DEFAULT 'https://i.ibb.co/1TLZ2Tg/rhino-Adult.png',
+  fechaNac DATE NOT NULL,
+
   PRIMARY KEY (idProfesor),
   UNIQUE (correo))
 ENGINE = InnoDB;
@@ -65,9 +71,50 @@ CREATE TABLE IF NOT EXISTS Administrador (
   correo VARCHAR(100) NOT NULL,
   clave VARCHAR(255) NOT NULL,
   estado ENUM('activo', 'retirado', 'sancionado') NOT NULL,
+  imagen VARCHAR(100) NULL DEFAULT 'https://i.ibb.co/1TLZ2Tg/rhino-Adult.png', 
+  fechaNac DATE NOT NULL,
+
   PRIMARY KEY (idAdministrador),
   UNIQUE (correo))
 ENGINE = InnoDB;
+
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `TemporalUser`
+--
+
+CREATE TABLE `TemporalUser` (
+  `idUser` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `apellido` varchar(45) NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `clave` varchar(255) NOT NULL,
+  `fechaNac` date NOT NULL,
+  `rol` enum('estudiante','profesor') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `TemporalUser`
+--
+ALTER TABLE `TemporalUser`
+  ADD PRIMARY KEY (`idUser`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `TemporalUser`
+--
+ALTER TABLE `TemporalUser`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 -- -----------------------------------------------------
 -- Tabla Curso

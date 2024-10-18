@@ -9,6 +9,11 @@
     <style>
         /* Estilos CSS aquí */
     </style>
+    <script>
+        window.onload = function() {
+            window.scrollTo(0, 0);
+        };
+    </script>
 </head>
 <body>
     <section class="container">
@@ -28,7 +33,18 @@
                     <label for="correo">Correo</label>
                     <input id="correo" type="text" placeholder="CORREO" />
                     <label for="password">Contraseña</label>
+                    <input id="correo" type="text" placeholder="CORREO" />
+                    <label for="password">Contraseña</label>
                     <input id="password" type="password" placeholder="PASSWORD" />
+                    <div class="radio">
+                        <input type="radio" id="vanilla" name="flavor" value="vanilla">
+                        <label for="vanilla">Vanilla 🍨</label>
+                    </div>
+
+                    <div class="radio">
+                        <input type="radio" id="chocolate" name="flavor" value="chocolate">
+                        <label for="chocolate">Chocolate 🍫</label>
+                    </div>
                     <button class="opacity">INGRESAR</button>
                 </form>
                 <div class="register-forget opacity">

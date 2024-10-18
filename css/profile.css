@@ -1,141 +1,140 @@
 /* General Styling */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-  
-  .admin-dashboard {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-  }
-  
-  .container-fluid {
-    padding: 0; /* Quita padding global para ajustarse mejor a pantallas pequeñas */
-  }
-  
-  /* Sidebar Styling */
-  .sidebar {
-    width: 250px;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    height: 100vh;
-    position: fixed; /* Fija la barra lateral */
-    top: 0;
-    left: 0;
-    transition: transform 0.3s ease; /* Transición para colapsar */
-  }
-  
-  .sidebar h2 {
-    color: #fff;
-    font-size: 24px;
-    text-align: center;
-  }
-  
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar ul li {
-    margin: 15px 0;
-  }
-  
-  .sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
-  .sidebar ul li a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Main Content Area */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.admin-dashboard {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.container-fluid {
+  padding: 0; /* Quita padding global para ajustarse mejor a pantallas pequeñas */
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  height: 100vh;
+  position: fixed; /* Fija la barra lateral */
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease; /* Transición para colapsar */
+}
+
+.sidebar h2 {
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Main Content Area */
+.content {
+  flex-grow: 1;
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-left: 250px; /* Acomoda el espacio para el sidebar */
+}
+
+@media (max-width: 768px) {
   .content {
-    flex-grow: 1;
-    background-color: #f4f4f4;
-    padding: 20px;
-    margin-left: 250px; /* Acomoda el espacio para el sidebar */
+    margin-left: 0; /* Elimina margen en pantallas pequeñas */
   }
-  
-  @media (max-width: 768px) {
-    .content {
-      margin-left: 0; /* Elimina margen en pantallas pequeñas */
-    }
-  
-    .sidebar {
-      transform: translateX(-250px); /* Oculta la barra lateral por defecto */
-      position: absolute;
-    }
-  
-    .sidebar.open {
-      transform: translateX(0); /* Muestra la barra lateral cuando está abierta */
-    }
-  
-    .toggle-sidebar {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background-color: #333;
-      color: white;
-      border: none;
-      padding: 10px;
-      cursor: pointer;
-      z-index: 1000;
-    }
+
+  .sidebar {
+    transform: translateX(-250px); /* Oculta la barra lateral por defecto */
+    position: absolute;
   }
-  
-  /* Header Styling */
-  .content header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .sidebar.open {
+    transform: translateX(0); /* Muestra la barra lateral cuando está abierta */
   }
-  
-  /* User, Event, and Course Management Styles */
-  #user-management table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  #user-management th, #user-management td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  #user-management th {
-    background-color: #333;
-    color: white;
-  }
-  
-  .event-overview button, .course-overview button {
-    padding: 10px;
+
+  .toggle-sidebar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
     background-color: #333;
     color: white;
     border: none;
+    padding: 10px;
     cursor: pointer;
+    z-index: 1000;
   }
-  
-  .event-overview button:hover, .course-overview button:hover {
-    background-color: #555;
-  }
-  
-  /* Enlaces generales */
-  a {
-    color: rgb(34, 31, 31);
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
+}
+
+/* Header Styling */
+.content header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* User, Event, and Course Management Styles */
+#user-management table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#user-management th, #user-management td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#user-management th {
+  background-color: #333;
+  color: white;
+}
+
+.event-overview button, .course-overview button {
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.event-overview button:hover, .course-overview button:hover {
+  background-color: #555;
+}
+
+/* Enlaces generales */
+a {
+  color: rgb(34, 31, 31);
+  text-decoration: none;
+  font-size: 18px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
