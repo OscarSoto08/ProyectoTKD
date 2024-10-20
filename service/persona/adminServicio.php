@@ -6,7 +6,7 @@ class AdminServicio{
         $this->adminDao = new AdministradorDAO($conexion);
     }
 
-    public function autenticar($administrador){
+    public function autenticar(Administrador $administrador){
         $conexion = $this -> adminDao -> getConexion();
         $conexion -> iniciarConexion();
         $this -> adminDao -> autenticar($administrador);

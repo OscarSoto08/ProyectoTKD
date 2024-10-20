@@ -1,0 +1,64 @@
+
+```
+- En este caso, el formulario se recarga cada vez que el usuario lo envía.
+
+#### Con AJAX (actualización sin recargar la página)
+1. Frontend (HTML + JS):
+```html
+<form id="miFormulario">
+    <label for="rol">Selecciona tu rol:</label>
+    <input type="radio" name="rol" value="estudiante" onclick="cargarGrados()"> Estudiante
+    <input type="radio" name="rol" value="profesor" onclick="ocultarGrado()"> Profesor
+
+    <div id="grado" style="display:none;">
+        <label for="grado">Selecciona tu grado:</label>
+        <select name="grado" id="selectGrado"></select>
+    </div>
+
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+function cargarGrados() {
+    document.getElementById('grado').style.display = 'block';
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "obtener_grados.php", true); // Llama al archivo PHP que devuelve los grados
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            document.getElementById('selectGrado').innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send();
+}
+
+function ocultarGrado() {
+    document.getElementById('grado').style.display = 'none';
+}
+</script>
+```
+
+2. Backend (PHP: `obtener_grados.php`):
+```php
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    // Simulación de obtener grados desde una base de datos o lógica de backend
+    $grados = [
+        '1' => 'Grado 1',
+        '2' => 'Grado 2',
+        '3' => 'Grado 3',
+    ];
+
+    foreach ($grados as $key => $grado) {
+        echo "<option value='$key'>$grado</option>";
+    }
+}
+?>
+```
+
+En este caso, la llamada AJAX solicita los grados al servidor y actualiza el `select` sin recargar la página.
+
+### Conclusión
+- **Sin AJAX**: Se maneja directamente con PHP, pero la página se recarga.
+- **Con AJAX**: La actualización es dinámica y rápida, pero necesitas manejar la comunicación asincrónica entre el cliente y el servidor.
+
+Si prefieres no hacer una recarga de página y deseas una experiencia más fluida para el usuario, puedes optar por AJAX. Sin embargo, si el formulario no requiere actualizaciones muy dinámicas y puedes permitirte la recarga, puedes simplificar con JavaScript puro y PHP sin complicarte con AJAX.

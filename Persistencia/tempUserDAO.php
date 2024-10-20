@@ -1,10 +1,5 @@
 <?php 
-require 'DAO.php';
-class EstudianteDAO extends DAO{
-
-    public function __construct(Conexion $conexion){
-        parent::__construct($conexion);
-    }
+class TempUserDAO extends DAO{
     
     /**
      * @inheritDoc
@@ -35,12 +30,5 @@ class EstudianteDAO extends DAO{
      */
     public function insertar($objeto) {
     }
-
-    public function consultarTodosLosGrados(){
-        $consulta = "SELECT idGrado, grado
-        FROM Grado";
-        $this -> conexion -> ejecutarConsulta($consulta);
-    }
 }
-
 ?>

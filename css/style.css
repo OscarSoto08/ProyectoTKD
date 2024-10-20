@@ -202,7 +202,7 @@ main {
 
 .container {
     overflow: auto;
-
+    width: 100%;
     align-items: flex-start;
     background-color: transparent;
   }
