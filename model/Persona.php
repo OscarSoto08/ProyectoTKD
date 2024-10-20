@@ -6,6 +6,7 @@ class Persona{
     protected $correo;
     protected $clave;
     protected $foto;
+    protected $fNac;
     private $telefono;
 
 //GETTERS
@@ -15,6 +16,7 @@ class Persona{
     public function getCorreo(){return $this->correo;}
     public function getClave(){return $this -> clave;}
     public function getFoto(){return $this -> foto;}
+    public function getFNac() {return $this -> fNac;}
     public function getTelefono(){return $this ->telefono;}
 
     //SETTERS
@@ -24,9 +26,10 @@ class Persona{
     public function setCorreo($correo){$this -> correo = $correo;}
     public function setClave($clave){$this -> clave = $clave;}
     public function setFoto($foto){$this -> foto = $foto;}
+    public function setFNac($Fnac) {$this -> fNac = $Fnac; }
     public function setTelefono($telefono){$this -> telefono = $telefono; }
 //CONSTRUCTOR
-    public function __construct($idPersona="",$nombre="", $apellido="", $correo="", $clave="", $foto="",$telefono=""){
+    public function __construct($idPersona="",$nombre="", $apellido="", $correo="", $clave="", $foto="",$telefono="", $fNac = ""){
         $this -> idPersona = $idPersona;
         $this -> nombre = $nombre;
         $this -> apellido = $apellido;
@@ -34,6 +37,7 @@ class Persona{
         $this -> clave = $clave;
         $this -> foto = $foto;
         $this -> telefono = $telefono;
+        $this -> fNac = $fNac;
     }
 }
 ?>

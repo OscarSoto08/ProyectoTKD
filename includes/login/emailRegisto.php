@@ -25,23 +25,23 @@ class EmailRegistro {
 
     private function crearMensaje($codigo) {
         return '
-        <!DOCTYPE html>
-        <html lang="en">
-        <body style="background-color: #e3b23f; margin: 0; padding: 50px;">
-            <div style="padding: 5px; border: 2px solid rgb(187, 165, 39); width: 80%; height: 40vh; position: relative; margin: auto; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);">
-                <h2 style="text-align: center; margin-top: 30px; margin-bottom: 20px;">Hola, '.$this -> nombreDestino .'!</h2>
-                <p style="margin: 7px 0;">Gracias por registrarte en LTA Kopulso</p>
-                <p style="margin: 7px 0;">Para completar tu proceso de verificación, por favor ingresa el siguiente código.</p>
-                <p style="margin: 7px 0; font-size: 18px; font-weight: bold; color: blue;">
-                    Código de verificación: <span style="color: blue; font-weight: bold;">' . htmlspecialchars($codigo) . '</span>
-                </p>
-                <p style="margin: 7px 0;">Este código es válido por 10 minutos. Si no solicitaste este código, ignora este mensaje.</p>
-                <footer style="text-align: center; position: absolute; bottom: 1rem; width: 100%;">
-                    <p>Si tienes alguna pregunta, no dudes en <a href="https://example.com/contacto.php">contactarnos</a>.</p>
-                </footer>
-            </div>
-        </body>
-        </html>';
+<!DOCTYPE html>
+<html lang="es">
+<body style="background-color: #e3b23f; margin: 0; padding: 50px;">
+    <div style="padding: 5px; border: 2px solid rgb(187, 165, 39); width: 80%; height: 80vh; position: relative; margin: auto; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);">
+        <h2 style="text-align: center; margin-top: 30px; margin-bottom: 20px;">Hola, '.$this -> nombreDestino .'!</h2>
+        <p style="margin: 7px 0;">Gracias por registrarte en LTA Kopulso</p>
+        <p style="margin: 7px 0;">Para completar tu proceso de verificación, por favor ingresa el siguiente código.</p>
+        <p style="margin: 7px 0; font-size: 18px; font-weight: bold; color: blue;">
+            Código de verificación: <span style="color: blue; font-weight: bold;">' . htmlspecialchars($codigo) . '</span>
+        </p>
+        <p style="margin: 7px 0;">Este código es válido por 10 minutos. Si no solicitaste este código, ignora este mensaje.</p>
+        <footer >
+            <p>Si tienes alguna pregunta, no dudes en <a href="https://example.com/contacto.php">contactarnos</a>.</p>
+        </footer>
+    </div>
+</body>
+</html>';
     }
 
     private function configurarSMTP() {
@@ -52,7 +52,7 @@ class EmailRegistro {
             $this->mail->Host = 'smtp.gmail.com';            // Set the SMTP server to send through
             $this->mail->SMTPAuth = true;                     // Enable SMTP authentication
             $this->mail->Username = 'oscaralejandrosoto9@gmail.com'; // SMTP username
-            $this->mail->Password = 'your_secure_password';   // SMTP password (consider using environment variables)
+            $this->mail->Password = 'qbxz xdqj szts pyue';   // SMTP password (consider using environment variables)
             $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable implicit TLS encryption
             $this->mail->Port = 465;                          // TCP port to connect to
 

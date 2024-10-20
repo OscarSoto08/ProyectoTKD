@@ -41,6 +41,11 @@ class EstudianteDAO extends DAO{
         FROM Grado";
         $this -> conexion -> ejecutarConsulta($consulta);
     }
+    /**
+     * @inheritDoc
+     */
+    public function maxId() {
+    }
 }
 
 ?>

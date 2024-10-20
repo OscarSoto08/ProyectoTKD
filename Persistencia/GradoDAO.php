@@ -41,5 +41,10 @@ class GradoDAO extends DAO{
      */
     public function insertar($objeto) {
     }
+    /**
+     * @inheritDoc
+     */
+    public function maxId() {
+    }
 }
 ?>

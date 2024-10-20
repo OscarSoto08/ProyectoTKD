@@ -16,5 +16,6 @@ abstract class DAO{
     abstract function insertar($objeto);
     abstract function actualizar($objeto);
     abstract function eliminar($objeto);
+    abstract function maxId();
 }
 ?>

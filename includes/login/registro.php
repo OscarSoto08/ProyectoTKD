@@ -1,23 +1,55 @@
 <?php 
 require '../../service/persona/estudianteServicio.php';
 require '../../service/persona/gradoServicio.php';
+require '../../service/persona/tempUserServicio.php';
 require '../../Persistencia/Conexion.php';
 require '../../Persistencia/EstudianteDAO.php';
 require '../../Persistencia/GradoDAO.php';
+require '../../Persistencia/tempUserDAO.php';
 require '../../model/Grado.php';
 require '../../model/tempUser.php';
-require '../../';
-//Lectura de datos
+
+require '../login/emailRegisto.php';
+
+// Lectura de datos
 $grado = null;
 $gradoServ = new GradoServicio();
-if(isset($_POST['ingresar'])){
-    if($_POST["rol"] == "estudiante"){
+
+//Servicio de usuarios
+$CamposIncompletos = false;
+
+if (isset($_POST['ingresar'])) {
+    // Verifica que cada campo esté definido y no esté vacío
+    if (empty($_POST["nombre"]) || empty($_POST["apellido"]) || empty($_POST["correo"]) || empty($_POST["clave"]) || empty($_POST["fNac"]) || empty($_POST["rol"])) {
+        $CamposIncompletos = true;
+        header("Location: registro.php");
+        exit; // Detener la ejecución si hay campos incompletos
+    }
+
+    // Verifica si el campo "rol" está definido
+    if (isset($_POST["rol"]) && $_POST["rol"] == "estudiante") {
         $idGrado = $_POST["grado"];
         $grado = new Grado($idGrado);
         $gradoServ->consultar($grado);
     }
-    $user = new TempUser(null, $_POST["nombre"], $_POST["apellido"], $_POST["correo"], $_POST["clave"], null, null, $_POST["rol"], $grado);
 
+    $user = new TempUser(null, $_POST["nombre"], $_POST["apellido"], $_POST["correo"], md5($_POST["clave"]), null, null, $_POST["fNac"], $_POST["rol"], $grado);
+    // echo "El correo del usuario es: " . $_POST["correo"];
+    $tempUserService = new TempUserServicio();
+    if($tempUserService -> registrar($user)){
+       // echo "exito";
+        $codigo = rand(100000, 999999);
+        $mailRegistro = new EmailRegistro(
+            $user->getCorreo(),
+            $user->getNombre(),
+            $codigo
+        );
+        $mailRegistro->enviarCorreo();
+    }else{
+        $error = true;
+        echo "error";
+    }
+    
 }
 
 ?>
@@ -33,22 +65,15 @@ if(isset($_POST['ingresar'])){
 
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/script.js" ></script>
+    <script src="js/script.js"></script>
 
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
-
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/login.css">
-
-    <script>
-        window.onload = function() {
-            window.scrollTo(0, 0);
-        };
-    </script>
 </head>
 <body>
     <section class="container">
@@ -58,35 +83,35 @@ if(isset($_POST['ingresar'])){
                 <a href="../../index.php">
                     <img id="kopulso-login-img" src="../../img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
                 </a>
-               <h1 class="opacity">Registro</h1>
+                <h1 class="opacity">Registro</h1>
                 <form action="registro.php" method="post">
                     <label for="nombre">Nombre Completo</label>
-                    <input id="nombre" name="nombre" type="text" placeholder="NOMBRES" />
-                    <input type="text" name="apellido" placeholder="APELLIDOS" />
-                    <label for="fNac">Fecha de nacimiento</label> 
-                    <input id="fNac" type="date" placeholder="FECHA DE NACIMIENTO" />
-                    <label for="correo">Datos de Login</label>
-                    <input id="correo" type="text" placeholder="CORREO" />
-                    <!-- <label for="password">Contraseña</label> -->
-                    <input id="password" type="password" placeholder="CONTRASEÑA" />
-                    <label for="estudiante">Soy...</label>
+                    <input id="nombre" name="nombre" type="text" placeholder="NOMBRES" required />
+                    <label for="apellido">Apellidos</label>
+                    <input id="apellido" name="apellido" type="text" placeholder="APELLIDOS" required />
+                    <label for="fNac">Fecha de nacimiento</label>
+                    <input id="fNac" name="fNac" type="date" required />
+                    <label for="correo">Correo</label>
+                    <input id="correo" name="correo" type="email" placeholder="CORREO" required />
+                    <label for="password">Contraseña</label>
+                    <input id="password" name="clave" type="password" placeholder="CONTRASEÑA" required />
+                    
+                    <label for="rol">Soy...</label>
                     <div class="radio">
-                        <input type="radio" id="estudiante" name="rol" value="estudiante" onclick="cargarGrados()">
-                        <h5>Estudiante</h5>
+                        <input type="radio" id="estudiante" name="rol" value="estudiante" onclick="cargarGrados()" required>
+                        <label for="estudiante">Estudiante</label>
                     </div>
-
                     <div class="radio">
-                        <input type="radio" id="profesor" name="rol" value="profesor" onclick="ocultarGrados()">
-                        <h5>Profesor</h5> 
+                        <input type="radio" id="profesor" name="rol" value="profesor" onclick="ocultarGrados()" required>
+                        <label for="profesor">Profesor</label>
                     </div>
                     <div id="grado" style="display: none;">
                         <label for="grado">Selecciona tu grado:</label>
-                        <select name="grado" class="form-select mb-4" id="selectGrado">
+                        <select name="grado" class="form-select mb-4" id="selectGrado" required>
                             <?php 
-                            $grados = $gradoServ -> getTodosLosGrados();
-                            foreach ($grados as $grado) {
-                                echo '<option value="'. $grado -> getIdGrado() .'">'. $grado -> getNombre() .'</option>
-                                '; 
+                            $grados = $gradoServ->getTodosLosGrados();
+                            foreach ($grados as $gradoItem) {
+                                echo '<option value="'. $gradoItem->getIdGrado() .'">'. $gradoItem->getNombre() .'</option>'; 
                             }
                             ?>
                         </select>
@@ -108,13 +133,18 @@ if(isset($_POST['ingresar'])){
             document.getElementById('grado').style.display = 'block';
         }
     </script>
-
 </body>
 </html>
 
+
 <!-- Pendiente:
-1. Terminar de colocar el atributo name en los campos
-2. Agregar el campo de fecha de nacimiento en persona
+1. Terminar de colocar el atributo name en los campos -- Completado
+2. Agregar el campo de fecha de nacimiento en persona -- En proceso:
+
+INSERT INTO tu_tabla (columna_fecha) 
+VALUES (STR_TO_DATE('20/10/2024', '%d/%m/%Y'));
+
+
 3. Crear un nuevo archivo php que sea para validar el codigo solamente
 4. En el archivo php crear los parametros para enviar el correo
 5. Guardar el codigo en la base de datos como si fuera en una tabla temporal llamada codigo, debe tener la fecha de creacion para poder hacer la diferencia de tiempo y evaluar si han pasado más de 10 minutos
