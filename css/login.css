@@ -14,11 +14,13 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
-    justify-content: center;
     align-items: flex-start;
     font-family: "poppins";
     background: var(--background);
     color: var(--color);
+}
+p{
+  text-align: justify;
 }
 
 h5{
@@ -26,6 +28,9 @@ h5{
   margin-left: 15px;
 }
 
+.enabled{
+  cursor: pointer;
+}
 .container {
     display: flex;
     justify-content: center;

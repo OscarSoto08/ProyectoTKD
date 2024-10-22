@@ -9,8 +9,6 @@ require '../../Persistencia/tempUserDAO.php';
 require '../../model/Grado.php';
 require '../../model/tempUser.php';
 
-require '../login/emailRegisto.php';
-
 // Lectura de datos
 $grado = null;
 $gradoServ = new GradoServicio();
