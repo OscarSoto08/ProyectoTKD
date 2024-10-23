@@ -166,7 +166,13 @@ h1 {
   -webkit-animation: wobble 0.3s ease-in;
 }
 
-.login-container form button {
+#reenviar:disabled, #reenviar[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.login-container form button, #reenviar {
   background-color: var(--primary-color);
   color: white;
   display: block;

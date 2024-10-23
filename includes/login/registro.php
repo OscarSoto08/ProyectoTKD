@@ -2,12 +2,20 @@
 require '../../service/persona/estudianteServicio.php';
 require '../../service/persona/gradoServicio.php';
 require '../../service/persona/tempUserServicio.php';
+
 require '../../Persistencia/Conexion.php';
 require '../../Persistencia/EstudianteDAO.php';
 require '../../Persistencia/GradoDAO.php';
 require '../../Persistencia/tempUserDAO.php';
+
 require '../../model/Grado.php';
 require '../../model/tempUser.php';
+
+
+//Para colocar el id del usuario
+if(session_status() == PHP_SESSION_ACTIVE){
+    session_start();
+}
 
 // Lectura de datos
 $grado = null;
@@ -21,7 +29,7 @@ if (isset($_POST['ingresar'])) {
     if (empty($_POST["nombre"]) || empty($_POST["apellido"]) || empty($_POST["correo"]) || empty($_POST["clave"]) || empty($_POST["fNac"]) || empty($_POST["rol"])) {
         $CamposIncompletos = true;
         header("Location: registro.php");
-        exit; // Detener la ejecución si hay campos incompletos
+        die(); // Detener la ejecución si hay campos incompletos
     }
 
     // Verifica si el campo "rol" está definido
@@ -30,24 +38,27 @@ if (isset($_POST['ingresar'])) {
         $grado = new Grado($idGrado);
         $gradoServ->consultar($grado);
     }
-
+    
     $user = new TempUser(null, $_POST["nombre"], $_POST["apellido"], $_POST["correo"], md5($_POST["clave"]), null, null, $_POST["fNac"], $_POST["rol"], $grado);
     // echo "El correo del usuario es: " . $_POST["correo"];
     $tempUserService = new TempUserServicio();
     if($tempUserService -> registrar($user)){
        // echo "exito";
-        $codigo = rand(100000, 999999);
+        //Aca se genera el codigo de verificacion
+        // POR ASIGNARRRRRR
+
         $mailRegistro = new EmailRegistro(
             $user->getCorreo(),
             $user->getNombre(),
             $codigo
         );
+        $_SESSION["idUser"] = $user -> getIdPersona();
+        header("Location: validarCodigo.php");
         $mailRegistro->enviarCorreo();
     }else{
         $error = true;
         echo "error";
     }
-    
 }
 
 ?>

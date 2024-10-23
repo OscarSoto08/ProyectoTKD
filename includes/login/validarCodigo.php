@@ -2,14 +2,25 @@
 require '../../service/persona/estudianteServicio.php';
 require '../../service/persona/gradoServicio.php';
 require '../../service/persona/tempUserServicio.php';
+
 require '../../Persistencia/Conexion.php';
 require '../../Persistencia/EstudianteDAO.php';
 require '../../Persistencia/GradoDAO.php';
 require '../../Persistencia/tempUserDAO.php';
+
 require '../../model/Grado.php';
 require '../../model/tempUser.php';
 
 require '../login/emailRegisto.php';
+
+//
+
+session_start();
+if(empty($_SESSION['idUser'])){
+    session_destroy();
+    header('../login');
+    die();
+}
 
 // Lectura de datos
 $grado = null;
@@ -18,20 +29,15 @@ $gradoServ = new GradoServicio();
 //Servicio de usuarios
 $CamposIncompletos = false;
 
-if (isset($_POST['ingresar'])) {
+if (isset($_POST['validar'])) {
     // Verifica que cada campo esté definido y no esté vacío
-    if (empty($_POST["nombre"]) || empty($_POST["apellido"]) || empty($_POST["correo"]) || empty($_POST["clave"]) || empty($_POST["fNac"]) || empty($_POST["rol"])) {
+    if (empty($_POST["nombre"])) {
         $CamposIncompletos = true;
         header("Location: registro.php");
         exit; // Detener la ejecución si hay campos incompletos
     }
 
-    // Verifica si el campo "rol" está definido
-    if (isset($_POST["rol"]) && $_POST["rol"] == "estudiante") {
-        $idGrado = $_POST["grado"];
-        $grado = new Grado($idGrado);
-        $gradoServ->consultar($grado);
-    }
+    //Logica para enviar el email
 
     $user = new TempUser(null, $_POST["nombre"], $_POST["apellido"], $_POST["correo"], md5($_POST["clave"]), null, null, $_POST["fNac"], $_POST["rol"], $grado);
     // echo "El correo del usuario es: " . $_POST["correo"];
@@ -49,7 +55,10 @@ if (isset($_POST['ingresar'])) {
         $error = true;
         echo "error";
     }
-    
+}
+
+if(isset($_POST["reenviar"])) {
+    //logica para enviar nuevamente el correo
 }
 
 ?>
@@ -91,7 +100,7 @@ if (isset($_POST['ingresar'])) {
                     <button type="submit" class="opacity" name="validar">VALIDAR</button>
                 </form>
                 <div class="d-flex flex-column">
-                    <p id="txtCountdown">Por favor, espera <span id="countdown">15</span> segundos antes de reenviar.</p>
+                    <p id="txtCountdown">Por favor, espera <span id="countdown">30</span> segundos antes de reenviar.</p>
                     <button class="opacity btn btn-success" name="reenviar" id="reenviar" disabled>Reenviar</button>
                 </div>
             </div>
@@ -111,16 +120,18 @@ if (isset($_POST['ingresar'])) {
         let reenvioBtn = document.getElementById('reenviar');
 
         reenvioBtn.onclick = () => {
-            iniciarCuentaRegresiva(15);
+            reenvioBtn.disabled = true;
+            iniciarCuentaRegresiva(30);
         };
 
         function iniciarCuentaRegresiva(segundos) {
             let tiempoRestante = segundos;
 
-            txtCountdown.textContent = `Por favor, espera ${tiempoRestante} segundos antes de reenviar.`;
+            
             reenvioBtn.disabled = true;
 
             const countdownInterval = setInterval(() => {
+                txtCountdown.textContent = `Por favor, espera ${tiempoRestante} segundos antes de reenviar.`;
                 tiempoRestante--;
                 countdown.innerHTML = tiempoRestante;
 
@@ -135,11 +146,8 @@ if (isset($_POST['ingresar'])) {
 
 
         window.onload = () => {
-            iniciarCuentaRegresiva(15);
+            iniciarCuentaRegresiva(30);
         };
     </script>
 </body>
 </html>
-
-
-
