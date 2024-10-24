@@ -74,7 +74,7 @@ class EmailRegistro {
     public function enviarCorreo() {
         try {
             $this->mail->send();
-            echo 'El mensaje ha sido enviado';
+            //echo 'El mensaje ha sido enviado';
         } catch (Exception $e) {
             echo "El mensaje no pudo ser enviado. Error del Mailer: {$this->mail->ErrorInfo}";
         }

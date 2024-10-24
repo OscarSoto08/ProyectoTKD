@@ -30,6 +30,8 @@ class UserDAO extends DAO{
      */
     public function insertar($objeto) {
         $maxId = $this -> maxId() + 1;
+        if($objeto -> getGrado() == null) $idGrado = null;
+        else $idGrado = $objeto -> getGrado() -> getIdGrado();
         $sql = 'INSERT INTO `user`(`idUser`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `rol`, `estado`, `idGrado`) VALUES (?,?,?,?,?,?,?,?,?)';
         $tipos = 'isssssssi';
         $valores = [
@@ -41,7 +43,7 @@ class UserDAO extends DAO{
             $objeto->getFNac(),
             $objeto->getRol(),
             $objeto -> getEstado(),
-            $objeto -> getGrado() -> getIdGrado()
+            $idGrado    
         ];
         if($this -> conexion -> prepararConsulta($sql, $tipos, ...$valores)) {
             return true;
@@ -64,13 +66,10 @@ class UserDAO extends DAO{
     }
 
     public function verificar(User $user){
-        $sql = "SELECT `idUser`, `estado` FROM user WHERE correo = ? AND clave = ?";
-        $tipos = 'ss';
-        $valores = [
-            $user -> getCorreo(),
-            $user -> getClave()
-        ];
-        return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
+        $sql = "SELECT `idUser`, `estado` FROM user WHERE correo = ?";
+        $tipos = 's';
+        $valores = $user -> getCorreo();
+        return $this -> conexion -> prepararConsulta($sql, $tipos, $valores);
     }
 }
 ?>

@@ -37,18 +37,21 @@ if (isset($_POST['ingresar'])) {
         switch ($user -> getEstado()) {
             case 'pendiente':
                 $status = 1;
-                break;
+                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                exit();
             case 'permitido':
                 $status = 2;
-                break;
+                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                exit();
             case 'denegado': 
                 $status = 3;
+                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                exit();
             default:
                 $status = 0;
                 break;
         }
-        header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
-        exit();
+    $user -> setEstado('pendiente');
     }
     if($tempUserService -> registrar($user)){
        // echo "exito";     

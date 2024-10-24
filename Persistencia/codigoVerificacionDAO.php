@@ -38,9 +38,11 @@ class CodigoVerificacionDAO extends DAO{
      * @inheritDoc
      */
     public function insertar($objeto) {
-        $sql = "INSERT INTO `codigoverificacion`(`codigo`, `fecha_creado`, `fecha_expirado`, `estado`, `idUser`) VALUES (?,?,?,?,?)";
-        $tipos = 'ssssi';
+        $maxId = $this -> maxId()+1;
+        $sql = "INSERT INTO `codigoverificacion`(`idCodigoVerificacion`,`codigo`, `fecha_creado`, `fecha_expirado`, `estado`, `idUser`) VALUES (?,?,?,?,?,?)";
+        $tipos = 'issssi';
         $valores = [
+            $maxId,
             $objeto -> getIdCodigo(),
             $objeto -> getFecha_creado(),
             $objeto -> getFecha_expirado(),
@@ -54,5 +56,12 @@ class CodigoVerificacionDAO extends DAO{
      * @inheritDoc
      */
     public function maxId() {
+        $sql = "SELECT MAX(idCodigoVerificacion) FROM codigoverificacion;";
+        $this -> conexion -> ejecutarConsulta($sql);
+        $fila = $this -> conexion -> extraer();
+        if($fila[0] == null){
+            return 0;
+        }
+        return intval($fila[0]);
     }
 }

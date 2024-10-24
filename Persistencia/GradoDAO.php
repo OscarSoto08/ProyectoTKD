@@ -14,7 +14,7 @@ class GradoDAO extends DAO{
      */
     public function consultarPorId($id) {
         $sql = "SELECT grado
-        FROM Grado
+        FROM grado
         WHERE idGrado = ?";
         $tipos = "i";
         $valores = $id;
@@ -26,7 +26,7 @@ class GradoDAO extends DAO{
      */
     public function consultarTodos() {
         $sql = "SELECT idGrado, grado
-        FROM Grado";
+        FROM grado";
         $this -> conexion -> ejecutarConsulta($sql);
     }
     

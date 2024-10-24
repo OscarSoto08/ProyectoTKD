@@ -1,11 +1,11 @@
 <?php
 require ('loginHead.php');
 if(empty($_SESSION["codigo"])){
-    session_destroy();
     header("Location: ../login");
     die();
 }
 
+session_destroy();
 
 ?>
 

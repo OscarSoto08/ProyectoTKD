@@ -9,6 +9,9 @@ if(empty($_SESSION['codigo'])){
 
 $codigo = $_SESSION['codigo'];
 $codigoServ = new CodigoVerificacionServicio();
+
+$user = $codigo -> getUsuario();
+
 $idCodigoVerdadero = $codigo -> getIdCodigo();
 $fecha_actual = date('Y-m-d H:i:s');
 $fecha_actual = new DateTime($fecha_actual);
@@ -43,19 +46,45 @@ if (isset($_POST['validar'])) {
     if($CodigoIngresado == $idCodigoVerdadero){
         $codigoServ -> cambiarEstado($codigo, 'invalido');
         header("Location: success.php");
+        exit();
+    }else{
+        header("Location: validarCodigo.php?inv=1");
     }
 }
 
-if(isset($_POST["reenviar"])) {
-    //logica para enviar nuevamente el correo
-}
+if(isset($_GET["resend"])) {
+    $codigoServ -> cambiarEstado($codigo, "invalido");
+    $idCodigo = $codigoServ -> generarCodigo(6);
+    $fecha_creado = date('Y-m-d H:i:s');
+    $fecha_expirado = date('Y-m-d H:i:s', strtotime('+10 minutes'));
+    $estado = 'valido';
 
+    $codigo = new CodigoVerificacion($idCodigo, $fecha_creado, $fecha_expirado, $estado, $user);
+    //agregar el codigo a la bd
+    $codigoServ -> insertar($codigo);
+
+    $_SESSION["codigo"] = $codigo;
+    $mailRegistro = new EmailRegistro(
+        $user->getCorreo(),
+        $user->getNombre(),
+        $idCodigo
+    );
+    $mailRegistro->enviarCorreo();
+}
+ echo 'codigo verdadero: ' . $idCodigoVerdadero;
+ echo '<br> codigo ingresado '. $codigo -> getIdCodigo();
 ?>
 <body>
     <section class="container">
         <div class="login-container">
             <div class="circle circle-one"></div>
+            <?php if(isset($_GET["inv"])) { ?>
+                <div class="text-center alert alert-danger" role="alert">
+                    Código incorrecto...
+                </div> 
+                <?php }  ?>  
             <div class="form-container">
+                
                 <a href="../../index.php">
                     <img id="kopulso-login-img" src="../../img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
                 </a>
@@ -64,11 +93,11 @@ if(isset($_POST["reenviar"])) {
                     <p>Hemos enviado un código de verificación a tu correo electrónico. Por favor, ingresa el código en el campo de abajo para continuar.</p>
                     <input id="codigo" name="codigo" type="text" placeholder="######" oninput="upperCase()" required/>
                     <button type="submit" class="opacity" name="validar">VALIDAR</button>
+                    <div class="d-flex flex-column">
+                        <p class="text-center" id="txtCountdown">Por favor, espera <span id="countdown">55</span> segundos antes de reenviar.</p>
+                        <button class="opacity btn btn-success" name="reenviar" id="reenviar" type="submit">Reenviar</button>
+                    </div>
                 </form>
-                <div class="d-flex flex-column">
-                    <p id="txtCountdown">Por favor, espera <span id="countdown">55</span> segundos antes de reenviar.</p>
-                    <button class="opacity btn btn-success" name="reenviar" id="reenviar" disabled>Reenviar</button>
-                </div>
             </div>
             <div class="circle circle-two"></div>
         </div>
@@ -92,6 +121,7 @@ if(isset($_POST["reenviar"])) {
         reenvioBtn.onclick = () => {
             reenvioBtn.disabled = true;
             iniciarCuentaRegresiva(55);
+            window.location.href = 'validarCodigo.php?resend=1';
         };
 
         function iniciarCuentaRegresiva(segundos) {
@@ -116,7 +146,7 @@ if(isset($_POST["reenviar"])) {
 
 
         window.onload = () => {
-            iniciarCuentaRegresiva(55);
+            iniciarCuentaRegresiva(5);
         };
     </script>
 </body>

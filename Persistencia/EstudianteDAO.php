@@ -38,7 +38,7 @@ class EstudianteDAO extends DAO{
 
     public function consultarTodosLosGrados(){
         $consulta = "SELECT idGrado, grado
-        FROM Grado";
+        FROM grado";
         $this -> conexion -> ejecutarConsulta($consulta);
     }
     /**

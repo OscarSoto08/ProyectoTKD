@@ -7,7 +7,7 @@ class AdministradorDAO extends DAO{
     }
     public function autenticar($admin){
         $consulta = "SELECT idAdministrador 
-                    FROM Administrador 
+                    FROM administrador 
                     WHERE correo = ? and clave = ?";
         $tipos = "ss";
         $valores = array($admin -> getCorreo(), $admin -> getClave());
@@ -18,7 +18,7 @@ class AdministradorDAO extends DAO{
     }
     public function consultarPorId($id){
         $consulta = "SELECT nombre, apellido, correo
-                    FROM Administrador
+                    FROM administrador
                     WHERE idAdministrador = ?;
         ";
         $tipos = "i";

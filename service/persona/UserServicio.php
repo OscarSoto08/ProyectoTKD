@@ -23,10 +23,11 @@ class UserServicio{
             $registro = $this -> conexion -> extraer();
             $User -> setIdPersona($registro[0]);
             $User -> setEstado( $registro[1]);
+            $this -> conexion -> cerrarConexion();
+            return true;
         }
         $this -> conexion -> cerrarConexion();
-        return $result;
-        
+        return false;
     }
 
     public function buscarPorId($idPersona){
