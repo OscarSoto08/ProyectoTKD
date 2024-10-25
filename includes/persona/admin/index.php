@@ -1,72 +1,91 @@
-<?php require '../../head/header.php'; ?>
-<link rel="stylesheet" href="../../../css/profile.css">
-</head> 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <style>
+    body {
+      padding: 20px;
+    }
+    header, section, footer {
+      margin-bottom: 40px;
+    }
+    img {
+      max-width: 150px;
+      margin: 20px 0;
+    }
+    hgroup h2 {
+      font-size: 2rem;
+    }
+    nav ul {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
 <body>
-<?php 
-session_start();
-if (!isset($_SESSION['id'])) {
-    header("Location: ../../login");
-    exit; // Asegúrate de salir después de redirigir
-}
 
-$id = $_SESSION["id"];
-require '../../../Persistencia/Conexion.php';
-require '../../../Persistencia/AdministradorDAO.php';
-require '../../../model/Persona.php';
-require '../../../model/Administrador.php';
-require '../../../service/persona/adminServicio.php';
+  <!-- Navegación -->
+  <nav class="container-fluid">
+    <ul>
+      <li><strong>Admin Panel</strong></li>
+    </ul>
+    <ul>
+      <li><a href="#usuarios">Usuarios</a></li>
+      <li><a href="#eventos">Eventos</a></li>
+      <li><a href="#cursos">Cursos</a></li>
+    </ul>
+  </nav>
 
-$administrador = new Administrador($id);
-$adminService = new AdminServicio();
-$adminService->consultarPorId($administrador);
-?>
+  <!-- Sección de Usuarios -->
+  <main class="container">
+    <div class="grid">
+      <section id="usuarios">
+        <hgroup>
+          <h2>Gestión de Usuarios</h2>
+          <h3>Controla y administra los roles de los usuarios</h3>
+        </hgroup>
+        <p>Aquí puedes agregar, editar o eliminar usuarios según su rol (estudiantes, profesores, administradores, usuarios temporales).</p>
+        <figure>
+          <img src="https://files.oaiusercontent.com/file-fUcV469HDXQUSfDeOcfAIuzv" alt="Ícono de gestión de usuarios">
+          <figcaption>Ícono de Usuarios</figcaption>
+        </figure>
+      </section>
 
-<div class="container-fluid">
-    <div class="row">
-      
-        <?php require 'sidebar.php'; ?>
-      
-        <!-- Main content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Bienvenido, <?php echo htmlspecialchars($administrador->getNombre()) . " " . htmlspecialchars($administrador->getApellido()); ?> !!</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group me-2">
-                        <button class="btn btn-sm btn-outline-secondary">Notificaciones</button>
-                        <button class="btn btn-sm btn-outline-secondary">Configuraciones</button>
-                        <a class="btn btn-sm btn-danger" href="../../../?cerrarSesion=true">Cerrar Sesion</a>
-                    </div>
-                </div>
-            </div>
+      <!-- Sección de Eventos -->
+      <section id="eventos">
+        <hgroup>
+          <h2>Gestión de Eventos</h2>
+          <h3>Organiza los eventos de la empresa</h3>
+        </hgroup>
+        <p>Crea, edita o elimina eventos de la empresa, y mantén un registro de todos los eventos importantes.</p>
+        <figure>
+          <img src="https://files.oaiusercontent.com/file-XtFcifI4MnSzDyQOE8l7RwDI" alt="Ícono de gestión de eventos">
+          <figcaption>Ícono de Eventos</figcaption>
+        </figure>
+      </section>
 
-            <?php require 'manejoUsuarios.php'; ?>
-            
-            <!-- Event Management Section -->
-            <section id="event-management" class="mb-5">
-                <h2>Manejo de eventos</h2>
-                <button class="btn btn-success mb-3">Crear nuevo evento</button>
-                <!-- Event calendar or list -->
-            </section>
-
-            <!-- Course Management Section -->
-            <section id="course-management" class="mb-5">
-                <h2>Manejo de cursos</h2>
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Curso 1
-                        <button class="btn btn-sm btn-warning">Edit</button>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Curso 2
-                        <button class="btn btn-sm btn-warning">Edit</button>
-                    </li>
-                    <!-- Repeat for each course -->
-                </ul>
-            </section>
-        </main>
+      <!-- Sección de Cursos -->
+      <section id="cursos">
+        <hgroup>
+          <h2>Gestión de Cursos</h2>
+          <h3>Administra los cursos de los estudiantes</h3>
+        </hgroup>
+        <p>Aquí puedes asignar, modificar o eliminar cursos para los estudiantes, manteniendo su progreso académico actualizado.</p>
+        <figure>
+          <img src="https://files.oaiusercontent.com/file-YW7fVvxaB3A28z2vJ2X9EP8F" alt="Ícono de gestión de cursos">
+          <figcaption>Ícono de Cursos</figcaption>
+        </figure>
+      </section>
     </div>
-</div>
+  </main>
 
+  <!-- Pie de página -->
+  <footer class="container">
+    <small><a href="#">Términos</a> • <a href="#">Política de Privacidad</a></small>
+  </footer>
 
 </body>
 </html>

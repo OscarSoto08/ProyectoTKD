@@ -1,5 +1,4 @@
 <?php
-require('DAO.php');
 class AdministradorDAO extends DAO{
 
     public function __construct($conexion=null) {

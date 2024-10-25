@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="keywords" content="kopulso, club de taekwondo, LTA, Learning Taekwondo Application"> 
     <title>LTA - Kopulso</title>
-    <link rel="shortcut icon" href="img/image.png">
 
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,13 +13,40 @@
 
     <!-- JQUERY -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/script.js" ></script>
-
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/styleAG.css">
 
-</head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head> 
+
+<?php
+require '../../../Persistencia/Conexion.php';
+require '../../../Persistencia/DAO.php';
+require '../../../Persistencia/AdministradorDAO.php';
+
+require '../../../model/Persona.php';
+require '../../../model/Administrador.php';
+
+
+require '../../../service/persona/adminServicio.php';
+
+if(session_status() == PHP_SESSION_NONE) session_start();
+if (!isset($_SESSION['id'])) {
+    header("Location: ../../login");
+    exit; // Asegúrate de salir después de redirigir
+}
+
+$id = $_SESSION["id"];
+
+
+
+
+require 'AdminHeader.php';
+
+$administrador = new Administrador($id);
+$adminService = new AdminServicio();
+$adminService->consultarPorId($administrador);
+
+?>

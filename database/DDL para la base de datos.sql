@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS Profesor (
   apellido VARCHAR(50) NOT NULL,
   correo VARCHAR(100) NOT NULL,
   clave VARCHAR(255) NOT NULL,
-  estado ENUM('activo', 'retirado') NOT NULL,
+  estado ENUM('activo', 'inactivo') NOT NULL,
   imagen VARCHAR(100) NULL DEFAULT 'https://i.ibb.co/1TLZ2Tg/rhino-Adult.png',
   fechaNac DATE NOT NULL,
 

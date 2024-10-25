@@ -146,7 +146,7 @@ if(isset($_GET["resend"])) {
 
 
         window.onload = () => {
-            iniciarCuentaRegresiva(5);
+            iniciarCuentaRegresiva(55);
         };
     </script>
 </body>

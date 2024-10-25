@@ -1,5 +1,4 @@
 <?php 
-require 'DAO.php';
 class EstudianteDAO extends DAO{
 
     public function __construct(Conexion $conexion){

@@ -23,20 +23,25 @@
 </head>
 
 <?php 
-require '../../service/persona/estudianteServicio.php';
-require '../../service/persona/gradoServicio.php';
-require '../../service/persona/UserServicio.php';
-require '../../service/codigoVerificacionServicio.php';
+require '../../model/Grado.php';
+require '../../model/User.php';
+require '../../model/CodigoVerificacion.php';
+require '../../model/Administrador.php';
 
+require '../../Persistencia/DAO.php';
 require '../../Persistencia/Conexion.php';
 require '../../Persistencia/EstudianteDAO.php';
 require '../../Persistencia/GradoDAO.php';
 require '../../Persistencia/UserDAO.php';
 require '../../Persistencia/codigoVerificacionDAO.php';
+require '../../Persistencia/AdministradorDAO.php';
 
-require '../../model/Grado.php';
-require '../../model/User.php';
-require '../../model/CodigoVerificacion.php';
+
+require '../../service/persona/estudianteServicio.php';
+require '../../service/persona/gradoServicio.php';
+require '../../service/persona/UserServicio.php';
+require '../../service/codigoVerificacionServicio.php';
+require '../../service/persona/adminServicio.php';
 
 require 'emailRegistro.php';
 

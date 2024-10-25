@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacts Interface</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!--datables CSS básico-->
+  <link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
+  <!--datables estilo bootstrap 4 CSS-->  
+  <link rel="stylesheet"  type="text/css" href="assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">    
+    
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+
+  
+
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>PROFESORES</h1>
+      <div class="input-group mb-3">
+        <svg id="searchIcon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill=" "><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+        <input id="addProfesorInput" type="text" class="form-control" placeholder="Nombre de usuario" aria-label="Nombre de usuario" aria-describedby="basic-addon1">
+      </div>
+    </div>
+
+    <!-- Filter Toolbar -->
+    
+      <div class="add" class="input-group "> 
+        <button class="d-flex gap-3"> Nuevo Usuario<svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#FFFFFF"><path d="M520-400h80v-120h120v-80H600v-120h-80v120H400v80h120v120ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
+        </button>
+        <select class="form-select" name="" id=" " >
+          <option selected value="1"><a href="">Profesores</a></option>
+          <option value="2">Estudiantes</option>
+          <option value="3">Administradores</option>
+          <option value="4">Usuarios externos</option>
+        </select>
+      </div>
+    <table> 
+        <thead> 
+          <tr> 
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Fecha nacimiento</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        <thead>
+        <tbody>
+            <tr>
+                <td data-title="Codigo">1</td>
+                <td data-title="Nombre">Juan</td>
+                <td data-title="Apellido">Pérez</td>
+                <td data-title="Correo">juan.perez@example.com</td>
+                <td data-title="Fecha nacimiento">12/04/1985</td>
+                <td data-title="Estado">Activo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>
+            <tr>
+                <td data-title="Codigo">2</td>
+                <td data-title="Nombre">María</td>
+                <td data-title="Apellido">Gómez</td>
+                <td data-title="Correo">maria.gomez@example.com</td>
+                <td data-title="Fecha nacimiento">25/07/1990</td>
+                <td data-title="Estado">Activo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>
+            <tr>
+                <td data-title="Codigo">3</td>
+                <td data-title="Nombre">Carlos</td>
+                <td data-title="Apellido">López</td>
+                <td data-title="Correo">carlos.lopez@example.com</td>
+                <td data-title="Fecha nacimiento">30/11/1982</td>
+                <td data-title="Estado">Activo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>
+            <tr>
+                <td data-title="Codigo">4</td>
+                <td data-title="Nombre">Ana</td>
+                <td data-title="Apellido">Martínez</td>
+                <td data-title="Correo">ana.martinez@example.com</td>
+                <td data-title="Fecha nacimiento">15/05/1975</td>
+                <td data-title="Estado">Inactivo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>
+            <tr>
+                <td data-title="Codigo">5</td>
+                <td data-title="Nombre">Luis</td>
+                <td data-title="Apellido">Hernández</td>
+                <td data-title="Correo">luis.hernandez@example.com</td>
+                <td data-title="Fecha nacimiento">20/02/1995</td>
+                <td data-title="Estado">Activo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>
+            <tr>
+                <td data-title="Codigo">6</td>
+                <td data-title="Nombre">Sofía</td>
+                <td data-title="Apellido">Ramírez</td>
+                <td data-title="Correo">sofia.ramirez@example.com</td>
+                <td data-title="Fecha nacimiento">10/09/1988</td>
+                <td data-title="Estado">Inactivo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>
+            <tr>
+                <td data-title="Codigo">7</td>
+                <td data-title="Nombre">Pedro</td>
+                <td data-title="Apellido">Torres</td>
+                <td data-title="Correo">pedro.torres@example.com</td>
+                <td data-title="Fecha nacimiento">05/12/1980</td>
+                <td data-title="Estado">Activo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>
+            <tr>
+                <td data-title="Codigo">8</td>
+                <td data-title="Nombre">Laura</td>
+                <td data-title="Apellido">Moreno</td>
+                <td data-title="Correo">laura.moreno@example.com</td>
+                <td data-title="Fecha nacimiento">18/01/1992</td>
+                <td data-title="Estado">Activo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>
+            <tr>
+                <td data-title="Codigo">9</td>
+                <td data-title="Nombre">Diego</td>
+                <td data-title="Apellido">Cruz</td>
+                <td data-title="Correo">diego.cruz@example.com</td>
+                <td data-title="Fecha nacimiento">30/06/1984</td>
+                <td data-title="Estado">Inactivo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>
+            <tr>
+                <td data-title="Codigo">10</td>
+                <td data-title="Nombre">Isabel</td>
+                <td data-title="Apellido">Vargas</td>
+                <td data-title="Correo">isabel.vargas@example.com</td>
+                <td data-title="Fecha nacimiento">22/03/1993</td>
+                <td data-title="Estado">Activo</td>
+                <td data-title="Acciones">Cambiar / Borrar</td>
+            </tr>            
+        </tbody>
+      </table>
+  </div>
+  <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="assets/jquery/jquery-3.3.1.min.js"></script>
+    <script src="assets/popper/popper.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+      
+    <!-- datatables JS -->
+    <script type="text/javascript" src="assets/datatables/datatables.min.js"></script>    
+</body>
+</html>

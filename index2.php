@@ -1,8 +1,4 @@
 <?php require 'includes/head/header.php';?>
-    
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/styleAG.css">
-</head>
 <body>
     <?php 
     session_start();
