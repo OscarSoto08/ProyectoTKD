@@ -48,6 +48,9 @@ class conexion{
     public function extraer(){
         return $this -> resultado -> fetch_row();
     }
+    public function extraerAssoc(){
+        return $this -> resultado -> fetch_assoc();
+    }
 
     public function obtenerKey(){
         return $this -> mysqlconexion -> insert_id;

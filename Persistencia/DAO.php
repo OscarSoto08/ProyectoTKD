@@ -15,7 +15,7 @@ abstract class DAO{
     abstract function consultarPorId($id);
     abstract function insertar($objeto);
     abstract function actualizar($objeto);
-    abstract function eliminar($objeto);
+    abstract function eliminar($id);
     abstract function maxId();
 }
 ?>

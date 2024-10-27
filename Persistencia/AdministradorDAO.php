@@ -26,7 +26,7 @@ class AdministradorDAO extends DAO{
     }
     public function insertar($objeto){}
     public function actualizar($objeto){}
-    public function eliminar($objeto){}
+    public function eliminar($id){}
     /**
      * @inheritDoc
      */

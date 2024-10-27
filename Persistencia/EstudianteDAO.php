@@ -26,7 +26,7 @@ class EstudianteDAO extends DAO{
     /**
      * @inheritDoc
      */
-    public function eliminar($objeto) {
+    public function eliminar($id) {
     }
     
     /**

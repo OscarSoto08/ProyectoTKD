@@ -22,7 +22,7 @@ class UserDAO extends DAO{
     /**
      * @inheritDoc
      */
-    public function eliminar($objeto) {
+    public function eliminar($id) {
     }
     
     /**

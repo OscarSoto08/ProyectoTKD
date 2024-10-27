@@ -1,18 +1,19 @@
-*{
-  box-sizing: border-box;
+
+:root{
+  --pri: #E9F1FA;
+  --sec: #00ABE4;
+  --ter: #FFFFFF;
 }
 html{
-  
   overflow-y: scroll;
 }
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #024CAA;
+  background-color: var(--pri);
   padding: 20px;
 }
 
 .container {
-  max-width: 100%;
   margin: auto;
 }
 
@@ -26,57 +27,45 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
-.input-group{
-  display: flex;
-  place-self: flex-end;
-  max-width: 500px;
+select, [type="date"], input[type="text"], input[type="email"], input[type="password"] {
+  border: 2px solid #ccc; /* Borde gris claro */
+  border-radius: 5px; /* Esquinas redondeadas */
+  padding: 10px; /* Espaciado interno */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+  transition: all 0.3s ease; /* Transición suave */
 }
 
-.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback){
-  height: 50px;
-  border-radius: 0 10px 10px 0;
+select:focus, input[type="date"]:focus , input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+  border-color: #007BFF; /* Borde azul al enfocar */
+  box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3); /* Sombra más intensa al enfocar */
+  outline: none; /* Eliminar contorno predeterminado */
 }
-#searchIcon{
-  padding: 5px;
-  background-color: white;
-  height: 50px;
-  width: 50px;
-  border-radius: 10px 0 0 10px;
-}
+
 .header h1 {
-  color: white;
+  color: black;
   font-size: 2rem;
   text-align: center;
 }
 
-.header .actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.header button {
-  background-color: #11191F;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-}
-
 .add button, .add select{
   margin: 15px 0;
-  background-color: #0D324D;
+  background-color: var(--sec);
   border: none;
   border-radius: 10px;
   padding: 8.5px;
   height: 45px;
   width: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  box-sizing: border-box !important;
 } 
 .add *{
-  color: white !important;
+  color: black !important;
 }
 
 .add{
@@ -94,8 +83,7 @@ table {
   border-collapse: collapse;
   background: white;
   border-radius: 6px;
-  overflow: hidden;
-  width: 100%;
+  overflow-x: scroll;
   margin: 0 auto;
   position: relative;
 }
@@ -104,13 +92,14 @@ table * {
 }
 table td, table th {
   padding-left: 8px;
+  text-align: center;
 }
 table td{
   color: black;
 }
 table thead tr {
   height: 60px;
-  background: #0D324D;
+  background: var(--sec);
   font-size: 16px;
 }
 table tbody tr {
@@ -124,7 +113,7 @@ table th, button{
   color: white;
 }
 table td, table th {
-  text-align: left;
+  text-align: center;
 }
 table td.l, table th.l {
   text-align: right;
@@ -135,6 +124,7 @@ table td.c, table th.c {
 table td.r, table th.r {
   text-align: center;
 }
+/*
 @media screen and (max-width: 35.5em) {
   table {
     display: block;
@@ -151,7 +141,7 @@ table td.r, table th.r {
     padding: 8px 0;
  }
   table tbody tr td {
-    padding-left: 35%; /* Ajustado */
+    padding-left: 35%; 
     margin-bottom: 12px;
     position: relative;
  }
@@ -161,14 +151,12 @@ table td.r, table th.r {
   table tbody tr td:before {
     position: absolute;
     font-weight: 700;
-    width: 35%; /* Ajustado */
+    width: 35%; 
     left: 10px;
     top: 0;
-    content: attr(data-title); /* Aquí utilizamos los datos del atributo */
+    content: attr(data-title); 
  } 
 }
-
-/* Responsive Design */
 @media (max-width: 768px) {
   .header, .toolbar {
   flex-direction: column;
@@ -193,8 +181,9 @@ table td.r, table th.r {
   text-align: center;
   }
 
+
   .toolbar .filters, .search {
   width: 100%;
   justify-content: space-between;
   }
-}
+} */
