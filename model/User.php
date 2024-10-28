@@ -6,8 +6,8 @@ class User extends Persona{
     private $estado;
 
     
-    public function __construct($idPersona=null, $nombre = null, $apellido = null, $correo=null, $clave = null, $foto = null, $telefono = null, $fNac = null, $rol = null, $grado = null, $estado = null){
-        parent::__construct(idPersona: $idPersona, nombre: $nombre, apellido: $apellido, correo: $correo, clave: $clave, foto: $foto, telefono: $telefono, fNac: $fNac);
+    public function __construct($idPersona=null, $nombre = null, $apellido = null, $correo=null, $clave = null, $imagen = null, $telefono = null, $fNac = null, $rol = null, $grado = null, $estado = null){
+        parent::__construct(idPersona: $idPersona, nombre: $nombre, apellido: $apellido, correo: $correo, clave: $clave,  imagen: $imagen, telefono: $telefono, fNac: $fNac);
         $this->rol = $rol;
         $this->grado = $grado;
         $this -> estado = $estado;

@@ -5,7 +5,7 @@ class CodigoVerificacionDAO extends DAO{
     }
     
     public function cambiarEstado(CodigoVerificacion $codigo){
-        $sql = "UPDATE `codigoverificacion` SET `estado` = ?";
+        $sql = "UPDATE `codigo_verificacion` SET `estado` = ?";
         $tipo = 's';
         $valor = $codigo -> getEstado();
         return ($this -> conexion -> prepararConsulta($sql, $tipo, $valor))? true : false;
@@ -39,7 +39,7 @@ class CodigoVerificacionDAO extends DAO{
      */
     public function insertar($objeto) {
         $maxId = $this -> maxId()+1;
-        $sql = "INSERT INTO `codigoverificacion`(`idCodigoVerificacion`,`codigo`, `fecha_creado`, `fecha_expirado`, `estado`, `idUser`) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO `codigo_verificacion`(`idCodigo_verificacion`,`codigo`, `fecha_creado`, `fecha_expirado`, `estado`, `idUser`) VALUES (?,?,?,?,?,?)";
         $tipos = 'issssi';
         $valores = [
             $maxId,
@@ -56,7 +56,7 @@ class CodigoVerificacionDAO extends DAO{
      * @inheritDoc
      */
     public function maxId() {
-        $sql = "SELECT MAX(idCodigoVerificacion) FROM codigoverificacion;";
+        $sql = "SELECT MAX(idCodigo_verificacion) FROM codigo_verificacion;";
         $this -> conexion -> ejecutarConsulta($sql);
         $fila = $this -> conexion -> extraer();
         if($fila[0] == null){

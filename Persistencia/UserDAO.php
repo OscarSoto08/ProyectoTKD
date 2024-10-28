@@ -32,7 +32,7 @@ class UserDAO extends DAO{
         $maxId = $this -> maxId() + 1;
         if($objeto -> getGrado() == null) $idGrado = null;
         else $idGrado = $objeto -> getGrado() -> getIdGrado();
-        $sql = 'INSERT INTO `user`(`idUser`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `rol`, `estado`, `idGrado`) VALUES (?,?,?,?,?,?,?,?,?)';
+        $sql = 'INSERT INTO `usuario_temporal`(`idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `rol`, `estado`, `idGrado`) VALUES (?,?,?,?,?,?,?,?,?)';
         $tipos = 'isssssssi';
         $valores = [
             $maxId,
@@ -56,7 +56,7 @@ class UserDAO extends DAO{
      * @inheritDoc
      */
     public function maxId() {
-        $sql = "SELECT MAX(idUser) FROM user;";
+        $sql = "SELECT MAX(idUsuario_temporal) FROM usuario_temporal;";
         $this -> conexion -> ejecutarConsulta($sql);
         $fila = $this -> conexion -> extraer();
         if($fila[0] == null){
@@ -66,7 +66,7 @@ class UserDAO extends DAO{
     }
 
     public function verificar(User $user){
-        $sql = "SELECT `idUser`, `estado` FROM user WHERE correo = ?";
+        $sql = "SELECT `idUsuario_temporal`, `estado` FROM usuario_temporal WHERE correo = ?";
         $tipos = 's';
         $valores = $user -> getCorreo();
         return $this -> conexion -> prepararConsulta($sql, $tipos, $valores);
