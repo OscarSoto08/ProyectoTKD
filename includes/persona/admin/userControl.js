@@ -12,7 +12,7 @@ var idUser, action;
 action = 4;
 tablaProfesores = $("#tablaProfesores").DataTable({
         "ajax":{
-            "url":"crudProfesor.php",
+            "url":"crud_profesor.php",
             "method": "POST",
             "data": {action: action},
             "dataSrc": ""
@@ -58,7 +58,7 @@ $('#formUsuarios').submit((e)=>{
     console.log("nombre del usuario: "+  nombre);
     console.log("accion: "+ action);
     $.ajax({
-        url: 'crudProfesor.php',
+        url: 'crud_profesor.php',
         type: 'POST',
         dataType: 'JSON',
         data: {
@@ -78,9 +78,8 @@ $('#formUsuarios').submit((e)=>{
 $(document).on("click", "#btnNuevo", function(){  
     idUser=null;
     $("#formUsuarios").trigger("reset");
-    $(".modal-header").css( "background-color", "#17a2b8");
     $(".modal-header").css( "color", "white" );
-    $(".modal-title").text("Alta de Usuario");
+    $(".modal-title").text("Nuevo usuario");
     $('#modalCRUD').modal('show');	   
     
     action = 1;  
@@ -95,7 +94,7 @@ $(document).on("click", ".btnBorrar", function(){
     var respuesta = confirm("¿Está seguro que desea eliminar el registro: " + idUser + "?");
     if(respuesta){
         $.ajax({
-            url: "crudProfesor.php",
+            url: "crud_profesor.php",
             type: 'POST',
             dataType: 'JSON',
             data: {idProfesor: idUser, action: action},
@@ -116,7 +115,7 @@ $(document).on("click", ".btnEditar", function(){
     
     console.log(action); // Para depuración
     $.ajax({
-        url: 'crudProfesor.php',
+        url: 'crud_profesor.php',
         type: 'POST',
         dataType: 'JSON',
         data: {action: 5, idProfesor: idUser},

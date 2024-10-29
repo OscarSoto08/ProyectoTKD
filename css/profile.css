@@ -1,20 +1,33 @@
-
 :root{
-  --pri: #E9F1FA;
-  --sec: #00ABE4;
-  --ter: #FFFFFF;
+  --pri: #e3b23f;
+  --sec: #343a40;
+  --ter: #CAFFB9;
+}
+body{
+  background-color: var(--pri);
 }
 html{
   overflow-y: scroll;
 }
-
-body {
-  background-color: var(--pri);
-  padding: 20px;
-}
-
 .container {
   margin: auto;
+}
+
+#inicio{
+  margin: 50px auto;
+  width: 70vw;
+}
+
+#inicio img{
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 50%;
+}
+
+div.dt-container .dt-search input, div.dt-container select.dt-input {
+  background-color: white;
+  border-radius: 10px;
+  margin: 0 10px;
 }
 
 .header, .toolbar, .table, .no-contacts {
@@ -29,6 +42,10 @@ body {
   flex-wrap: wrap;
   gap: 10px;
 }
+.navbar-dark, .navbar[data-bs-theme=dark]{
+  background-color: var(--sec) !important;
+  height: 80px;
+}
 
 select, [type="date"], input[type="text"], input[type="email"], input[type="password"] {
   border: 2px solid #ccc; /* Borde gris claro */
@@ -42,12 +59,6 @@ select:focus, input[type="date"]:focus , input[type="text"]:focus, input[type="e
   border-color: #007BFF; /* Borde azul al enfocar */
   box-shadow: 0 8px 16px rgba(0, 123, 255, 0.3); /* Sombra más intensa al enfocar */
   outline: none; /* Eliminar contorno predeterminado */
-}
-
-.header h1 {
-  color: black;
-  font-size: 2rem;
-  text-align: center;
 }
 
 .add button, .add select{
@@ -65,7 +76,7 @@ select:focus, input[type="date"]:focus , input[type="text"]:focus, input[type="e
   box-sizing: border-box !important;
 } 
 .add *{
-  color: black !important;
+  color: white !important;
 }
 
 .add{
@@ -73,6 +84,10 @@ select:focus, input[type="date"]:focus , input[type="text"]:focus, input[type="e
   justify-content: flex-start;
   align-items: center;
   gap: 15px;
+}
+
+#modalCRUD .modal-header{
+  background-color: var(--sec) !important;
 }
 
 button{
@@ -95,6 +110,7 @@ table td, table th {
   text-align: center;
 }
 table td{
+  background-color: #FFF;
   color: black;
 }
 table thead tr {

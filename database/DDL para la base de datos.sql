@@ -1,5 +1,5 @@
 
-CREATE DATABASE `proytkd`;
+CREATE DATABASE IF NOT EXISTS `proytkd`;
 USE `proytkd` ;
 
 CREATE TABLE`administrador` (

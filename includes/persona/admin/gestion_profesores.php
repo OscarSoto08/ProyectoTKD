@@ -1,52 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contacts Interface</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
-  <!--datables CSS básico-->
-  <link rel="stylesheet" type="text/css" href="assets/datatables/datatables.min.css"/>
-  <!--datables estilo bootstrap 4 CSS-->  
-  <link rel="stylesheet"  type="text/css" href="assets/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">    
-    
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
-  <script src="assets/jquery/jquery-3.3.1.min.js"></script>
-  <script src="assets/popper/popper.min.js"></script>
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    
-  <!-- datatables JS -->
-  <script type="text/javascript" src="assets/datatables/datatables.min.js"></script>    
-  <script src="userControl.js"></script>
+<?php require 'admin_header.php';?>
 
 
-
-  <link rel="stylesheet" href="css/profile.css">
-</head>
 <body>
 
   <div class="container">
 
-    <!-- Header -->
-    <div class="header">
-      <h1>PROFESORES</h1>
-    </div>
-
     <!-- Filter Toolbar -->
     
       <div class="add" class="input-group "> 
-        <button id="btnNuevo" class="d-flex gap-1" data-bs-toggle="modal" data-bs-target="#modalCRUD" >Nuevo Usuario<svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#FFFFFF"><path d="M520-400h80v-120h120v-80H600v-120h-80v120H400v80h120v120ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
+        <button id="btnNuevo" class="d-flex gap-1" data-bs-toggle="modal" data-bs-target="#modalCRUD" >Nuevo Profesor<svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#FFFFFF"><path d="M520-400h80v-120h120v-80H600v-120h-80v120H400v80h120v120ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
         </button>
-        <select class="form-select" name="" id=" " >
-          <option selected value="1"><a href="">Profesores</a></option>
-          <option value="2">Estudiantes</option>
-          <option value="3">Administradores</option>
-          <option value="4">Usuarios externos</option>
-        </select>
       </div>
     <table id="tablaProfesores" class="table-responsive"> 
         <thead> 

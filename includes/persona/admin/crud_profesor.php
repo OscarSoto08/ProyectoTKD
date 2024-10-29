@@ -1,10 +1,11 @@
 <?php
-require 'Persistencia/DAO.php';
-require 'Persistencia/Conexion.php';
-require 'model/Persona.php';
-require 'model/model_persona/Profesor.php';
-require 'Persistencia/personaDAO/ProfesorDAO.php';
-require 'service/persona/ProfesorServicio.php';
+require '../../../model/Persona.php';
+require '../../../model/model_persona/Profesor.php';
+
+require '../../../Persistencia/Conexion.php';
+require '../../../Persistencia/DAO.php';
+require '../../../Persistencia/personaDAO/ProfesorDAO.php';
+require '../../../service/persona/ProfesorServicio.php';
 
 header('Content-Type: application/json');
 
@@ -79,4 +80,3 @@ switch ($action) {
 
 echo json_encode($data);
 ?>
-
