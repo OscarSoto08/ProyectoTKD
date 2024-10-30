@@ -34,11 +34,10 @@
 <?php
 require '../../../Persistencia/Conexion.php';
 require '../../../Persistencia/DAO.php';
-require '../../../Persistencia/AdministradorDAO.php';
+require '../../../Persistencia/personaDAO/AdministradorDAO.php';
 
-require '../../../model/Persona.php';
-require '../../../model/Administrador.php';
-
+require '../../../model/model_persona/Persona.php';
+require '../../../model/model_persona/Administrador.php';
 
 require '../../../service/persona/adminServicio.php';
 

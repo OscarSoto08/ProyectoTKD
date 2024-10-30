@@ -1,24 +1,24 @@
 /*
 distintos valores para action: 
-1: Agregar un nuevo profesor
-2: Eliminar un profesor
-3: Editar un profesor
-4: Consultar todos los profesores
-5: Consultar un solo profesor a partir de su id
+1: Agregar un nuevo usuario
+2: Eliminar un usuario
+3: Editar un usuario
+4: Consultar todos los usuarios
+5: Consultar un solo usuario a partir de su id
 */
 
 $(document).ready(function(){
-var idUser, action;
+var idUsuario, action;
 action = 4;
-tablaProfesores = $("#tablaProfesores").DataTable({
+tabla_usuarios = $("#tabla_usuarios").DataTable({
         "ajax":{
-            "url":"crud_profesor.php",
+            "url":"crud_usuario.php",
             "method": "POST",
             "data": {action: action},
             "dataSrc": ""
         },
         "columns": [
-            {"data": "idProfesor"},
+            {"data": "idUsuario"},
             {"data": "nombre"},
             {"data": "apellido"},
             {"data": "correo"},
@@ -26,26 +26,9 @@ tablaProfesores = $("#tablaProfesores").DataTable({
             {"data": "estado"},
             {"data": "telefono"},
             {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar' data-bs-toggle='modal' data-bs-target='#modalCRUD'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>"}
-        ]//,
-        // "createdRow": function(row, data, dataIndex) {
-        //     $(row).find('td').each(function(index) {
-        //         var columnName = tablaProfesores.column(index).dataSrc(); // Obtener el nombre de la columna
-        //         $(this).attr('data-column', columnName); // Agregar el atributo
-        //     });
-        // }
+        ]
     });
-
-    // Actualiza el DataTable en caso de que cambie el tamaño de la ventana
-    // $(window).on('resize', function() {
-    //     tablaProfesores.rows().every(function() {
-    //         var row = this;
-    //         row.nodes().each(function(td, index) {
-    //             var columnName = tablaProfesores.column(index).dataSrc();
-    //             $(td).attr('data-column', columnName); // Agregar el atributo nuevamente
-    //         });
-    //     });
-    // });
-$('#formUsuarios').submit((e)=>{
+$('#form_usuarios').submit((e)=>{
     e.preventDefault();
     nombre = $.trim($('#nombre').val()); 
     apellido = $.trim($('#apellido').val());
@@ -54,19 +37,19 @@ $('#formUsuarios').submit((e)=>{
     telefono = $.trim($('#telefono').val());
     estado = $.trim($('#estado').val());
     fechaNac = $.trim($('#fechaNac').val());
-    console.log("id del usuario: "+ idUser); // Para depuración
+    console.log("id del usuario: "+ idUsuario); // Para depuración
     console.log("nombre del usuario: "+  nombre);
     console.log("accion: "+ action);
     $.ajax({
-        url: 'crud_profesor.php',
+        url: 'crud_usuario.php',
         type: 'POST',
         dataType: 'JSON',
         data: {
-            idProfesor: idUser, nombre: nombre, apellido: apellido, correo: correo, clave: clave, telefono: telefono, estado: estado, fechaNac: fechaNac, action: action
+            idUsuario: idUsuario, nombre: nombre, apellido: apellido, correo: correo, clave: clave, telefono: telefono, estado: estado, fechaNac: fechaNac, action: action
         },
         success: function(data){
             console.log(data);
-            tablaProfesores.ajax.reload(null, false);
+            tabla_usuarios.ajax.reload(null, false);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error("Error en la solicitud AJAX: ", textStatus, errorThrown);
@@ -76,8 +59,8 @@ $('#formUsuarios').submit((e)=>{
 }); 
     //para limpiar los campos antes de dar de Alta una Persona
 $(document).on("click", "#btnNuevo", function(){  
-    idUser=null;
-    $("#formUsuarios").trigger("reset");
+    idUsuario=null;
+    $("#form_usuarios").trigger("reset");
     $(".modal-header").css( "color", "white" );
     $(".modal-title").text("Nuevo usuario");
     $('#modalCRUD').modal('show');	   
@@ -88,19 +71,19 @@ $(document).on("click", "#btnNuevo", function(){
 
 $(document).on("click", ".btnBorrar", function(){
     fila = $(this).closest("tr");
-    idUser = parseInt(fila.find("td:eq(0)").text());
+    idUsuario = parseInt(fila.find("td:eq(0)").text());
     action = 2;
-    console.log("el id del usuario a eliminar es: " + idUser)
-    var respuesta = confirm("¿Está seguro que desea eliminar el registro: " + idUser + "?");
+    console.log("el id del usuario a eliminar es: " + idUsuario)
+    var respuesta = confirm("¿Está seguro que desea eliminar el registro: " + idUsuario + "?");
     if(respuesta){
         $.ajax({
-            url: "crud_profesor.php",
+            url: "crud_usuario.php",
             type: 'POST',
             dataType: 'JSON',
-            data: {idProfesor: idUser, action: action},
+            data: {idUsuario: idUsuario, action: action},
             success: function(data){
                 console.log(data);
-                tablaProfesores.ajax.reload(null, false);
+                tabla_usuarios.ajax.reload(null, false);
             },error: function(jqXHR, textStatus, errorThrown) {
                 console.error("Error en la solicitud AJAX: ", textStatus, errorThrown);
             }
@@ -111,14 +94,14 @@ $(document).on("click", ".btnBorrar", function(){
      	
 $(document).on("click", ".btnEditar", function(){
     fila = $(this).closest("tr");	        
-    idUser = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		     
+    idUsuario = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		     
     
     console.log(action); // Para depuración
     $.ajax({
-        url: 'crud_profesor.php',
+        url: 'crud_usuario.php',
         type: 'POST',
         dataType: 'JSON',
-        data: {action: 5, idProfesor: idUser},
+        data: {action: 5, idUsuario: idUsuario},
         success: (data)=>{
             $("#nombre").val(data.nombre);
             $("#apellido").val(data.apellido);
@@ -137,8 +120,4 @@ $(document).on("click", ".btnEditar", function(){
     console.log(action)
     	   
 });
-
-
-
-
 });

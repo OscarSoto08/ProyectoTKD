@@ -19,25 +19,32 @@ $script_actual = $ruta[count($ruta)-1];
           <a class="nav-link" href="#">Gestionar eventos</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle <?php echo ($script_actual == 'gestion_profesores.php') ? 'active' : ''?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle <?php echo ($script_actual == 'gestion_usuarios.php') ? 'active' : ''?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            <?php 
-           switch ($script_actual) {
-            case 'index.php':
-                echo 'Gestionar usuarios';
-                break;
-            
-            case 'gestion_profesores.php':
+           if($script_actual == 'index.php') echo 'Gestionar usuarios';
+           if(isset($_GET["rol"])){
+            switch ($_GET["rol"]) {
+              case '1':
                 echo 'Profesores';
                 break;
+              case '2':
+                echo 'Estudiantes';
+                break;
+              case '3':
+                echo 'Administradores';
+                break;
+              case '4':
+                echo 'Usuarios temporales';
+            }
            }
            ?>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="gestion_profesores.php">Profesores</a></li>
-            <li><a class="dropdown-item" href="#">Estudiantes</a></li>
+            <li><a class="dropdown-item" href="gestion_usuarios.php?rol=1">Profesores</a></li>
+            <li><a class="dropdown-item" href="gestion_usuarios.php?rol=2">Estudiantes</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Administradores</a></li>
-            <li><a class="dropdown-item" href="#">Usuarios temporales</a></li>
+            <li><a class="dropdown-item" href="gestion_usuarios.php?rol=3">Administradores</a></li>
+            <li><a class="dropdown-item" href="gestion_usuarios.php?rol=4">Usuarios temporales</a></li>
           </ul>
         </li>
         <li class="nav-item">

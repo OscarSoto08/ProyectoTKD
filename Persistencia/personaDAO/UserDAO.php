@@ -32,7 +32,7 @@ class UserDAO extends DAO{
         $maxId = $this -> maxId() + 1;
         if($objeto -> getGrado() == null) $idGrado = null;
         else $idGrado = $objeto -> getGrado() -> getIdGrado();
-        $sql = 'INSERT INTO `usuario_temporal`(`idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `rol`, `estado`, `idGrado`) VALUES (?,?,?,?,?,?,?,?,?)';
+        $sql = 'INSERT INTO `usuario_temporal`(`idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `rol`, `estado`, `Grado_idGrado`) VALUES (?,?,?,?,?,?,?,?,?)';
         $tipos = 'isssssssi';
         $valores = [
             $maxId,

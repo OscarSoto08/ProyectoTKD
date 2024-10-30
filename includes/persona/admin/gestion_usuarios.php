@@ -8,10 +8,10 @@
     <!-- Filter Toolbar -->
     
       <div class="add" class="input-group "> 
-        <button id="btnNuevo" class="d-flex gap-1" data-bs-toggle="modal" data-bs-target="#modalCRUD" >Nuevo Profesor<svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#FFFFFF"><path d="M520-400h80v-120h120v-80H600v-120h-80v120H400v80h120v120ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
+        <button id="btnNuevo" class="d-flex gap-1" data-bs-toggle="modal" data-bs-target="#modalCRUD" >Nuevo Usuario<svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#FFFFFF"><path d="M520-400h80v-120h120v-80H600v-120h-80v120H400v80h120v120ZM320-240q-33 0-56.5-23.5T240-320v-480q0-33 23.5-56.5T320-880h480q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H320Zm0-80h480v-480H320v480ZM160-80q-33 0-56.5-23.5T80-160v-560h80v560h560v80H160Zm160-720v480-480Z"/></svg>
         </button>
       </div>
-    <table id="tablaProfesores" class="table-responsive"> 
+    <table id="tabla_usuarios" class="table-responsive"> 
         <thead> 
           <tr> 
             <th>Codigo</th>
@@ -20,7 +20,12 @@
             <th>Correo</th>
             <th>Fecha nacimiento</th>
             <th>Estado</th>
+            <!-- Agregar el rol para el usuario externo -->
+            <?php if($_GET["rol"] == '4') echo "<th>Rol</th>"; ?>
             <th>Telefono</th>
+            <!-- Agregar el grado para los estudiantes o para los usuarios temporales -->
+            <?php if($_GET["rol"] == "2" || $_GET["rol"] == "4") echo "<th>Cinturon</th>"; ?>
+            
             <th>Acciones</th>
           </tr>
         <thead>
@@ -34,11 +39,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Nuevo Profesor</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Nuevo Usuario</h5>
               <button type="button" style="color: black; border: none;" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
               </button>
           </div>
-      <form id="formUsuarios">    
+      <form id="form_usuarios">    
           <div class="modal-body">
               <div class="row">
                   <div class="col-lg-6">
@@ -80,7 +85,7 @@
                   <div class="col-lg-3">    
                       <div class="form-group">
                       <label for="estado" class="col-form-label">Estado</label>
-                      <select name="estado" id="estado" aria-label="Estado actual del profesor">
+                      <select name="estado" id="estado" aria-label="Estado actual del usuario">
                         <option value="1" selected>Activo</option>
                         <option value="2">Inactivo</option>
                       </select>
@@ -91,6 +96,12 @@
                     <label for="fechaNac" class="col-form-label">Fecha Nac.</label>
                     <input type="date" class="form-control" id="fechaNac" name="fechaNac">
                     </div>            
+                </div>
+                <div class="col-lg-6 hidden">
+                <div class="form-group">
+                    <label for="fechaNac" class="col-form-label">Fecha Nac.</label>
+                    <input type="date" class="form-control" id="fechaNac" name="fechaNac">
+                    </div>
                 </div>   
               </div>                
           </div>

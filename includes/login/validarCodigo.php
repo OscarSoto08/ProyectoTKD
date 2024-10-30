@@ -71,8 +71,8 @@ if(isset($_GET["resend"])) {
     );
     $mailRegistro->enviarCorreo();
 }
- echo 'codigo verdadero: ' . $idCodigoVerdadero;
- echo '<br> codigo ingresado '. $codigo -> getIdCodigo();
+//  echo 'codigo verdadero: ' . $idCodigoVerdadero;
+//  echo '<br> codigo ingresado '. $codigo -> getIdCodigo();
 ?>
 <body>
     <section class="container">

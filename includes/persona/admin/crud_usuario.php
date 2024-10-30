@@ -1,11 +1,11 @@
 <?php
-require '../../../model/Persona.php';
+require '../../../model/model_persona/Persona.php';
 require '../../../model/model_persona/Profesor.php';
 
 require '../../../Persistencia/Conexion.php';
 require '../../../Persistencia/DAO.php';
 require '../../../Persistencia/personaDAO/ProfesorDAO.php';
-require '../../../service/persona/ProfesorServicio.php';
+require '../../../service/persona/profesorServicio.php';
 
 header('Content-Type: application/json');
 
@@ -17,13 +17,13 @@ $clave = isset($_POST["clave"]) ? md5($_POST["clave"]) : "";
 $estado = isset($_POST["estado"]) ? $_POST["estado"] : "";
 $telefono = $_POST["telefono"] ?? "";
 $action = $_POST["action"] ?? "";
-$id_user = $_POST["idProfesor"] ?? "";
+$id_user = $_POST["idUsuario"] ?? "";
 
 function devolverTodos($profesorServicio){
     $profesores = $profesorServicio->consultarTodos();
     $data = array_map(function($obj){
     return [
-        "idProfesor" => $obj -> getIdPersona(),
+        "idUsuario" => $obj -> getIdPersona(),
         "nombre" => $obj -> getNombre(),
         "apellido" => $obj -> getApellido(),
         "correo" => $obj -> getCorreo(),

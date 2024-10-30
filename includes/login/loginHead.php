@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,17 +24,17 @@
 
 <?php 
 require '../../model/Grado.php';
-require '../../model/User.php';
+require '../../model/model_persona/User.php';
 require '../../model/CodigoVerificacion.php';
-require '../../model/Administrador.php';
+require '../../model/model_persona/Administrador.php';
 
 require '../../Persistencia/DAO.php';
 require '../../Persistencia/Conexion.php';
-require '../../Persistencia/EstudianteDAO.php';
+require '../../Persistencia/personaDAO/EstudianteDAO.php';
 require '../../Persistencia/GradoDAO.php';
-require '../../Persistencia/UserDAO.php';
+require '../../Persistencia/personaDAO/UserDAO.php';
 require '../../Persistencia/codigoVerificacionDAO.php';
-require '../../Persistencia/AdministradorDAO.php';
+require '../../Persistencia/personaDAO/AdministradorDAO.php';
 
 
 require '../../service/persona/estudianteServicio.php';

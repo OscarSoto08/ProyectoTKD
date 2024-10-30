@@ -10,7 +10,7 @@ if (isset($_POST['autenticar'])) {
     $clave = md5($_POST['clave']);
     if (empty($correo) || empty($clave)) {
         $CamposIncompletos = true;
-    } else {
+    } 
         $admin = new Administrador(null,null,null,$correo, $clave, null,null,null);
         $adminServicio = new AdminServicio();
         if($adminServicio -> autenticar($admin)){
@@ -19,7 +19,7 @@ if (isset($_POST['autenticar'])) {
         }else{
             $errorAuth = true;
         }
-    }
+    
 }
 ?>
 

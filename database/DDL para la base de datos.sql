@@ -2,7 +2,7 @@
 CREATE DATABASE IF NOT EXISTS `proytkd`;
 USE `proytkd` ;
 
-CREATE TABLE`administrador` (
+CREATE TABLE IF NOT EXISTS `administrador` (
   `idAdministrador` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `apellido` VARCHAR(45) NOT NULL,
@@ -14,12 +14,12 @@ CREATE TABLE`administrador` (
   `fechaNac` DATE NOT NULL,
   PRIMARY KEY (`idAdministrador`));
 
-CREATE TABLE `pais` (
+CREATE TABLE IF NOT EXISTS `pais` (
   `idPais` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idPais`));
   
-CREATE TABLE `ciudad` (
+CREATE TABLE IF NOT EXISTS `ciudad` (
   `idCiudad` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `Pais_idPais` INT NOT NULL,
@@ -28,17 +28,17 @@ CREATE TABLE `ciudad` (
     FOREIGN KEY (`Pais_idPais`)
     REFERENCES `proytkd`.`pais` (`idPais`));
 
-CREATE TABLE `curso` (
+CREATE TABLE IF NOT EXISTS `curso` (
   `idCurso` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idCurso`));
 
-CREATE TABLE `grado` (
+CREATE TABLE IF NOT EXISTS `grado` (
   `idGrado` INT NOT NULL AUTO_INCREMENT,
   `grado` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idGrado`));
 
-CREATE TABLE `estudiante` (
+CREATE TABLE IF NOT EXISTS `estudiante` (
   `idEstudiante` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `apellido` VARCHAR(45) NOT NULL,
@@ -46,12 +46,14 @@ CREATE TABLE `estudiante` (
   `clave` VARCHAR(255) NOT NULL,
   `Grado_idGrado` INT NOT NULL,
   `estado` ENUM('activo', 'retirado', 'sancionado') NOT NULL,
+  `fechaNac` DATE NOT NULL,
+  `imagen` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`idEstudiante`),
   CONSTRAINT `fk_Estudiante_Grado`
     FOREIGN KEY (`Grado_idGrado`)
     REFERENCES `proytkd`.`grado` (`idGrado`));
 
-CREATE TABLE `evento` (
+CREATE TABLE IF NOT EXISTS `evento` (
   `idEvento` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `fecha` DATETIME NOT NULL,
@@ -62,7 +64,7 @@ CREATE TABLE `evento` (
     FOREIGN KEY (`Ciudad_idCiudad`)
     REFERENCES `proytkd`.`ciudad` (`idCiudad`));
 
-CREATE TABLE `auditoriaAdminCurso` (
+CREATE TABLE IF NOT EXISTS `auditoriaAdminCurso` (
   `idAuditoriaAdminCurso` INT NOT NULL AUTO_INCREMENT,
   `Administrador_idAdministrador` INT NOT NULL,
   `Curso_idCurso` INT NOT NULL,
@@ -77,7 +79,7 @@ CREATE TABLE `auditoriaAdminCurso` (
     FOREIGN KEY (`Curso_idCurso`)
     REFERENCES `proytkd`.`curso` (`idCurso`));
 
-CREATE TABLE `auditoriaAdminEvento` (
+CREATE TABLE IF NOT EXISTS `auditoriaAdminEvento` (
   `idAuditoriaAdminEvento` INT NOT NULL AUTO_INCREMENT,
   `Administrador_idAdministrador` INT NOT NULL,
   `Evento_idEvento` INT NOT NULL,
@@ -92,7 +94,7 @@ CREATE TABLE `auditoriaAdminEvento` (
     FOREIGN KEY (`Evento_idEvento`)
     REFERENCES `proytkd`.`evento` (`idEvento`));
 
-CREATE TABLE `matriculacurso` (
+CREATE TABLE IF NOT EXISTS `matriculacurso` (
   `Curso_idCurso` INT NOT NULL,
   `Estudiante_idEstudiante` INT NOT NULL,
   `fecha` DATETIME NOT NULL,
@@ -104,7 +106,7 @@ CREATE TABLE `matriculacurso` (
     FOREIGN KEY (`Estudiante_idEstudiante`)
     REFERENCES `proytkd`.`estudiante` (`idEstudiante`));
 
-CREATE TABLE `profesor` (
+CREATE TABLE IF NOT EXISTS `profesor` (
   `idProfesor` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `apellido` VARCHAR(45) NOT NULL,
@@ -116,7 +118,7 @@ CREATE TABLE `profesor` (
   `fechaNac` DATE NOT NULL,
   PRIMARY KEY (`idProfesor`));
 
-CREATE TABLE `participacion` (
+CREATE TABLE IF NOT EXISTS `participacion` (
   `Profesor_idProfesor` INT NOT NULL,
   `Curso_idCurso` INT NOT NULL,
   `rolProfesor` VARCHAR(45) NOT NULL,
@@ -128,7 +130,7 @@ CREATE TABLE `participacion` (
     FOREIGN KEY (`Profesor_idProfesor`)
     REFERENCES `proytkd`.`profesor` (`idProfesor`));
 
-CREATE TABLE `subcurso` (
+CREATE TABLE IF NOT EXISTS `subcurso` (
   `idSubcurso` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `Curso_idCurso` INT NOT NULL,
@@ -137,7 +139,7 @@ CREATE TABLE `subcurso` (
     FOREIGN KEY (`Curso_idCurso`)
     REFERENCES `proytkd`.`curso` (`idCurso`));
 
-CREATE TABLE `pregunta` (
+CREATE TABLE IF NOT EXISTS `pregunta` (
   `idPregunta` INT NOT NULL AUTO_INCREMENT,
   `pregunta` VARCHAR(45) NOT NULL,
   `Subcurso_idSubcurso` INT NOT NULL,
@@ -147,7 +149,7 @@ CREATE TABLE `pregunta` (
     FOREIGN KEY (`Subcurso_idSubcurso`)
     REFERENCES `proytkd`.`subcurso` (`idSubcurso`));
 
-CREATE TABLE `progreso_subcurso` (
+CREATE TABLE IF NOT EXISTS `progreso_subcurso` (
   `idtomarSubcurso` INT NOT NULL AUTO_INCREMENT,
   `puntaje` VARCHAR(45) NOT NULL,
   `Subcurso_idSubcurso` INT NOT NULL,
@@ -161,7 +163,7 @@ CREATE TABLE `progreso_subcurso` (
     FOREIGN KEY (`Subcurso_idSubcurso`)
     REFERENCES `proytkd`.`subcurso` (`idSubcurso`));
 
-CREATE TABLE `participacion_profesor` (
+CREATE TABLE IF NOT EXISTS `participacion_profesor` (
   `profesor_idProfesor` INT NOT NULL,
   `evento_idEvento` INT NOT NULL,
   PRIMARY KEY (`profesor_idProfesor`, `evento_idEvento`),
@@ -176,7 +178,7 @@ CREATE TABLE `participacion_profesor` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE TABLE `participacion_estudiante` (
+CREATE TABLE IF NOT EXISTS `participacion_estudiante` (
   `estudiante_idEstudiante` INT NOT NULL,
   `evento_idEvento` INT NOT NULL,
   PRIMARY KEY (`estudiante_idEstudiante`, `evento_idEvento`),
@@ -191,7 +193,7 @@ CREATE TABLE `participacion_estudiante` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-CREATE TABLE `usuario_temporal` (
+CREATE TABLE IF NOT EXISTS `usuario_temporal` (
   `idUsuario_temporal` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   `apellido` VARCHAR(45) NOT NULL,
@@ -199,13 +201,14 @@ CREATE TABLE `usuario_temporal` (
   `clave` VARCHAR(255) NOT NULL,
   `rol` ENUM('profesor', 'estudiante') NOT NULL,
   `Grado_idGrado` INT NULL,
-  `estado` ENUM('activo', 'retirado', 'sancionado') NOT NULL,
+  `estado` ENUM('pendiente', 'denegado', 'permitido') NOT NULL,
+  `fechaNac` DATE NOT NULL,
   PRIMARY KEY (`idUsuario_temporal`),
   CONSTRAINT `fk_Estudiante_Grado0`
     FOREIGN KEY (`Grado_idGrado`)
     REFERENCES `proytkd`.`grado` (`idGrado`));
 
-CREATE TABLE `codigo_verificacion` (
+CREATE TABLE IF NOT EXISTS `codigo_verificacion` (
   `idCodigo_verificacion` INT NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(45) NOT NULL,
   `idUser` INT NOT NULL,
