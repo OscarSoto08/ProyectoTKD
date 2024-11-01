@@ -30,8 +30,29 @@ class UserServicio{
         return false;
     }
 
-    public function buscarPorId($idPersona){
-        
+    public function consultarTodos(){
+        $usuarios = [];
+        $this -> conexion -> iniciarConexion();
+        $this -> UserDAO -> consultarTodos();
+        while($fila = $this -> conexion -> extraer()){
+            $usuario = new User(
+                $fila[0],
+                $fila[1],
+                $fila[2],
+                $fila[3],
+                $fila[4],
+                $fila[5],
+                $fila[6],
+                $fila[7],
+                $fila[8],
+                $fila[9]
+            );
+            array_push($usuarios, $usuario);
+            // `idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado`
+            // array_push($usuarios, $usuario);
+        }
+        $this -> conexion -> cerrarConexion();
+        return $usuarios;
     }
 }
 ?>

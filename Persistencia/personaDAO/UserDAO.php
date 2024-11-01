@@ -17,6 +17,8 @@ class UserDAO extends DAO{
      * @inheritDoc
      */
     public function consultarTodos() {
+        $sql = "SELECT `idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado` FROM usuario_temporal WHERE 1";
+        $this -> conexion -> ejecutarConsulta($sql);
     }
     
     /**
@@ -32,7 +34,7 @@ class UserDAO extends DAO{
         $maxId = $this -> maxId() + 1;
         if($objeto -> getGrado() == null) $idGrado = null;
         else $idGrado = $objeto -> getGrado() -> getIdGrado();
-        $sql = 'INSERT INTO `usuario_temporal`(`idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `rol`, `estado`, `Grado_idGrado`) VALUES (?,?,?,?,?,?,?,?,?)';
+        $sql = 'INSERT INTO `usuario_temporal`(`idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado`) VALUES (?,?,?,?,?,?,?,?,?)';
         $tipos = 'isssssssi';
         $valores = [
             $maxId,

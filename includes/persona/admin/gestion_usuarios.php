@@ -20,11 +20,11 @@
             <th>Correo</th>
             <th>Fecha nacimiento</th>
             <th>Estado</th>
-            <!-- Agregar el rol para el usuario externo -->
-            <?php if($_GET["rol"] == '4') echo "<th>Rol</th>"; ?>
             <th>Telefono</th>
+            <!-- Agregar el rol para el usuario externo -->
+            <?php echo ($_GET["rol"] == '4') ? "<th>Rol</th>" : ""; ?>
             <!-- Agregar el grado para los estudiantes o para los usuarios temporales -->
-            <?php if($_GET["rol"] == "2" || $_GET["rol"] == "4") echo "<th>Cinturon</th>"; ?>
+            <?php echo ($_GET["rol"] == "2" || $_GET["rol"] == "4") ? "<th>Cinturon</th>" : ""; ?>
             
             <th>Acciones</th>
           </tr>
@@ -93,16 +93,33 @@
                   </div> 
                   <div class="col-lg-3">    
                     <div class="form-group">
-                    <label for="fechaNac" class="col-form-label">Fecha Nac.</label>
-                    <input type="date" class="form-control" id="fechaNac" name="fechaNac">
+                      <label for="fechaNac" class="col-form-label">Fecha Nac.</label>
+                      <input type="date" class="form-control" id="fechaNac" name="fechaNac">
                     </div>            
                 </div>
-                <div class="col-lg-6 hidden">
-                <div class="form-group">
-                    <label for="fechaNac" class="col-form-label">Fecha Nac.</label>
-                    <input type="date" class="form-control" id="fechaNac" name="fechaNac">
+                <div id="rol-section" class="col-lg-4" style="display:none;">
+                  <div class="form-group">
+                    <label for="rol" class="col-form-label">Rol</label>
+                    <select name="rol" id="rol" aria-label="Validar si es profesor o estudiante en caso de ser usuario temporal">
+                      <option value="1">Estudiante</option>
+                      <option value="2">Profesor</option>
+                    </select>
                     </div>
-                </div>   
+                </div>  
+                <div id="grado-section" class="col-lg-4" style="display:none;">
+                  <div class="form-group">
+                    <label for="rol" class="col-form-label">Grado</label>
+                    <select name="rol" id="rol" aria-label="Validar si es profesor o estudiante en caso de ser usuario temporal">
+                      <?php 
+                        $gradoServ = new GradoServicio();
+                        $grados = $gradoServ -> consultarTodos();   
+                        foreach ($grados as $grado) {
+                          echo '<option value="' .$grado -> getIdGrado().'"> '. $grado -> getNombre() .'</option>';
+                        }
+                      ?>
+                    </select>
+                    </div>
+                </div> 
               </div>                
           </div>
           <div class="modal-footer">

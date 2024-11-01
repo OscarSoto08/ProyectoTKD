@@ -13,20 +13,19 @@ class estudianteServicio{
 
         while($fila = $this -> conexion -> extraer()){
             $Estudiante = new Estudiante(
-                $fila[0], // $idProfesor
-                $fila[1], // $nombre
-                $fila[2], // $apellido
-                $fila[3], // $correo
-                $fila[4], // $clave
-                $fila[5], // $foto
-                $fila[6], // $telefono
-                $fila[7], // $fNac
-                $fila[8]  // $estado
+                $fila[0],
+                $fila[1],
+                $fila[2],
+                $fila[3],
+                $fila[4],
+                $fila[5],
+                $fila[6],
+                $fila[7],
+                $fila[8],
+                $fila[9]
             );
             array_push($Estudiantes, $Estudiante);
         }
-        
-        
         $this -> conexion -> cerrarConexion();;
         return $Estudiantes;
     }
@@ -39,17 +38,7 @@ class estudianteServicio{
             $fila = $this->conexion->extraer(); // Obtener la fila
             if ($fila) { // Verificamos si hay datos
                 // Creamos un nuevo objeto Profesor con los datos de la fila
-                $Estudiante = new Estudiante(
-                    $id, // $idProfesor
-                    $fila[0], // $nombre
-                    $fila[1], // $apellido
-                    $fila[2], // $correo
-                    $fila[3], // $clave
-                    $fila[4], // $foto
-                    $fila[5], // $telefono
-                    $fila[6], // $fNac
-                    $fila[7]  // $estado
-                );
+                $Estudiante = new Estudiante();
             }
         }
         $this -> conexion -> cerrarCOnexion();

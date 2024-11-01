@@ -9,7 +9,6 @@ class EstudianteDAO extends DAO{
      * @inheritDoc
      */
     public function actualizar($objeto) {
-        $objeto = new Estudiante();
         $sql = "UPDATE estudiante SET nombre = ?, apellido = ?, correo = ?, clave = ?, Grado_idGrado = ?, estado = ?, fechaNac = ?, imagen = ?, telefono = ? WHERE idEstudiante = ?";
         $tipos = 'ssssissssi';
         $valores = [
@@ -32,7 +31,7 @@ class EstudianteDAO extends DAO{
      * @inheritDoc
      */
     public function consultarPorId($id) {
-        $sql = "SELECT nombre, apellido, correo, clave, Grado_idGrado, estado 
+        $sql = "SELECT nombre, apellido, correo, clave, Grado_idGrado, estado, fechaNac, imagen, telefono 
         FROM estudiante
         WHERE idEstudiante = ?";
         $tipo = "s";
@@ -43,9 +42,9 @@ class EstudianteDAO extends DAO{
      * @inheritDoc
      */
     public function consultarTodos() {
-        $sql = "SELECT idEstudiante, nombre, apellido, correo, clave, Grado_idGrado, estado
-        FROM estudiante";
-        return $this -> conexion -> ejecutarConsulta($sql);
+        $sql = "SELECT idEstudiante, nombre, apellido, correo, clave, Grado_idGrado, estado, fechaNac, imagen, telefono
+        FROM estudiante WHERE 1";
+        $this -> conexion -> ejecutarConsulta($sql);
     }
     
     /**
@@ -76,12 +75,6 @@ class EstudianteDAO extends DAO{
             $objeto -> getTelefono()
         ];
         return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
-    }
-
-    public function consultarTodosLosGrados(){
-        $consulta = "SELECT idGrado, grado
-        FROM grado";
-        $this -> conexion -> ejecutarConsulta($consulta);
     }
     /**
      * @inheritDoc

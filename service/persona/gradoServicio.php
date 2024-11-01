@@ -22,11 +22,25 @@ class GradoServicio{
         return $grados;
     }
 
-    public function consultar(Grado $grado){
+    public function consultar($idGrado){
         $this -> conexion -> iniciarConexion();
-        $this -> GradoDAO -> consultarPorId($grado->getIdGrado());
+        $this -> GradoDAO -> consultarPorId($idGrado);
         $fila = $this -> conexion -> extraer();
+        $nombre = $fila[0];
         $this -> conexion -> cerrarConexion();
-        $grado -> setNombre($fila[0]);
+        return $nombre;
     }
+
+    public function consultarTodos(){
+        $grados = array();
+        $this -> conexion -> iniciarConexion();
+        $this -> GradoDAO -> consultarTodos();
+        while($fila = $this -> conexion -> extraer()){
+            $grado = new Grado($fila[0], $fila[1]);
+            array_push($grados, $grado);
+        }
+        $this -> conexion -> cerrarConexion();
+        return $grados;
+    }
+
 }

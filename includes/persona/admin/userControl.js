@@ -8,26 +8,101 @@ distintos valores para action:
 */
 
 $(document).ready(function(){
+const urlParams = new URLSearchParams(window.location.search);
+let rolParam = urlParams.get('rol')
 var idUsuario, action;
+console.log(rolParam)
 action = 4;
-tabla_usuarios = $("#tabla_usuarios").DataTable({
-        "ajax":{
-            "url":"crud_usuario.php",
-            "method": "POST",
-            "data": {action: action},
-            "dataSrc": ""
-        },
-        "columns": [
-            {"data": "idUsuario"},
-            {"data": "nombre"},
-            {"data": "apellido"},
-            {"data": "correo"},
-            {"data": "fechaNac"},
-            {"data": "estado"},
-            {"data": "telefono"},
-            {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar' data-bs-toggle='modal' data-bs-target='#modalCRUD'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>"}
-        ]
-    });
+let tabla_usuarios;
+
+switch (rolParam) {
+    case '1':
+        tabla_usuarios = $("#tabla_usuarios").DataTable({
+            "ajax":{
+                "url":"crud_usuario.php",
+                "method": "POST",
+                "data": {action: action, rolParam: rolParam},
+                "dataSrc": ""
+            },
+            "columns": [
+                {"data": "idUsuario"},
+                {"data": "nombre"},
+                {"data": "apellido"},
+                {"data": "correo"},
+                {"data": "fechaNac"},
+                {"data": "estado"},
+                {"data": "telefono"},
+                {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar' data-bs-toggle='modal' data-bs-target='#modalCRUD'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>"}
+            ]
+        });
+        break;
+    case '2':
+        console.log(action)
+        
+        tabla_usuarios = $("#tabla_usuarios").DataTable({
+            "ajax":{
+                "url":"crud_usuario.php",
+                "method": "POST",
+                "data": {action: action, rolParam: rolParam},
+                "dataSrc": ""
+            },
+            "columns": [
+                {"data": "idUsuario"},
+                {"data": "nombre"},
+                {"data": "apellido"},
+                {"data": "correo"},
+                {"data": "fechaNac"},
+                {"data": "estado"},
+                {"data": "telefono"},
+                {"data": "grado"},
+                {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar' data-bs-toggle='modal' data-bs-target='#modalCRUD'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>"}
+            ]
+        });
+        break;
+    case '3':
+        tabla_usuarios = $("#tabla_usuarios").DataTable({
+            "ajax":{
+                "url":"crud_usuario.php",
+                "method": "POST",
+                "data": {action: action, rolParam: rolParam},
+                "dataSrc": ""
+            },
+            "columns": [
+                {"data": "idUsuario"},
+                {"data": "nombre"},
+                {"data": "apellido"},
+                {"data": "correo"},
+                {"data": "fechaNac"},
+                {"data": "estado"},
+                {"data": "telefono"},
+                {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar' data-bs-toggle='modal' data-bs-target='#modalCRUD'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>"}
+            ]
+        });
+        break;
+    case '4':
+        tabla_usuarios = $("#tabla_usuarios").DataTable({
+            "ajax": {
+                "url": "crud_usuario.php",
+                "method": "post",
+                "data": {action: action, rolParam: rolParam},
+                "dataSrc": ""
+            },
+            "columns": [
+                {"data": "idUsuario"},
+                {"data": "nombre"},
+                {"data": "apellido"},
+                {"data": "correo"},
+                {"data": "fechaNac"},
+                {"data": "estado"},
+                {"data": "telefono"},
+                {"data": "rol"},
+                {"data": "grado"},
+                {"defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-primary btn-sm btnEditar' data-bs-toggle='modal' data-bs-target='#modalCRUD'><i class='material-icons'>edit</i></button><button class='btn btn-danger btn-sm btnBorrar'><i class='material-icons'>delete</i></button></div></div>"}
+            ]
+        });
+        break;
+}
+
 $('#form_usuarios').submit((e)=>{
     e.preventDefault();
     nombre = $.trim($('#nombre').val()); 
@@ -37,6 +112,11 @@ $('#form_usuarios').submit((e)=>{
     telefono = $.trim($('#telefono').val());
     estado = $.trim($('#estado').val());
     fechaNac = $.trim($('#fechaNac').val());
+    
+    grado = ($('#grado').css('display') === 'block') ? $.trim($('#grado').val()) : "";
+    rol = ($('#rol').css('display') === 'block') ? $.trim($('#rol').val()) : "";
+
+
     console.log("id del usuario: "+ idUsuario); // Para depuración
     console.log("nombre del usuario: "+  nombre);
     console.log("accion: "+ action);
@@ -45,7 +125,7 @@ $('#form_usuarios').submit((e)=>{
         type: 'POST',
         dataType: 'JSON',
         data: {
-            idUsuario: idUsuario, nombre: nombre, apellido: apellido, correo: correo, clave: clave, telefono: telefono, estado: estado, fechaNac: fechaNac, action: action
+            idUsuario: idUsuario, nombre: nombre, apellido: apellido, correo: correo, clave: clave, telefono: telefono, estado: estado, fechaNac: fechaNac, action: action, grado: grado, rol: rol
         },
         success: function(data){
             console.log(data);
@@ -94,14 +174,12 @@ $(document).on("click", ".btnBorrar", function(){
      	
 $(document).on("click", ".btnEditar", function(){
     fila = $(this).closest("tr");	        
-    idUsuario = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		     
-    
-    console.log(action); // Para depuración
+    idUsuario = parseInt(fila.find('td:eq(0)').text()); //capturo el id y hago una busqueda para autocompletar los campos automaticamente 
     $.ajax({
         url: 'crud_usuario.php',
         type: 'POST',
         dataType: 'JSON',
-        data: {action: 5, idUsuario: idUsuario},
+        data: {action: 5, idUsuario: idUsuario  },
         success: (data)=>{
             $("#nombre").val(data.nombre);
             $("#apellido").val(data.apellido);
@@ -110,6 +188,9 @@ $(document).on("click", ".btnEditar", function(){
             $("#telefono").val(data.telefono);
             $("#estado").val(data.estado);
             $("#fechaNac").val(data.fechaNac);
+// Validacion de que si el usuario es estudiante o usuario temporal entonces se muestra el input de grado
+// Adicionalmente al usuario temporal meterle el input de rol
+
             $(".modal-header").css("background-color", "#007bff");
             $(".modal-header").css("color", "white" );
             $(".modal-title").text("Editar Usuario");		
@@ -117,7 +198,5 @@ $(document).on("click", ".btnEditar", function(){
         }
     });
     action = 3;
-    console.log(action)
-    	   
 });
 });

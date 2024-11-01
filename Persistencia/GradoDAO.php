@@ -26,7 +26,7 @@ class GradoDAO extends DAO{
      */
     public function consultarTodos() {
         $sql = "SELECT idGrado, grado
-        FROM grado";
+        FROM grado WHERE 1";
         $this -> conexion -> ejecutarConsulta($sql);
     }
     
@@ -46,5 +46,6 @@ class GradoDAO extends DAO{
      */
     public function maxId() {
     }
+
 }
 ?>
