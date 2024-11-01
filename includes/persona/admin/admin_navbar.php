@@ -4,7 +4,7 @@ $ruta = explode("/",$_SERVER["SCRIPT_NAME"]);
 $script_actual = $ruta[count($ruta)-1];
 ?>
 
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+<nav class="mb-5 navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><?php echo $administrador -> getNombre(). ' '. $administrador -> getApellido(); ?></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -24,6 +24,7 @@
   <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=person_add" />
   <script src="userControl.js"></script>
 
 

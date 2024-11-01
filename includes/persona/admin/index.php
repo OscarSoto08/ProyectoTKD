@@ -1,11 +1,21 @@
 <?php require "admin_header.php"; ?>
 <body>
-  <section id="inicio" class="row">
-    <img class="col" src="https://i.ibb.co/1TLZ2Tg/rhino-Adult.png" alt="rhino-Adult" border="0">
-    <div class="presentacion col">
-      <h2 class="text-center">datos de admin...</h2>
+
+<div class="mb-5 container">
+ <div class="wrapper">
+   <div class="banner-image mb-3"> <img src="https://i.ibb.co/1TLZ2Tg/rhino-Adult.png" alt="rhino-Adult" border="0"></div>
+   <h1> <?php echo $administrador -> getNombre() . ' '. $administrador -> getApellido() ; ?></h1>
+   <p>Lorem ipsum dolor sit amet, <br/>
+     consectetur adipiscing elit.</p>
+  </div>
+  <div class="button-wrapper"> 
+  <button class="btn outline">CERRAR SESION</button>
+    <button class="btn fill">CONFIGURACIÓN</button>
+  </div>
     </div>
-  </section>
+</div>
+
+
   <!-- Sección de Usuarios -->
   <main class="container row">
       <section id="usuarios" class="col">
@@ -49,13 +59,9 @@
   </main>
   <style>
     section{
-      margin: 50px;
       border: 2px solid beige;
-      border-radius: 10px;
-      padding: 40px;
-    }
-    #inicio{
-      height: 65vh;
+      margin: 50px 0;
+      padding: 30px;
     }
   </style>
 </body>
