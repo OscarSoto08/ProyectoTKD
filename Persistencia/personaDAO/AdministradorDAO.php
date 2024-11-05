@@ -18,7 +18,7 @@ class AdministradorDAO extends DAO{
         $this -> conexion -> ejecutarConsulta($sql);
     }
     public function consultarPorId($id){
-        $consulta = "SELECT nombre, apellido, correo
+        $consulta = "SELECT nombre, apellido, correo, clave, imagen, telefono, fechaNac, estado
                     FROM administrador
                     WHERE idAdministrador = ?;
         ";
@@ -26,13 +26,51 @@ class AdministradorDAO extends DAO{
         $valores = array($id);
         $this -> conexion -> prepararConsulta($consulta, $tipos, $valores);
     }
-    public function insertar($objeto){}
-    public function actualizar($objeto){}
-    public function eliminar($id){}
+    public function insertar($objeto){
+        $sql = "INSERT INTO `administrador`(`idAdministrador`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `telefono`, `imagen`, `fechaNac`) VALUES (?,?,?,?,?,?,?,?,?)";
+         $tipos = "issssssss";
+         $objeto -> setIdPersona($this -> maxId() + 1);
+         $valores = [
+            $objeto -> getIdPersona(),
+            $objeto -> getNombre(),
+            $objeto -> getApellido(),
+            $objeto -> getCorreo(),
+            $objeto -> getClave(),
+            $objeto -> getEstado(),
+            $objeto -> getTelefono(),
+            $objeto -> getImagen(),
+            $objeto -> getFNac()
+         ];
+         return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
+    }
+
+    public function actualizar($objeto){
+        $sql = "UPDATE `administrador` SET `nombre` = ? ,`apellido` = ?,`correo`= ?,`clave`= ?,`estado`= ?,`telefono`= ?,`imagen`= ?,`fechaNac`= ? WHERE `idAdministrador` = ?";   
+        $tipos = 'ssssssssi';
+        $valores = [
+            $objeto -> getNombre(),
+            $objeto -> getApellido(),
+            $objeto -> getCorreo(),
+            $objeto -> getClave(),
+            $objeto -> getEstado(),
+            $objeto -> getTelefono(),
+            $objeto -> getImagen(),
+            $objeto -> getFNac(),
+            $objeto -> getIdPersona()
+        ];
+        return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
+    }
+    public function eliminar($id){
+        $sql = "DELETE FROM administrador WHERE idAdministrador = ?";
+        return $this -> conexion -> prepararConsulta($sql, 'i', $id);
+    }
     /**
      * @inheritDoc
      */
     public function maxId() {
+        $sql = "SELECT max(idAdministrador) FROM administrador";
+        $this -> conexion -> ejecutarConsulta($sql);
+        $resultado = $this -> conexion -> extraer();
+        return $resultado[0];
     }
 }
-?>

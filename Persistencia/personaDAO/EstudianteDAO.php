@@ -34,7 +34,7 @@ class EstudianteDAO extends DAO{
         $sql = "SELECT nombre, apellido, correo, clave, Grado_idGrado, estado, fechaNac, imagen, telefono 
         FROM estudiante
         WHERE idEstudiante = ?";
-        $tipo = "s";
+        $tipo = "i";
         return $this -> conexion -> prepararConsulta($sql, $tipo, $id);
     }
     

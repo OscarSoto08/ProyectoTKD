@@ -65,7 +65,8 @@ $id = $_SESSION["id"];
 
 $administrador = new Administrador($id);
 $adminService = new AdminServicio();
-$adminService->consultarPorId($administrador);
+
+$administrador = $adminService->consultarPorId($administrador);
 
 require "admin_navbar.php";
 ?>

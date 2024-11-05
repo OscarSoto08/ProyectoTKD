@@ -85,4 +85,3 @@ class ProfesorDAO extends DAO{
         return intval($fila[0]);
     }
 }
-?>

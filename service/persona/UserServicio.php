@@ -54,5 +54,38 @@ class UserServicio{
         $this -> conexion -> cerrarConexion();
         return $usuarios;
     }
+
+    public function consultarPorId($id_user){
+        $this -> conexion -> iniciarConexion();
+        $this -> UserDAO -> consultarPorId($id_user);
+        $fila = $this -> conexion -> extraer();
+        $usuario = new User(
+            $id_user,
+            $fila[0],
+            $fila[1],
+            $fila[2],
+            $fila[3],
+            $fila[4],
+            $fila[5],
+            $fila[6],
+            $fila[7],
+            $fila[8]
+        );
+        $this -> conexion -> cerrarConexion();
+        return $usuario;
+    }
+
+    public function insertar(User $user){
+        $this -> conexion -> iniciarConexion();
+        $res = $this -> UserDAO -> insertar($user);
+        $this -> conexion -> cerrarConexion();
+        return $res;
+    }
+
+    public function eliminar($id){
+        $this -> conexion -> iniciarConexion();
+        $resultado = $this -> UserDAO -> eliminar($id);
+        $this -> conexion -> cerrarConexion();
+        return $resultado;
+    }
 }
-?>

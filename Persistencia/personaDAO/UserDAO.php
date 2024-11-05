@@ -5,12 +5,31 @@ class UserDAO extends DAO{
      * @inheritDoc
      */
     public function actualizar($objeto) {
+        $sql = "UPDATE `usuario_temporal` SET `nombre`= ?,`apellido`= ?,`correo`= ?,`clave`= ?, `rol` = ?, `Grado_idGrado`= ?,`estado`= ?,`fechaNac`= ?, `telefono`= ? WHERE idUsuario_temporal = ?";
+        $tipos = "sssssisssi";
+        $valores = [
+            $objeto -> getNombre(),
+            $objeto -> getApellido(),
+            $objeto -> getCorreo(),
+            $objeto -> getClave(),
+            $objeto -> getRol(),
+            $objeto -> getGrado() -> getIdgrado(),
+            $objeto -> getEstado(),
+            $objeto -> getFNac(),
+            $objeto -> getTelefono(),
+            $objeto -> getIdPersona()
+        ];
+
+        return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
     }
     
     /**
      * @inheritDoc
      */
     public function consultarPorId($id) {
+        $sql = "SELECT `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado` FROM usuario_temporal WHERE `idUsuario_temporal` = ?";
+        $tipos = "i";
+        $this -> conexion -> prepararConsulta($sql, $tipos, $id);
     }
     
     /**
@@ -25,6 +44,8 @@ class UserDAO extends DAO{
      * @inheritDoc
      */
     public function eliminar($id) {
+        $sql = "DELETE FROM `usuario_temporal` WHERE idUsuario_temporal = ?";
+        return $this -> conexion -> prepararConsulta($sql, 'i', $id);
     }
     
     /**

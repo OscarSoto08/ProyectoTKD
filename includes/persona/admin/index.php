@@ -5,12 +5,11 @@
  <div class="wrapper">
    <div class="banner-image mb-3"> <img src="https://i.ibb.co/1TLZ2Tg/rhino-Adult.png" alt="rhino-Adult" border="0"></div>
    <h1> <?php echo $administrador -> getNombre() . ' '. $administrador -> getApellido() ; ?></h1>
-   <p>Lorem ipsum dolor sit amet, <br/>
-     consectetur adipiscing elit.</p>
+   <p><?php echo $administrador -> getCorreo(); ?></p>
   </div>
   <div class="button-wrapper"> 
-  <button class="btn outline">CERRAR SESION</button>
-    <button class="btn fill">CONFIGURACIÓN</button>
+  <button class="btn outline">CONFIGURACIÓN</button>
+    <button class="btn fill">MIS AUDITORIAS</button>
   </div>
     </div>
 </div>

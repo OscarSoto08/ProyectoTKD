@@ -6,7 +6,6 @@ distintos valores para action:
 4: Consultar todos los usuarios
 5: Consultar un solo usuario a partir de su id
 */
-
 $(document).ready(function(){
 const urlParams = new URLSearchParams(window.location.search);
 let rolParam = urlParams.get('rol')
@@ -117,15 +116,16 @@ $('#form_usuarios').submit((e)=>{
     rol = ($('#rol').css('display') === 'block') ? $.trim($('#rol').val()) : "";
 
 
-    console.log("id del usuario: "+ idUsuario); // Para depuración
+    console.log("id del usuario: "+ idUsuario); 
     console.log("nombre del usuario: "+  nombre);
     console.log("accion: "+ action);
+    console.log("rol del usuario recibido por GET: " + rolParam);
     $.ajax({
         url: 'crud_usuario.php',
         type: 'POST',
         dataType: 'JSON',
         data: {
-            idUsuario: idUsuario, nombre: nombre, apellido: apellido, correo: correo, clave: clave, telefono: telefono, estado: estado, fechaNac: fechaNac, action: action, grado: grado, rol: rol
+            idUsuario: idUsuario, nombre: nombre, apellido: apellido, correo: correo, clave: clave, telefono: telefono, estado: estado, fechaNac: fechaNac, action: action, grado: grado, rol: rol, rolParam: rolParam
         },
         success: function(data){
             console.log(data);
@@ -137,7 +137,7 @@ $('#form_usuarios').submit((e)=>{
     });
     $('#modalCRUD').modal('hide');		
 }); 
-    //para limpiar los campos antes de dar de Alta una Persona
+//para limpiar los campos antes de dar de Alta una Persona
 $(document).on("click", "#btnNuevo", function(){  
     idUsuario=null;
     $("#form_usuarios").trigger("reset");
@@ -145,9 +145,28 @@ $(document).on("click", "#btnNuevo", function(){
     $(".modal-title").text("Nuevo usuario");
     $('#modalCRUD').modal('show');	   
     
+    if(rolParam == '2' || rolParam == '4'){
+        $("#grado-section").css("display", "block");
+    }
+    if(rolParam == '4'){
+        $("#rol-section").css("display", "block");  
+        
+    }
     action = 1;  
     console.log("accion desde el evento btn nuevo: " + action)
 });
+
+$("#rol").change(function() {
+    
+    var valorSeleccionado = $(this).val();
+    if (valorSeleccionado == '2') {
+        $("#grado-section").css("display", "none");
+    }
+    if(valorSeleccionado == '1'){
+        $("#grado-section").css("display", "block");
+    }
+});
+
 
 $(document).on("click", ".btnBorrar", function(){
     fila = $(this).closest("tr");
@@ -160,7 +179,7 @@ $(document).on("click", ".btnBorrar", function(){
             url: "crud_usuario.php",
             type: 'POST',
             dataType: 'JSON',
-            data: {idUsuario: idUsuario, action: action},
+            data: {idUsuario: idUsuario, action: action, rolParam: rolParam},
             success: function(data){
                 console.log(data);
                 tabla_usuarios.ajax.reload(null, false);
@@ -173,28 +192,36 @@ $(document).on("click", ".btnBorrar", function(){
 
      	
 $(document).on("click", ".btnEditar", function(){
+    $(".modal-title").text("Editar usuario");
+    $(".modal-title").css("color", "white");
+    $('#modalCRUD').modal('show');	
+    // Validacion de que si el usuario es estudiante o usuario temporal entonces se muestra el input de grado
+    // Adicionalmente al usuario temporal meterle el input de rol
+
     fila = $(this).closest("tr");	        
     idUsuario = parseInt(fila.find('td:eq(0)').text()); //capturo el id y hago una busqueda para autocompletar los campos automaticamente 
+    console.log(idUsuario)
+    if(rolParam == 2 || rolParam == 4){$("#grado-section").css("display", "block")}
+    if(rolParam == 4) $("#rol-section").css("display", "block");
     $.ajax({
         url: 'crud_usuario.php',
         type: 'POST',
         dataType: 'JSON',
-        data: {action: 5, idUsuario: idUsuario  },
+        data: {action: 5, idUsuario: idUsuario, rolParam: rolParam},
         success: (data)=>{
             $("#nombre").val(data.nombre);
             $("#apellido").val(data.apellido);
             $("#correo").val(data.correo);
-            $("#clave").val(data.clave);
+            $("#clave").val('');
             $("#telefono").val(data.telefono);
             $("#estado").val(data.estado);
             $("#fechaNac").val(data.fechaNac);
-// Validacion de que si el usuario es estudiante o usuario temporal entonces se muestra el input de grado
-// Adicionalmente al usuario temporal meterle el input de rol
+            if(rolParam == 2 || rolParam == 4) $("#grado").val(data.grado);
+            if(rolParam == 4) $("#rol").val(data.rol);
 
-            $(".modal-header").css("background-color", "#007bff");
-            $(".modal-header").css("color", "white" );
-            $(".modal-title").text("Editar Usuario");		
-            $('#modalCRUD').modal('show');	
+            if(data.rol == 2){
+                $("#grado-section").css("display", "none");
+            }
         }
     });
     action = 3;

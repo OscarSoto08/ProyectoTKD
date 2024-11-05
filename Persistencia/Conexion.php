@@ -60,5 +60,3 @@ class conexion{
         $this -> mysqlconexion -> close();
     }
 }
-
-?>

@@ -39,22 +39,24 @@ $usuario_servicio = null;
 $usuario = null;
 $data = [];
 
+// $action = '5'; $rolParam = '2'; $id_user = '1';
+
 switch ($rolParam) {
 case '1':
     $usuario_servicio = new ProfesorServicio();
-    $usuario = new Profesor($id_user, $nombre, $apellido, $correo, md5($clave), null, $fNac, $estado);
+    $usuario = new Profesor($id_user, $nombre, $apellido, $correo, $clave, null, $fNac, $estado);
     break;
 case '2':
     $usuario_servicio = new estudianteServicio();
-    $usuario = new Estudiante($id_user, $nombre, $apellido, $correo, md5($clave), $grado, $estado, $fNac, null, $telefono);
+    $usuario = new Estudiante($id_user, $nombre, $apellido, $correo, $clave, $grado, $estado, $fNac, null, $telefono);
     break;
 case '3':
     $usuario_servicio = new AdminServicio();
-    $usuario = new Administrador($id_user, $nombre, $apellido, $correo, md5($clave), null, $telefono, $fNac, $estado);
+    $usuario = new Administrador($id_user, $nombre, $apellido, $correo, $clave, null, $telefono, $fNac, $estado);
     break;
 case '4':
     $usuario_servicio = new UserServicio();
-    $usuario = new User($id_user, $nombre, $apellido, $correo, md5($clave),$telefono, $fNac, $rol, $grado, $estado);
+    $usuario = new User($id_user, $nombre, $apellido, $correo, $clave,$telefono, $fNac, $rol, $grado, $estado);
     break;
 }
 
@@ -95,8 +97,6 @@ function devolverTodos($user_serv) {
     return $data;
 }
 
-
-
 switch ($action) {
     case '1':
         if($usuario_servicio -> insertar($usuario)) $data = devolverTodos($usuario_servicio);
@@ -111,21 +111,32 @@ switch ($action) {
         $data = devolverTodos($usuario_servicio);
         break;
     case '5':
-        $usuario = $usuario_servicio->consultarPorId($id_user); // Ahora obtiene un objeto Profesor
-        if ($usuario) {
-            $data = [
-                "nombre" => $profesor->getNombre(),
-                "apellido" => $profesor->getApellido(),
-                "correo" => $profesor->getCorreo(),
-                "clave" => $profesor->getClave(),
-                "fechaNac" => $profesor->getFNac(),
-                "estado" => $profesor->getEstado() == "activo"? 1 : 2,
-                "telefono" => $profesor->getTelefono()
-            ];
+        $usuario = $usuario_servicio -> consultarPorId($id_user); 
+        $rol = ''; $grado = '';
+        if($usuario instanceof User) {
+            $rol = $usuario->getRol();
+            if($usuario -> getRol() == 'estudiante'){
+                $rol = '1';
+            }else{
+                $rol = '2';
+            }
         }
+        if($usuario instanceof Estudiante){
+            $grado = $usuario->getGrado();
+        }
+        $data = [
+            "nombre" => $usuario->getNombre(),
+            "apellido" => $usuario->getApellido(),
+            "correo" => $usuario->getCorreo(),
+            "clave" => $usuario->getClave(),
+            "fechaNac" => $usuario->getFNac(),
+            "estado" => $usuario->getEstado() == 'activo' ? '1' : '2',
+            "telefono" => $usuario->getTelefono(),
+            "rol" => $rol,
+            "grado" => $grado
+        ];
         break;
 }
 
 
 echo json_encode($data);
-?>

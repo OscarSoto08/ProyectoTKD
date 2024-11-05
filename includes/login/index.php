@@ -8,6 +8,7 @@ $errorAuth = false;
 if (isset($_POST['autenticar'])) {
     $correo = $_POST['correo'];
     $clave = md5($_POST['clave']);
+
     if (empty($correo) || empty($clave)) {
         $CamposIncompletos = true;
     } 

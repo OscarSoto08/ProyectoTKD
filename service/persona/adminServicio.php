@@ -19,15 +19,23 @@ class AdminServicio{
         return false;
     }
     
-    public function consultarPorId(Administrador $admin){
+    public function consultarPorId($id_user){
         $this -> conexion -> iniciarConexion();
-        $this -> adminDao -> consultarPorId( $admin->getIdPersona());
+        $this -> adminDao -> consultarPorId( $id_user);
         $fila = $this -> conexion -> extraer();
-
-        $admin -> setNombre($fila[0]);
-        $admin -> setApellido($fila[1]);
-        $admin -> setCorreo($fila[2]);
+        $admin = new Administrador(
+            $id_user,
+            $fila[0],
+            $fila[1],
+            $fila[2],
+            $fila[3],
+            $fila[4],
+            $fila[5],
+            $fila[6],
+            $fila[7],
+        );
         $this -> conexion -> cerrarConexion();
+        return $admin;
     }
 
     public function consultarTodos(){
@@ -37,7 +45,7 @@ class AdminServicio{
 
         while($fila = $this -> conexion -> extraer()){
             $admin = new Administrador(
-                $fila[0], // $idProfesor
+                $fila[0], // $idAdministrador
                 $fila[1], // $nombre
                 $fila[2], // $apellido
                 $fila[3], // $correo
@@ -54,5 +62,24 @@ class AdminServicio{
         $this -> conexion -> cerrarConexion();;
         return $administradores;
     }
+
+    public function insertar(Administrador $administrador){
+        $this -> conexion -> iniciarConexion();
+        $resultado = $this -> adminDao -> insertar($administrador);
+        $this -> conexion -> cerrarConexion();
+        return $resultado;
+    }
+
+    public function actualizar(Administrador $administrador){
+        $this -> conexion -> iniciarConexion();
+        $resultado = $this -> adminDao -> actualizar($administrador);
+        $this -> conexion -> cerrarConexion();
+        return $resultado;
+    }
+    public function eliminar($id){
+        $this -> conexion -> iniciarConexion();
+        $resultado = $this -> adminDao -> eliminar($id);
+        $this -> conexion -> cerrarConexion();
+        return $resultado;
+    }
 }
-?>

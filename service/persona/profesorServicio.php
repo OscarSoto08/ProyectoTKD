@@ -34,25 +34,24 @@ class ProfesorServicio{
 
     public function consultarPorId($id) {
         $this->conexion->iniciarConexion();
-        $profesor = null; // Inicializamos en null
     
-        if ($res = $this->profesorDAO->consultarPorId($id)) { // Se espera que esto devuelva un boolean
-            $fila = $this->conexion->extraer(); // Obtener la fila
-            if ($fila) { // Verificamos si hay datos
-                // Creamos un nuevo objeto Profesor con los datos de la fila
-                $profesor = new Profesor(
-                    $id, // $idProfesor
-                    $fila[0], // $nombre
-                    $fila[1], // $apellido
-                    $fila[2], // $correo
-                    $fila[3], // $clave
-                    $fila[4], // $foto
-                    $fila[5], // $telefono
-                    $fila[6], // $fNac
-                    $fila[7]  // $estado
-                );
-            }
-        }
+        $this->profesorDAO->consultarPorId($id); // Se espera que esto devuelva un boolean
+        $fila = $this->conexion->extraer(); // Obtener la fila
+
+        // Creamos un nuevo objeto Profesor con los datos de la fila
+        $profesor = new Profesor(
+            $id, // $idProfesor
+            $fila[0], // $nombre
+            $fila[1], // $apellido
+            $fila[2], // $correo
+            $fila[3], // $clave
+            $fila[4], // $foto
+            $fila[5], // $telefono
+            $fila[6], // $fNac
+            $fila[7]  // $estado
+        );
+            
+        
         $this -> conexion -> cerrarCOnexion();
         return $profesor;
     }    
@@ -78,4 +77,3 @@ class ProfesorServicio{
         return $res;
     }
 }
-?>
