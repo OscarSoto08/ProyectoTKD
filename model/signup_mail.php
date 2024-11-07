@@ -5,11 +5,11 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
-require '../../phpmailer/Exception.php';
-require '../../phpmailer/PHPMailer.php';
-require '../../phpmailer/SMTP.php';
+require 'phpmailer/Exception.php';
+require 'phpmailer/PHPMailer.php';
+require 'phpmailer/SMTP.php';
 
-class EmailRegistro {
+class Signup_Mail {
     private $msg;
     private $correoDestino;
     private $nombreDestino;
@@ -84,3 +84,4 @@ class EmailRegistro {
 // Ejemplo de uso
 // $emailRegistro = new EmailRegistro('destinatario@example.com', '123456');
 // $emailRegistro->enviarCorreo();
+?>

@@ -9,11 +9,31 @@ class UserServicio{
 
     public function registrar(User $User){
         $this -> conexion -> iniciarConexion();
-        if($this -> UserDAO -> insertar($User)){
-           $User -> setIdPersona($this -> conexion -> obtenerKey());
-           return true; 
-        }
-        return false;
+        
+        if(!$this -> UserDAO -> insertar($User)) return false;
+
+        $User -> setIdPersona($this -> conexion -> obtenerKey());
+
+        $codigoServ = new CodigoVerificacionServicio();
+        $idCodigo = $codigoServ -> generarCodigo(6);
+        $fecha_creado = date('Y-m-d H:i:s');
+        $fecha_expirado = date('Y-m-d H:i:s', strtotime('+10 minutes'));
+        $estado = 'valido';
+
+        $codigo = new CodigoVerificacion($idCodigo, $fecha_creado, $fecha_expirado, $estado, $User);
+
+        //agregar el codigo a la bd
+        $codigoServ -> insertar($codigo);
+        
+        $mailRegistro = new EmailRegistro(
+            $User->getCorreo(),
+            $User->getNombre(),
+            $idCodigo
+        );
+
+        //faltaria enviar el codigo a la base de datos
+        $mailRegistro -> enviarCorreo();
+        return $codigo;
     }
 
     public function verificar(User $User){

@@ -6,6 +6,12 @@ class estudianteServicio{
         $this -> conexion = new Conexion();
         $this->EstDAO = new EstudianteDAO($this -> conexion);
     }
+    public static function autenticar(Persona $estudiante){
+        $conexion = new Conexion();
+        $EstDAO = new EstudianteDAO($conexion);
+        echo 'Es la funcion estatica autenticar del servicio para estudiantes';
+        return false;
+    }
     public function consultarTodos(){
         $Estudiantes = array();
         $this -> conexion -> iniciarConexion();

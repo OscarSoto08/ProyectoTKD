@@ -1,0 +1,101 @@
+<?php 
+
+require 'ui/session/components/head.php';
+require 'ui/session/includes/includes.php';
+
+// Definicion de variables globales
+$grado = null;
+$gradoServ = new GradoServicio();
+
+//Manejo de errores
+$error = false;
+
+if (isset($_POST['ingresar'])) {
+    // Verifica si el campo "rol" está definido
+    if (isset($_POST["rol"]) && $_POST["rol"] == "estudiante") {
+        $idGrado = $_POST["grado"];
+        $grado = new Grado($idGrado);
+        $gradoServ->consultar($grado);
+    }
+    
+    $user = new User(/**Colocar los datos del post */);
+
+    // echo "El correo del usuario es: " . $_POST["correo"];
+    $tempUserService = new UserServicio();
+
+    //Primero que nada tenemos que verificar si el usuario ya existe en la base de datos
+    if($tempUserService -> verificar($user)){
+        //entonces mandar un mensaje de que el usuario ya existe, sin embargo hay que tener en cuenta el estado del usuario
+        $status = 0;
+        switch ($user -> getEstado()) {
+            case 'pendiente':
+                $status = 1;
+                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                exit();
+            case 'permitido':
+                $status = 2;
+                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                exit();
+            case 'denegado': 
+                $status = 3;
+                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                exit();
+            default:
+                $status = 0;
+                break;
+        }
+    $user -> setEstado('pendiente');
+    }
+    
+    if($codigo = $tempUserService -> registrar($user)){
+       // echo "exito";     
+        //Aca se genera el codigo de verificacion junto con el objeto para tener en cuenta las fechas
+        $_SESSION["codigo"] = $codigo;
+        header("Location: validarCodigo.php"); 
+    }else{
+        $error = true;
+        header("Location: registro.php");
+        die();
+    }
+}
+
+?>
+
+<body>
+    <section class="container">
+        <?php include 'ui/session/components/signup_container.php'; ?>
+    </section>
+    <script>
+        function ocultarGrados() {
+            document.getElementById("grado").style.display = 'none';
+        }
+        function cargarGrados() {
+            document.getElementById('grado').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
+
+<!-- Pendiente:
+1. Terminar de colocar el atributo name en los campos -- Completado
+2. Agregar el campo de fecha de nacimiento en persona -- En proceso:
+
+INSERT INTO tu_tabla (columna_fecha) 
+VALUES (STR_TO_DATE('20/10/2024', '%d/%m/%Y'));
+
+
+3. Crear un nuevo archivo php que sea para validar el codigo solamente
+4. En el archivo php crear los parametros para enviar el correo
+5. Guardar el codigo en la base de datos como si fuera en una tabla temporal llamada codigo, debe tener la fecha de creacion para poder hacer la diferencia de tiempo y evaluar si han pasado más de 10 minutos
+6. Hacer la validacion
+7. Hacer la pagina de envio de correo al administrador para poder agregar al usuario dentro de la tabla estudiante o profesor si la informacion es veridica
+8. Hacer el crud del perfil administrador con cursos, eventos y usuarios
+9. Hacer el front-end del profesor
+10. Hacer el front-end del estudiante
+11. Diseñar las preguntas y poblar la base de datos
+12. Hacer el crud con preguntas
+13. Hacer el crud con eventos
+14. Implementar la funcion de que el estudiante pueda elegir participar en un evento 
+15. Implementar la funcion de que el profesor pueda ver todos los estudiantes y a que eventos han participado
+-->

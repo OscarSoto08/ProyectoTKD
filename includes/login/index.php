@@ -1,5 +1,5 @@
 <?php
-require ('loginHead.php');
+require 'loginHead.php';
 
 //manejo de errores
 $CamposIncompletos = false;

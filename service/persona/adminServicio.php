@@ -7,12 +7,14 @@ class AdminServicio{
         $this->adminDao = new AdministradorDAO($this -> conexion);
     }
 
-    public function autenticar(Administrador $administrador){
-        $this -> conexion -> iniciarConexion();
-        $this -> adminDao -> autenticar($administrador);
-        $this -> conexion -> cerrarConexion();
-        if($this -> conexion -> numFilas() > 0){
-            $fila = $this -> conexion -> extraer();
+    public static function autenticar(Persona $administrador){
+        $conexion = new Conexion();
+        $adminDao = new AdministradorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $adminDao -> autenticar($administrador);
+        $conexion -> cerrarConexion();
+        if($conexion -> numFilas() > 0){
+            $fila = $conexion -> extraer();
             $administrador -> setIdPersona($fila[0]);
             return true;
         }
