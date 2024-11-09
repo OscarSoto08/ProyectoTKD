@@ -25,7 +25,7 @@
     
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=person_add" />
-  <script src="userControl.js"></script>
+  <script src="js/userControl.js"></script>
 
 
 
@@ -33,31 +33,12 @@
 </head> 
 
 <?php
-require 'model/model_persona/Persona.php';
-require 'model/model_persona/Profesor.php';
-require 'model/model_persona/Estudiante.php';
-require 'model/model_persona/Administrador.php';
-require 'model/model_persona/User.php';
-require 'model/Grado.php';
 
-require 'Persistencia/Conexion.php';
-require 'Persistencia/DAO.php';
-require 'Persistencia/personaDAO/ProfesorDAO.php';
-require 'Persistencia/personaDAO/EstudianteDAO.php';
-require 'Persistencia/personaDAO/AdministradorDAO.php';
-require 'Persistencia/personaDAO/UserDAO.php';
-require 'Persistencia/GradoDAO.php';
-
-require 'service/persona/adminServicio.php';
-require 'service/persona/estudianteServicio.php';
-require 'service/persona/profesorServicio.php';
-require 'service/persona/UserServicio.php';
-require 'service/persona/gradoServicio.php';
-
+require 'ui/profile/admin/includes/includes.php';
 
 if(session_status() == PHP_SESSION_NONE) session_start();
 if (!isset($_SESSION['id'])) {
-    header("Location: ?pid=". base64_encode('ui/session/pages/login.php'));
+    header("Location: ?pid=". base64_encode('ui/session/pages/login.php').'&cs='. base64_encode('true'));
     exit; // Asegúrate de salir después de redirigir
 }
 

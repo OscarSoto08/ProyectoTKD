@@ -8,6 +8,12 @@ class EstudianteDAO extends DAO{
     /**
      * @inheritDoc
      */
+    public function autenticar($correo, $clave){
+        $sql = "SELECT idEstudiante FROM estudiante WHERE correo = ? AND clave = ?";
+        $tipos = 'ss';
+        $valores = array($correo, $clave);
+        $this -> conexion -> prepararConsulta( $sql, $tipos, ...$valores );
+    }
     public function actualizar($objeto) {
         $sql = "UPDATE estudiante SET nombre = ?, apellido = ?, correo = ?, clave = ?, Grado_idGrado = ?, estado = ?, fechaNac = ?, imagen = ?, telefono = ? WHERE idEstudiante = ?";
         $tipos = 'ssssissssi';

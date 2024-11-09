@@ -10,6 +10,7 @@ class AdminServicio{
     public static function autenticar(Persona $administrador){
         $conexion = new Conexion();
         $adminDao = new AdministradorDAO($conexion);
+        //echo '<br>Es la funcion estatica autenticar del servicio para administradores<br>';
         $conexion -> iniciarConexion();
         $adminDao -> autenticar($administrador);
         $conexion -> cerrarConexion();

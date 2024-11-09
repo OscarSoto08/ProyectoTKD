@@ -3,6 +3,13 @@ class ProfesorDAO extends DAO{
     public function __construct($conexion){
         parent::__construct($conexion);
     }
+
+    public function autenticar($correo, $clave){
+        $sql = 'SELECT idProfesor FROM profesor WHERE correo = ? AND clave = ?';
+        $tipos = 'ss';
+        $valores = [$correo, $clave];
+        return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
+    }
     /**
      * @inheritDoc
      */

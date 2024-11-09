@@ -15,7 +15,9 @@ $paginasSinSesion = [
 ];
 $paginasConSesion = [
     'ui/profile/admin/index.php',
-    'ui/profile/pages/gestion_usuarios.php'
+    'ui/profile/admin/pages/gestion_usuarios.php',
+    'ui/profile/student/index.php',
+    'ui/profile/teacher/index.php'
 ];
 
 if(empty($_GET['pid'])){
@@ -50,7 +52,7 @@ if(empty($_GET['pid'])){
             include 'ui/session/pages/login.php';
         }
     }else{
-        echo '<h1>ERROR 404</h1>';
+        include 'ui/error404.php';
     }
 }
 ?>

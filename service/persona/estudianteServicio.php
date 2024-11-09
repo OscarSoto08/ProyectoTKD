@@ -9,7 +9,16 @@ class estudianteServicio{
     public static function autenticar(Persona $estudiante){
         $conexion = new Conexion();
         $EstDAO = new EstudianteDAO($conexion);
-        echo 'Es la funcion estatica autenticar del servicio para estudiantes';
+        $conexion -> iniciarConexion();
+        //echo 'Es la funcion estatica autenticar del servicio para estudiantes';
+        $EstDAO -> autenticar($estudiante -> getCorreo(), $estudiante -> getClave());
+        if($conexion -> numFilas() == 1){
+            $resultado = $conexion -> extraer();
+            $estudiante -> setIdPersona($resultado[0]);
+            $conexion -> cerrarConexion();
+            return true;
+        }
+        $conexion -> cerrarConexion();
         return false;
     }
     public function consultarTodos(){

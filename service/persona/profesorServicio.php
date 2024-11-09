@@ -7,6 +7,19 @@ class ProfesorServicio{
         $this ->profesorDAO = new ProfesorDAO($this -> conexion);
     }
 
+    public static function autenticar(Persona $profesor){
+        $conexion = new Conexion();
+        $profesorDAO = new ProfesorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $profesorDAO -> autenticar($profesor -> getCorreo(), $profesor -> getClave());
+        $conexion -> cerrarConexion();
+        if($conexion -> numFilas() != 1) return false;
+
+        $resultado = $conexion -> extraer();
+        $profesor -> setIdPersona($resultado[0]);
+        return true;
+    }
+
     public function consultarTodos(){
         $profesores = array();
         $this -> conexion -> iniciarConexion();
