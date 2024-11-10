@@ -55,8 +55,8 @@ class UserDAO extends DAO{
         $maxId = $this -> maxId() + 1;
         if($objeto -> getGrado() == null) $idGrado = null;
         else $idGrado = $objeto -> getGrado() -> getIdGrado();
-        $sql = 'INSERT INTO `usuario_temporal`(`idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado`) VALUES (?,?,?,?,?,?,?,?,?)';
-        $tipos = 'isssssssi';
+        $sql = 'INSERT INTO `usuario_temporal`(`idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado`) VALUES (?,?,?,?,?,?,?,?,?,?)';
+        $tipos = 'issssssssi';
         $valores = [
             $maxId,
             $objeto->getNombre(),
@@ -64,9 +64,10 @@ class UserDAO extends DAO{
             $objeto->getCorreo(),
             $objeto->getClave(),
             $objeto->getFNac(),
-            $objeto->getRol(),
             $objeto -> getEstado(),
-            $idGrado    
+            $objeto -> getTelefono(),
+            $objeto->getRol(),
+            $idGrado
         ];
         if($this -> conexion -> prepararConsulta($sql, $tipos, ...$valores)) {
             return true;
@@ -95,4 +96,3 @@ class UserDAO extends DAO{
         return $this -> conexion -> prepararConsulta($sql, $tipos, $valores);
     }
 }
-?>

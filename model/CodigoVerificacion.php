@@ -28,4 +28,3 @@ class CodigoVerificacion{
     public function setEstado($estado) { $this->estado = $estado; }
     public function setUsuario($usuario) { $this->usuario = $usuario; }
 }
-?>

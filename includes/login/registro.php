@@ -37,21 +37,20 @@ if (isset($_POST['ingresar'])) {
         switch ($user -> getEstado()) {
             case 'pendiente':
                 $status = 1;
-                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                header("Location: ?pid=". base64_encode('ui/session/pages/signup.php'). "&UserAlreadyExists=1&status=". $status ."");
                 exit();
             case 'permitido':
                 $status = 2;
-                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                header("Location: ?pid=".base64_encode('ui/session/pages/signup.php')."&UserAlreadyExists=1&status=". $status ."");
                 exit();
             case 'denegado': 
                 $status = 3;
-                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                header("Location: ?pid=".base64_encode('ui/session/pages/signup.php')."&UserAlreadyExists=1&status=". $status ."");
                 exit();
-            default:
-                $status = 0;
-                break;
+            // default:
+            //     $status = 0;
+            //     break;
         }
-    $user -> setEstado('pendiente');
     }
     if($tempUserService -> registrar($user)){
        // echo "exito";     

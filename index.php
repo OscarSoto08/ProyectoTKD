@@ -3,6 +3,8 @@ session_start();
 
 if(isset($_GET['cs']) && base64_decode($_GET['cs']) == 'true') session_destroy();
 
+
+
 $paginasSinSesion = [
     'ui/home/pages/brief-info.php',
     'ui/home/pages/events.php',
@@ -11,7 +13,7 @@ $paginasSinSesion = [
     'ui/session/pages/login.php',
     'ui/session/pages/signup.php',
     'ui/session/pages/success.php',
-    'ui/session/pages/verify-code.php'
+    'ui/session/pages/verify_code.php'
 ];
 $paginasConSesion = [
     'ui/profile/admin/index.php',

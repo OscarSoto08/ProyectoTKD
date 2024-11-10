@@ -1,13 +1,16 @@
 <?php 
-require 'loginHead.php';
+require 'ui/session/components/head.php';
+
+require 'ui/session/includes/includes.php';
+
+if(session_status() == PHP_SESSION_NONE) session_start();
 
 if(empty($_SESSION['codigo'])){
-    session_destroy();
-    header('Location: ../login');
+    header('Location: ?cs='. base64_encode('true'));
     die();
 }
+$codigo = unserialize($_SESSION ['codigo']);
 
-$codigo = $_SESSION['codigo'];
 $codigoServ = new CodigoVerificacionServicio();
 
 $user = $codigo -> getUsuario();
@@ -45,10 +48,10 @@ if (isset($_POST['validar'])) {
     $CodigoIngresado = $_POST['codigo'];
     if($CodigoIngresado == $idCodigoVerdadero){
         $codigoServ -> cambiarEstado($codigo, 'invalido');
-        header("Location: success.php");
+        header("Location: ?pid=". base64_encode('ui/session/pages/success.php'));
         exit();
     }else{
-        header("Location: validarCodigo.php?inv=1");
+        header("Location: ?pid=".base64_encode('ui/session/pages/verify_code.php')."&inv=1");
     }
 }
 
@@ -85,11 +88,11 @@ if(isset($_GET["resend"])) {
                 <?php }  ?>  
             <div class="form-container">
                 
-                <a href="../../index.php">
-                    <img id="kopulso-login-img" src="../../img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
+                <a href="?">
+                    <img id="kopulso-login-img" src="img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
                 </a>
                 <h1 class="opacity">Código de verificación</h1>
-                <form action="validarCodigo.php" method="post">
+                <form action="?pid=<?php echo base64_encode('ui/session/pages/verify_code.php');    ?>" method="post">
                     <p>Hemos enviado un código de verificación a tu correo electrónico. Por favor, ingresa el código en el campo de abajo para continuar.</p>
                     <input id="codigo" name="codigo" type="text" placeholder="######" oninput="upperCase()" required/>
                     <button type="submit" class="opacity" name="validar">VALIDAR</button>

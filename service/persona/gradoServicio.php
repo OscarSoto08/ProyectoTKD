@@ -26,9 +26,8 @@ class GradoServicio{
         $this -> conexion -> iniciarConexion();
         $this -> GradoDAO -> consultarPorId($idGrado);
         $fila = $this -> conexion -> extraer();
-        $nombre = $fila[0];
         $this -> conexion -> cerrarConexion();
-        return $nombre;
+        return $fila[0];
     }
 
     public function consultarTodos(){

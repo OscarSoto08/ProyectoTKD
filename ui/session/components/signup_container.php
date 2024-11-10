@@ -43,6 +43,8 @@
         <input id="correo" name="correo" type="email" placeholder="CORREO" required />
         <label for="password">Contraseña</label>
         <input id="password" name="clave" type="password" placeholder="CONTRASEÑA" required />
+        <label for="telefono">Telefono</label>
+        <input id="telefono" name="telefono" type="tel" placeholder="TELEFONO" pattern="[0-9]{10}" required />
         
         <label for="rol">Soy...</label>
         <div class="radio">

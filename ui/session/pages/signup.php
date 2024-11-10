@@ -15,10 +15,21 @@ if (isset($_POST['ingresar'])) {
     if (isset($_POST["rol"]) && $_POST["rol"] == "estudiante") {
         $idGrado = $_POST["grado"];
         $grado = new Grado($idGrado);
-        $gradoServ->consultar($grado);
+        $grado -> setNombre($gradoServ->consultar($idGrado));
     }
     
-    $user = new User(/**Colocar los datos del post */);
+    $user = new User(
+        null,
+        $_POST['nombre'],
+        $_POST['apellido'],
+        $_POST['correo'],
+        md5($_POST['clave']),
+        $_POST['fNac'],
+        'pendiente',
+        $_POST['telefono'],
+        $_POST['rol'],
+        $grado
+    );
 
     // echo "El correo del usuario es: " . $_POST["correo"];
     $tempUserService = new UserServicio();
@@ -30,31 +41,48 @@ if (isset($_POST['ingresar'])) {
         switch ($user -> getEstado()) {
             case 'pendiente':
                 $status = 1;
-                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                header("Location: ?pid=".base64_encode('ui/session/pages/signup.php')."&UserAlreadyExists=1&status=". $status ."");
                 exit();
             case 'permitido':
                 $status = 2;
-                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                header("Location: ?pid=".base64_encode('ui/session/pages/signup.php')."&UserAlreadyExists=1&status=". $status ."");
                 exit();
             case 'denegado': 
                 $status = 3;
-                header("Location: registro.php?UserAlreadyExists=1&status=". $status ."");
+                header("Location: ?pid=".base64_encode('ui/session/pages/signup.php')."&UserAlreadyExists=1&status=". $status ."");
                 exit();
             default:
                 $status = 0;
                 break;
         }
-    $user -> setEstado('pendiente');
     }
     
-    if($codigo = $tempUserService -> registrar($user)){
+    if($tempUserService -> registrar($user)){
        // echo "exito";     
         //Aca se genera el codigo de verificacion junto con el objeto para tener en cuenta las fechas
-        $_SESSION["codigo"] = $codigo;
-        header("Location: validarCodigo.php"); 
+        $codigoServ = new CodigoVerificacionServicio();
+        $idCodigo = $codigoServ -> generarCodigo(6);
+        $fecha_creado = date('Y-m-d H:i:s');
+        $fecha_expirado = date('Y-m-d H:i:s', strtotime('+10 minutes'));
+
+        $codigo = new CodigoVerificacion($idCodigo, $fecha_creado, $fecha_expirado, 'valido', $user);
+
+        //agregar el codigo a la bd
+        $codigoServ -> insertar($codigo);
+        
+        $mailRegistro = new Signup_Mail(
+            $user->getCorreo(),
+            $user->getNombre(),
+            $idCodigo
+        );
+
+        //faltaria enviar el codigo a la base de datos
+        $mailRegistro -> enviarCorreo();
+        $_SESSION["codigo"] = serialize($codigo);
+        header("Location: ?pid=" . base64_encode('ui/session/pages/verify_code.php')); 
     }else{
         $error = true;
-        header("Location: registro.php");
+        header("Location: ?pid=". base64_encode("ui/session/pages/signup.php"));
         die();
     }
 }
