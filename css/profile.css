@@ -51,7 +51,7 @@ Recuperado de uiverse
 
 #opciones-navbar{
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   width: 100%;
 }
 

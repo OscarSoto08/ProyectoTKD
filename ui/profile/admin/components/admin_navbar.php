@@ -6,7 +6,10 @@ $script_actual = $ruta[count($ruta)-1];
 
 <nav class="mb-5 navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand  mx-3" href="?pid=<?php echo base64_encode('ui/profile/admin/index.php')?>"><?php echo $administrador -> getNombre(). ' '. $administrador -> getApellido(); ?></a>
+    <a class="navbar-brand  mx-3" href="?pid=<?php echo base64_encode('ui/profile/admin/index.php')?>">
+      <img src="img/image.png" alt="" style="width: 40px; height: 40px;" srcset="">
+      <?php echo $administrador -> getNombre(). ' '. $administrador -> getApellido(); ?>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -51,8 +54,14 @@ $script_actual = $ruta[count($ruta)-1];
         <li class="nav-item">
           <a class="nav-link" href="#">Gestionar cursos</a>
         </li>
-        <li class="nav-item">
+        
+      </ul>
+      <ul class="right navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
           <a class="nav-link" href="#">Reportes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Auditorias</a>
         </li>
         <li class="nav-item dropdown" id="perfil-dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,7 +75,6 @@ $script_actual = $ruta[count($ruta)-1];
           </ul>
         </li>
       </ul>
-      
     </div>
   </div>
 </nav>

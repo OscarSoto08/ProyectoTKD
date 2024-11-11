@@ -1,7 +1,7 @@
 <?php 
 require 'ui/session/components/head.php';
 
-require 'ui/session/includes/includes.php';
+require 'ui/session/includes.php';
 
 if(session_status() == PHP_SESSION_NONE) session_start();
 

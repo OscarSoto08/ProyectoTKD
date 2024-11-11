@@ -1,5 +1,5 @@
 <?php
-class estudianteServicio{
+class EstudianteServicio{
     private $conexion;
     private $EstDAO;
     public function __construct(){

@@ -34,7 +34,7 @@
 
 <?php
 
-require 'ui/profile/admin/includes/includes.php';
+require 'ui/profile/admin/includes.php';
 
 if(session_status() == PHP_SESSION_NONE) session_start();
 if (!isset($_SESSION['id'])) {

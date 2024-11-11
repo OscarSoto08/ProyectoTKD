@@ -19,4 +19,4 @@ require 'service/persona/adminServicio.php';
 require 'service/persona/estudianteServicio.php';
 require 'service/persona/profesorServicio.php';
 require 'service/persona/UserServicio.php';
-require 'service/persona/gradoServicio.php';
+require 'service/gradoServicio.php';

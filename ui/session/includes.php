@@ -17,7 +17,7 @@ require_once 'Persistencia/personaDAO/ProfesorDAO.php';
 
 require_once 'service/codigoVerificacionServicio.php';
 require_once 'service/persona/UserServicio.php';
-require_once 'service/persona/gradoServicio.php';
+require_once 'service/gradoServicio.php';
 require_once 'service/persona/estudianteServicio.php';
 require_once 'service/persona/adminServicio.php';
 require_once 'service/persona/profesorServicio.php';
