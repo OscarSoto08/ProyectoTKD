@@ -43,3 +43,7 @@ VALUES (1, 'Oscar', 'Gonzalez', 'og@tkd.com', md5('123'), 'activo');
 
 
 INSERT INTO `Estudiante`(`idEstudiante`, `nombre`, `apellido`, `correo`, `clave`, `Grado_idGrado`, `estado`) VALUES ('1', 'Deisy', 'Soto', 'deisysoto@kopulso.com', md5('R0j02024!'), 9, 'activo');
+
+
+INSERT INTO `evento` (`idEvento`, `nombre`, `descripcion`, `Ciudad_idCiudad`, `estado`, `precio`, `fecha_inicio`, `fecha_fin`) VALUES
+(1, 'Viaje grupal a Panamá', 'Compartir e intercambiar conocimientos; profundizar nuestros lazos como artistas marciales', 4, 'vencido', 2500000.000, '2024-10-06 00:00:00', '2024-10-11 00:00:00');

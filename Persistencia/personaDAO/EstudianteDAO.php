@@ -95,5 +95,3 @@ class EstudianteDAO extends DAO{
         return intval($fila[0]);
     }
 }
-
-?>

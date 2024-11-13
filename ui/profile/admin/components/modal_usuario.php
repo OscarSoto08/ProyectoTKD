@@ -33,7 +33,7 @@
                   <div class="col-lg-6">
                   <div class="form-group">
                   <label for="clave" class="col-form-label">Contraseña</label>
-                  <input type="text" class="form-control" id="clave" aria-describedby="passHelp">
+                  <input type="password" class="form-control" id="clave" aria-describedby="passHelp">
                   <div id="passHelp" class="form-text text-center">Por motivos de seguridad, la clave que ingreses será encriptada</div>
                   </div>
                   </div>  
@@ -50,8 +50,14 @@
                       <div class="form-group">
                       <label for="estado" class="col-form-label">Estado</label>
                       <select name="estado" id="estado" aria-label="Estado actual del usuario">
-                        <option value="1" selected>Activo</option>
-                        <option value="2">Inactivo</option>
+                        <?php if($_GET['rol'] != '4'){ ?>
+                          <option value="activo" selected>Activo</option>
+                          <option value="inactivo">Inactivo</option>
+                        <?php } else { ?>
+                          <option value="pendiente" selected>Pendiente</option>
+                          <option value="permitido">Permitido</option>
+                          <option value="denegado">Denegado</option>
+                        <?php } ?>
                       </select>
                     </div>            
                   </div> 
@@ -65,8 +71,8 @@
                   <div class="form-group">
                     <label for="rol" class="col-form-label">Rol</label>
                     <select name="rol" id="rol" aria-label="Validar si es profesor o estudiante en caso de ser usuario temporal">
-                      <option value="1">Estudiante</option>
-                      <option value="2">Profesor</option>
+                      <option value="estudiante" selected>Estudiante</option>
+                      <option value="profesor">Profesor</option>
                     </select>
                     </div>
                 </div>  

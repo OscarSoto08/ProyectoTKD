@@ -67,7 +67,7 @@ if(isset($_GET["resend"])) {
     $codigoServ -> insertar($codigo);
 
     $_SESSION["codigo"] = $codigo;
-    $mailRegistro = new EmailRegistro(
+    $mailRegistro = new Signup_Mail(
         $user->getCorreo(),
         $user->getNombre(),
         $idCodigo

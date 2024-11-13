@@ -112,14 +112,17 @@ $('#form_usuarios').submit((e)=>{
     estado = $.trim($('#estado').val());
     fechaNac = $.trim($('#fechaNac').val());
     
-    grado = ($('#grado').css('display') === 'block') ? $.trim($('#grado').val()) : "";
-    rol = ($('#rol').css('display') === 'block') ? $.trim($('#rol').val()) : "";
+    grado =  $.trim($('#grado').val()) ?? "";
+    rol = $.trim($('#rol').val()) ?? "";
+
 
 
     console.log("id del usuario: "+ idUsuario); 
     console.log("nombre del usuario: "+  nombre);
     console.log("accion: "+ action);
     console.log("rol del usuario recibido por GET: " + rolParam);
+    console.log("Grado: " + grado)
+    console.log("Rol: " + rol)
     $.ajax({
         url: 'ui/profile/admin/pages/crud_usuario.php',
         type: 'POST',
@@ -137,6 +140,8 @@ $('#form_usuarios').submit((e)=>{
     });
     $('#modalCRUD').modal('hide');		
 }); 
+
+
 //para limpiar los campos antes de dar de Alta una Persona
 $(document).on("click", "#btnNuevo", function(){  
     idUsuario=null;
@@ -147,10 +152,14 @@ $(document).on("click", "#btnNuevo", function(){
     
     if(rolParam == '2' || rolParam == '4'){
         $("#grado-section").css("display", "block");
+        $('#grado-section option').prop('selected', false);  // Deselecciona todas las opciones
+        $('#grado-section option:first').prop('selected', true);  // Selecciona el primer option
+
     }
     if(rolParam == '4'){
+        $('#rol-section option').prop('selected', false);  // Deselecciona todas las opciones
         $("#rol-section").css("display", "block");  
-        
+        $('#rol-section option:first').prop('selected', true);  // Selecciona el primer option
     }
     action = 1;  
     console.log("accion desde el evento btn nuevo: " + action)
@@ -159,12 +168,14 @@ $(document).on("click", "#btnNuevo", function(){
 $("#rol").change(function() {
     
     var valorSeleccionado = $(this).val();
-    if (valorSeleccionado == '2') {
+    if (valorSeleccionado == 'profesor') {
         $("#grado-section").css("display", "none");
     }
-    if(valorSeleccionado == '1'){
+    if(valorSeleccionado == 'estudiante'){
         $("#grado-section").css("display", "block");
         // Aqui se agrega el atributo selected al blanco
+        $('#grado-section option').prop('selected', false);  // Deselecciona todas las opciones
+        $('#grado-section option:first').prop('selected', true);  // Selecciona el primer option
     }
 });
 
@@ -217,6 +228,7 @@ $(document).on("click", ".btnEditar", function(){
             $("#telefono").val(data.telefono);
             $("#estado").val(data.estado);
             $("#fechaNac").val(data.fechaNac);
+            $("#clave").val(data.clave)
             if(rolParam == 2 || rolParam == 4) $("#grado").val(data.grado);
             if(rolParam == 4) $("#rol").val(data.rol);
 

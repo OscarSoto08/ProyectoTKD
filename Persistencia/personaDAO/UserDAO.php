@@ -13,7 +13,7 @@ class UserDAO extends DAO{
             $objeto -> getCorreo(),
             $objeto -> getClave(),
             $objeto -> getRol(),
-            $objeto -> getGrado() -> getIdgrado(),
+            $objeto -> getGrado(),
             $objeto -> getEstado(),
             $objeto -> getFNac(),
             $objeto -> getTelefono(),

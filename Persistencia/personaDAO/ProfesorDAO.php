@@ -14,7 +14,7 @@ class ProfesorDAO extends DAO{
      * @inheritDoc
      */
     public function actualizar($objeto) {
-        $sql = "UPDATE `profesor` SET `nombre`=?,`apellido`=?,`correo`=?,`clave`=?,`estado`=?,`imagen`=?,`fechanac`=?,`telefono`=? WHERE `idProfesor` = ?";
+        $sql = "UPDATE `profesor` SET `nombre`=?,`apellido`=?,`correo`=?,`clave`=?,`estado`=?,`imagen`=?,`fechaNac`=?,`telefono`=? WHERE `idProfesor` = ?";
         $tipos = 'ssssssssi';
         $valores = [
             $objeto -> getNombre(),

@@ -2,9 +2,45 @@
 /* Reseteo de estilo para eliminar los márgenes y paddings por defecto 
    y establecer el sistema de caja como border-box para un cálculo más intuitivo */
 
-   * {
+* {
     font-family: 'Noto Sans KR', sans-serif;
 }
+
+/* Personalización de la barra de desplazamiento en el contenedor */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra de desplazamiento */
+    height: 12px; /* Altura de la barra horizontal (si la hay) */
+  }
+  
+  /* Fondo de la barra de desplazamiento */
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color de fondo de la pista */
+    border-radius: 10px;
+  }
+  
+  /* Estilo del "pulgar" (el botón que se mueve) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #29365f; /* Color del pulgar */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 3px solid #f1f1f1; /* Borde alrededor del pulgar */
+    transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+  }
+  
+  /* Efecto al pasar el ratón sobre el "pulgar" */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #29365f; /* Color más oscuro cuando se pasa el ratón */
+  }
+  
+  /* Estilo para la barra de desplazamiento horizontal */
+  ::-webkit-scrollbar-horizontal {
+    height: 8px; /* Ancho de la barra horizontal */
+  }
+  
+  /* Estilo del pulgar horizontal */
+  ::-webkit-scrollbar-thumb:horizontal {
+    background-color: #29365f;
+    border-radius: 10px;
+  }
 
 #offcanvasDarkNavbarLabel{
     font-size: 30px;

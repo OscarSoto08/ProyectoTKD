@@ -84,4 +84,3 @@ class Signup_Mail {
 // Ejemplo de uso
 // $emailRegistro = new EmailRegistro('destinatario@example.com', '123456');
 // $emailRegistro->enviarCorreo();
-?>

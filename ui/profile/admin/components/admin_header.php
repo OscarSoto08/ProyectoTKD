@@ -37,7 +37,7 @@
 require 'ui/profile/admin/includes.php';
 
 if(session_status() == PHP_SESSION_NONE) session_start();
-if (!isset($_SESSION['id'])) {
+if (!isset($_SESSION['id']) || $_SESSION['tipoUsuario'] != 'administrador') {
     header("Location: ?pid=". base64_encode('ui/session/pages/login.php').'&cs='. base64_encode('true'));
     exit; // Asegúrate de salir después de redirigir
 }

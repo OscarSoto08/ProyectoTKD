@@ -17,9 +17,10 @@ $paginasSinSesion = [
 ];
 $paginasConSesion = [
     'ui/profile/admin/index.php',
-    'ui/profile/admin/pages/gestion_usuarios.php',
+    'ui/profile/admin/pages/manage_users.php',
+    'ui/profile/admin/pages/manage_events.php',
     'ui/profile/student/index.php',
-    'ui/profile/teacher/index.php'
+    'ui/profile/teacher/index.php',
 ];
 
 if(empty($_GET['pid'])){

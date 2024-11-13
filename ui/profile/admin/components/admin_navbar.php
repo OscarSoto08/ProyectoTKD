@@ -1,5 +1,5 @@
 <?php 
-$ruta = explode("/",$_SERVER["SCRIPT_NAME"]); 
+$ruta = explode("/",base64_decode($_GET['pid'])); 
 //  foreach ($ruta as $key){ echo "<h1>$key</h1>";}
 $script_actual = $ruta[count($ruta)-1];
 ?>
@@ -16,13 +16,13 @@ $script_actual = $ruta[count($ruta)-1];
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="opciones-navbar">
         <li class="nav-item">
-        <a class="nav-link <?php echo ($script_actual == 'index.php') ? 'active'  : ''; ?>" aria-current="page" href="../admin">Inicio</a>
+        <a class="nav-link <?php echo ($script_actual == 'index.php') ? 'active'  : ''; ?>" aria-current="page" href="?pid=<?php echo base64_encode('ui/profile/admin/index.php') ?>">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Gestionar eventos</a>
+          <a class="nav-link <?php echo ($script_actual == 'manage_events.php') ? 'active'  : ''; ?>" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_events.php')?>">Gestionar eventos</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle <?php echo ($script_actual == 'gestion_usuarios.php') ? 'active' : ''?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle <?php echo ($script_actual == 'manage_users.php') ? 'active' : ''?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            <?php 
            if(isset($_GET["rol"])){
             switch ($_GET["rol"]) {
@@ -44,11 +44,11 @@ $script_actual = $ruta[count($ruta)-1];
            ?>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/gestion_usuarios.php')?>&rol=1">Profesores</a></li>
-            <li><a class="dropdown-item" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/gestion_usuarios.php')?>&rol=2">Estudiantes</a></li>
+            <li><a class="dropdown-item" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_users.php')?>&rol=1">Profesores</a></li>
+            <li><a class="dropdown-item" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_users.php')?>&rol=2">Estudiantes</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/gestion_usuarios.php')?>&rol=3">Administradores</a></li>
-            <li><a class="dropdown-item" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/gestion_usuarios.php')?>&rol=4">Usuarios temporales</a></li>
+            <li><a class="dropdown-item" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_users.php')?>&rol=3">Administradores</a></li>
+            <li><a class="dropdown-item" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_users.php')?>&rol=4">Usuarios temporales</a></li>
           </ul>
         </li>
         <li class="nav-item">

@@ -14,8 +14,7 @@ if (isset($_POST['ingresar'])) {
     // Verifica si el campo "rol" está definido
     if (isset($_POST["rol"]) && $_POST["rol"] == "estudiante") {
         $idGrado = $_POST["grado"];
-        $grado = new Grado($idGrado);
-        $grado -> setNombre($gradoServ->consultar($idGrado));
+        $grado = $gradoServ->consultar($idGrado);
     }
     
     $user = new User(

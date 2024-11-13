@@ -12,4 +12,3 @@ class Grado{
     public function setIdGrado($idGrado){ $this->idGrado = $idGrado; }
     public function setNombre($nombre){ $this->nombre = $nombre; }
 }
-?>

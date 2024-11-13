@@ -18,4 +18,3 @@ abstract class DAO{
     abstract function eliminar($id);
     abstract function maxId();
 }
-?>

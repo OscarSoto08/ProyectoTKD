@@ -7,6 +7,13 @@ class UserServicio{
         $this->UserDAO = new UserDAO($this -> conexion);
     }
 
+    public function actualizar(User $user){
+        $this -> conexion -> iniciarConexion();
+        
+        $resultado = $this -> UserDAO -> actualizar($user);
+        $this -> conexion -> cerrarConexion();
+        return $resultado;
+    }
     public function registrar(User $User){
         $this -> conexion -> iniciarConexion();
         
