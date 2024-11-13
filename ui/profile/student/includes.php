@@ -20,6 +20,6 @@ $primary_color = [
 ];
 
 $secondary_color = [
-    "1" => "#000",
+    "1" => "black",
     "9" => "white"
 ];

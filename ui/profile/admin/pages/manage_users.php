@@ -1,5 +1,4 @@
-<?php require 'ui/profile/admin/components/admin_header.php';?>
-
+<?php require_once 'ui/profile/admin/components/admin_header.php';?>
 
 <body>
 

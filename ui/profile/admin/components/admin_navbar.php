@@ -19,7 +19,7 @@ $script_actual = $ruta[count($ruta)-1];
         <a class="nav-link <?php echo ($script_actual == 'index.php') ? 'active'  : ''; ?>" aria-current="page" href="?pid=<?php echo base64_encode('ui/profile/admin/index.php') ?>">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php echo ($script_actual == 'manage_events.php') ? 'active'  : ''; ?>" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_events.php')?>">Gestionar eventos</a>
+          <a class="nav-link <?php echo ($script_actual == 'events.php') ? 'active'  : ''; ?>" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/events.php')?>">Eventos</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle <?php echo ($script_actual == 'manage_users.php') ? 'active' : ''?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,7 +39,7 @@ $script_actual = $ruta[count($ruta)-1];
                 echo 'Usuarios temporales';
             }
            }else{
-            echo 'Gestionar usuarios';
+            echo 'Usuarios';
            }
            ?>
           </a>
@@ -52,7 +52,7 @@ $script_actual = $ruta[count($ruta)-1];
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Gestionar cursos</a>
+          <a class="nav-link" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_courses.php'); ?>">Cursos</a>
         </li>
         
       </ul>

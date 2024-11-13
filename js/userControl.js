@@ -224,7 +224,6 @@ $(document).on("click", ".btnEditar", function(){
             $("#nombre").val(data.nombre);
             $("#apellido").val(data.apellido);
             $("#correo").val(data.correo);
-            $("#clave").val('');
             $("#telefono").val(data.telefono);
             $("#estado").val(data.estado);
             $("#fechaNac").val(data.fechaNac);

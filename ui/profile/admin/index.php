@@ -1,11 +1,17 @@
-<?php require "ui/profile/admin/components/admin_header.php"; ?>
+<?php
+
+require "ui/profile/admin/components/admin_header.php";
+
+
+?>
+
 <body>
 
 <div class="mb-5 container">
  <div class="wrapper">
    <div class="banner-image mb-3"> <img src="https://i.ibb.co/1TLZ2Tg/rhino-Adult.png" alt="rhino-Adult" border="0"></div>
    <h1> <?php echo $administrador -> getNombre() . ' '. $administrador -> getApellido() ; ?></h1>
-   <p><?php echo $administrador -> getCorreo(); ?></p>
+   <p><?php echo $administrador-> getCorreo(); ?></p>
   </div>
   <div class="button-wrapper"> 
   <button class="btn outline">CONFIGURACIÓN</button>
@@ -15,9 +21,9 @@
 </div>
 
 
-  <!-- Sección de Usuarios -->
-  <main class="container row">
-      <section id="usuarios" class="col">
+<div class=" row mx-auto gx-5" id="more_info">
+    <!-- Sección de Usuarios -->
+      <section id="usuarios" class="col-md-4">
         <hgroup>
           <h2>Gestión de Usuarios</h2>
           <h3>Controla y administra los roles de los usuarios</h3>
@@ -30,7 +36,7 @@
       </section>
 
       <!-- Sección de Eventos -->
-      <section id="eventos" class="col">
+      <section id="eventos" class="col-md-4">
         <hgroup>
           <h2>Gestión de Eventos</h2>
           <h3>Organiza los eventos de la empresa</h3>
@@ -43,7 +49,7 @@
       </section>
 
       <!-- Sección de Cursos -->
-      <section id="cursos" class="col">
+      <section id="cursos" class="col-md-4">
         <hgroup>
           <h2>Gestión de Cursos</h2>
           <h3>Administra los cursos de los estudiantes</h3>
@@ -56,12 +62,6 @@
       </section>
     </div>
   </main>
-  <style>
-    section{
-      border: 2px solid beige;
-      margin: 50px 0;
-      padding: 30px;
-    }
-  </style>
+
 </body>
 </html>

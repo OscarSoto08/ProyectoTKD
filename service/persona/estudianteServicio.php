@@ -48,8 +48,7 @@ class EstudianteServicio{
     public function consultarPorId($id) {
         $this->conexion->iniciarConexion();
         $Estudiante = null; // Inicializamos en null
-    
-        if ($res = $this->EstDAO->consultarPorId($id)) { // Se espera que esto devuelva un boolean
+        if ($this->EstDAO->consultarPorId($id)) { // Se espera que esto devuelva un boolean
             $fila = $this->conexion->extraer(); // Obtener la fila
             if ($fila) { 
                 $Estudiante = new Estudiante(

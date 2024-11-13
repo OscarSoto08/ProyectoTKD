@@ -24,7 +24,7 @@ class AdministradorDAO extends DAO{
         ";
         $tipos = "i";
         $valores = array($id);
-        $this -> conexion -> prepararConsulta($consulta, $tipos, $valores);
+        $this -> conexion -> prepararConsulta($consulta, $tipos, ...$valores);
     }
     public function insertar($objeto){
         $sql = "INSERT INTO `administrador`(`idAdministrador`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `telefono`, `imagen`, `fechaNac`) VALUES (?,?,?,?,?,?,?,?,?)";
