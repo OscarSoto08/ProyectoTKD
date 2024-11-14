@@ -25,7 +25,10 @@ class AdminServicio{
     public function consultarPorId($id_user){
         $this -> conexion -> iniciarConexion();
         $this -> adminDao -> consultarPorId( $id_user);
-        $fila = $this -> conexion -> extraer();
+        if(!$fila = $this -> conexion -> extraer()){
+            $this -> conexion -> cerrarConexion();
+            return null;
+        }else{
         $admin = new Administrador(
             $id_user,
             $fila[0],
@@ -39,6 +42,7 @@ class AdminServicio{
         );
         $this -> conexion -> cerrarConexion();
         return $admin;
+        }
     }
 
     public function consultarTodos(){

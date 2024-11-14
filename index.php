@@ -21,7 +21,6 @@ $paginasConSesion = [
     'ui/profile/admin/pages/manage_events.php',
     'ui/profile/admin/pages/manage_courses.php',
     'ui/profile/admin/pages/manage_gallery.php',
-    'ui/profile/admin/pages/events.php',
     'ui/profile/student/index.php',
     'ui/profile/teacher/index.php',
 ];

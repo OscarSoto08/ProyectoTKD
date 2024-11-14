@@ -19,7 +19,7 @@ $script_actual = $ruta[count($ruta)-1];
         <a class="nav-link <?php echo ($script_actual == 'index.php') ? 'active'  : ''; ?>" aria-current="page" href="?pid=<?php echo base64_encode('ui/profile/admin/index.php') ?>">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php echo ($script_actual == 'events.php') ? 'active'  : ''; ?>" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/events.php')?>">Eventos</a>
+          <a class="nav-link <?php echo ($script_actual == 'manage_events.php') ? 'active'  : ''; ?>" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_events.php')?>">Eventos</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle <?php echo ($script_actual == 'manage_users.php') ? 'active' : ''?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,10 +56,19 @@ $script_actual = $ruta[count($ruta)-1];
         </li>
         
       </ul>
-      <ul class="right navbar-nav me-auto mb-2 mb-lg-0">
+      <?php if($script_actual == 'manage_events.php'){ ?>
+     <ul class="navbar-nav" style="margin-right: auto; ">
+      <li class="nav-item">
+      <input type="text" style="border-radius: 30px; text-align: center;" class="form-control" placeholder="Buscar Evento" aria-label="Recipient's username" aria-describedby="basic-addon2">
+
+      </li>
+     </ul>
+     <?php } ?>
+      <ul class="right navbar-nav mr-auto mb-2 mb-lg-0">
       <li class="nav-item">
           <a class="nav-link" href="#">Reportes</a>
         </li>
+        
         <li class="nav-item">
           <a class="nav-link" href="#">Auditorias</a>
         </li>

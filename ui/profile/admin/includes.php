@@ -34,4 +34,8 @@ if (!isset($_SESSION['id']) || $_SESSION['tipoUsuario'] != 'administrador') {
 }
 
 $adminService = new AdminServicio();
-$administrador = $adminService->consultarPorId($_SESSION['id']);
+if(!$administrador = $adminService->consultarPorId($_SESSION['id'])){ //Si el administrador llega a eliminarse a si mismo
+    session_destroy();
+    header('Location: ?pid='. base64_encode('ui/session/pages/login.php'));
+}
+

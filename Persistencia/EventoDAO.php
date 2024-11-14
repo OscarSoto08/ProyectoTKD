@@ -20,7 +20,7 @@ class EventoDAO extends DAO {
      * @inheritDoc
      */
     public function consultarTodos() {
-        $sql = 'SELECT idEvento, nombre, descripcion, fecha_inicio, fecha_fin, Ciudad_idCiudad, precio, estado FROM evento';
+        $sql = 'SELECT idEvento, nombre, descripcion, fecha_inicio, fecha_fin, Ciudad_idCiudad, precio, estado FROM evento WHERE 1 ORDER BY fecha_inicio DESC';
         $this -> conexion -> ejecutarConsulta($sql);
     }
     
