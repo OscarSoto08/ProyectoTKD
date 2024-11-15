@@ -153,7 +153,7 @@ CREATE TABLE `evento` (
   `nombre` varchar(45) NOT NULL,
   `descripcion` text,
   `Ciudad_idCiudad` int NOT NULL,
-  `estado` enum('vencido','disponible') NOT NULL,
+  `estado` enum('VENCIDO','DISPONIBLE') NOT NULL,
   `precio` decimal(15,3) NOT NULL,
   `fecha_inicio` datetime NOT NULL,
   `fecha_fin` datetime NOT NULL
@@ -164,7 +164,8 @@ CREATE TABLE `evento` (
 --
 
 INSERT INTO `evento` (`idEvento`, `nombre`, `descripcion`, `Ciudad_idCiudad`, `estado`, `precio`, `fecha_inicio`, `fecha_fin`) VALUES
-(1, 'Viaje grupal a Panamá', 'Evento dedicado a compartir e intercambiar conocimientos y profundizar nuestros lazos como artistas marciales a nivel internacional', 4, 'vencido', 2500000.000, '2024-10-06 00:00:00', '2024-10-11 00:00:00');
+(1001, 'Viaje grupal a Panamá', 'Evento dedicado a compartir e intercambiar conocimientos y profundizar nuestros lazos como artistas marciales a nivel internacional', 4, 'VENCIDO', 1200000.000, '2024-10-06 08:00:00', '2024-10-11 16:00:00'),
+(1002, 'Viaje a Corea del Sur', 'Una experiencia única de crecimiento personal, donde se cultiva el respeto, la disciplina y la camaradería, todo mientras se vive la esencia de Corea en cada rincón.', 3, 'VENCIDO', 4000000.000, '2024-09-01 00:00:00', '2024-09-11 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -183,9 +184,14 @@ CREATE TABLE `galeria_evento` (
 --
 
 INSERT INTO `galeria_evento` (`idGaleria_Evento`, `imagen`, `idEvento`) VALUES
-(1, 'img/events/panama/one.jpg', 1),
-(2, 'img/events/panama/two.jpg', 1),
-(3, 'img/events/panama/tree.jpg', 1);
+(1, 'img/events/panama/one.jpg', 1001),
+(2, 'img/events/panama/two.jpg', 1001),
+(3, 'img/events/panama/tree.jpg', 1001),
+(4, 'img/events/corea/img1.jpg', 1002),
+(5, 'img/events/corea/img2.jpg', 1002),
+(6, 'img/events/corea/img3.jpeg', 1002),
+(7, 'img/events/corea/img4.jpg', 1002),
+(8, 'img/events/corea/img5.jpg', 1002);
 
 -- --------------------------------------------------------
 
