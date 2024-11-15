@@ -42,7 +42,7 @@ $estado = $_POST['estado'] ?? '';
 
 
 
-$usuario_servicio = null;
+$usuario_servicio = '';
 $usuario = null;
 $data = [];
 
@@ -50,19 +50,19 @@ $data = [];
 
 switch ($rolParam) {
 case '1':
-    $usuario_servicio = new ProfesorServicio();
+    $usuario_servicio = 'ProfesorServicio';
     $usuario = new Profesor($id_user, $nombre, $apellido, $correo, $clave, null,$telefono, $fNac, $estado);
     break;
 case '2':
-    $usuario_servicio = new estudianteServicio();
+    $usuario_servicio = 'EstudianteServicio';
     $usuario = new Estudiante($id_user, $nombre, $apellido, $correo, $clave, $grado, $estado, $fNac, null, $telefono);
     break;
 case '3':
-    $usuario_servicio = new AdminServicio();
+    $usuario_servicio = 'AdminServicio';
     $usuario = new Administrador($id_user, $nombre, $apellido, $correo, $clave, null, $telefono, $fNac, $estado);
     break;
 case '4':
-    $usuario_servicio = new UserServicio();
+    $usuario_servicio = 'UserServicio';
     $usuario = new User($id_user, $nombre, $apellido, $correo, $clave,$fNac, $estado, $telefono, $rol, $grado);
     
     break;
@@ -70,7 +70,7 @@ case '4':
 
 function devolverTodos($user_serv) {
     
-    $usuarios = $user_serv->consultarTodos();
+    $usuarios = $user_serv::consultarTodos();
     $data = array_map(function($obj) {
         
         $array_asc = [
@@ -88,8 +88,7 @@ function devolverTodos($user_serv) {
         
         // Verifica si es instancia de Estudiante o User
         if ($obj instanceof Estudiante || ($obj instanceof User && $obj -> getRol() == 'estudiante') ) {
-            $gradoServ = new GradoServicio();
-            $obj -> setGrado($gradoServ -> consultar($obj->getGrado()));
+            $obj -> setGrado(GradoServicio::consultar($obj->getGrado()));
             $array_asc['grado'] = $obj -> getGrado() -> getNombre();
         }
         // Agrega rol solo si es User
@@ -106,19 +105,19 @@ function devolverTodos($user_serv) {
 
 switch ($action) {
     case '1':
-        if($usuario_servicio -> insertar($usuario)) $data = devolverTodos($usuario_servicio);
+        if($usuario_servicio::insertar($usuario)) $data = devolverTodos($usuario_servicio);
         break;
     case '2':
-        if($usuario_servicio -> eliminar($id_user)) $data = devolverTodos($usuario_servicio);
+        if($usuario_servicio::eliminar($id_user)) $data = devolverTodos($usuario_servicio);
         break;
     case '3':   
-        if($usuario_servicio -> actualizar($usuario)) $data = devolverTodos($usuario_servicio);
+        if($usuario_servicio::actualizar($usuario)) $data = devolverTodos($usuario_servicio);
         break;
     case '4':
         $data = devolverTodos($usuario_servicio);
         break;
     case '5':
-        $usuario = $usuario_servicio -> consultarPorId($id_user); 
+        $usuario = $usuario_servicio::consultarPorId($id_user); 
         $rol = ''; $grado = '';
         
         if($rolParam == '4') $rol = $usuario -> getRol(); 

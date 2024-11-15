@@ -7,39 +7,31 @@ class GradoServicio{
         $this->GradoDAO = new GradoDAO($this -> conexion);
     }
 
-    public function getTodosLosGrados(){
-        $this -> conexion -> iniciarConexion();
-        $this -> GradoDAO -> consultarTodos();
+    public static function consultarTodos(){
+        $conexion = new Conexion();
+        $GradoDAO = new GradoDAO($conexion);
+        $conexion -> iniciarConexion();
+        $GradoDAO -> consultarTodos();
         $grados = array();
-        while($fila = $this -> conexion -> extraer()){
+        while($fila = $conexion -> extraer()){
             $grado = new Grado(
                 $fila[0],
                 $fila[1]
             );
             array_push($grados, $grado);
         }
-        $this -> conexion -> cerrarConexion();
+        $conexion -> cerrarConexion();
         return $grados;
     }
 
-    public function consultar($idGrado){
-        $this -> conexion -> iniciarConexion();
-        $this -> GradoDAO -> consultarPorId($idGrado);
-        $fila = $this -> conexion -> extraer();
-        $this -> conexion -> cerrarConexion();
+    public static function consultar($idGrado){
+        $conexion = new Conexion();
+        $GradoDAO = new GradoDAO($conexion);
+        $conexion -> iniciarConexion();
+        $GradoDAO -> consultarPorId($idGrado);
+        $fila = $conexion -> extraer();
+        $conexion -> cerrarConexion();
         return new Grado($idGrado, $fila[0]);
-    }
-
-    public function consultarTodos(){
-        $grados = array();
-        $this -> conexion -> iniciarConexion();
-        $this -> GradoDAO -> consultarTodos();
-        while($fila = $this -> conexion -> extraer()){
-            $grado = new Grado($fila[0], $fila[1]);
-            array_push($grados, $grado);
-        }
-        $this -> conexion -> cerrarConexion();
-        return $grados;
     }
 
 }

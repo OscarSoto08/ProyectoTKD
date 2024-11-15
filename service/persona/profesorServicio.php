@@ -1,11 +1,5 @@
 <?php
 class ProfesorServicio{
-    private $conexion;
-    private $profesorDAO;
-    public function __construct(){
-        $this -> conexion = new Conexion();
-        $this ->profesorDAO = new ProfesorDAO($this -> conexion);
-    }
 
     public static function autenticar(Persona $profesor){
         $conexion = new Conexion();
@@ -20,12 +14,14 @@ class ProfesorServicio{
         return true;
     }
 
-    public function consultarTodos(){
+    public static function consultarTodos(){
+        $conexion = new Conexion();
+        $profesorDAO = new ProfesorDAO($conexion);
         $profesores = array();
-        $this -> conexion -> iniciarConexion();
-        $this -> profesorDAO -> consultarTodos();
+        $conexion -> iniciarConexion();
+        $profesorDAO -> consultarTodos();
 
-        while($fila = $this -> conexion -> extraer()){
+        while($fila = $conexion -> extraer()){
             $profesor = new Profesor(
                 $fila[0], // $idProfesor
                 $fila[1], // $nombre
@@ -41,15 +37,17 @@ class ProfesorServicio{
         }
         
         
-        $this -> conexion -> cerrarConexion();;
+        $conexion -> cerrarConexion();
         return $profesores;
     }
 
-    public function consultarPorId($id) {
-        $this->conexion->iniciarConexion();
+    public static function consultarPorId($id) {
+        $conexion = new Conexion();
+        $profesorDAO = new ProfesorDAO($conexion);
+        $conexion->iniciarConexion();
     
-        $this->profesorDAO->consultarPorId($id); // Se espera que esto devuelva un boolean
-        $fila = $this->conexion->extraer(); // Obtener la fila
+        $profesorDAO->consultarPorId($id); // Se espera que esto devuelva un boolean
+        $fila = $conexion->extraer(); // Obtener la fila
 
         // Creamos un nuevo objeto Profesor con los datos de la fila
         $profesor = new Profesor(
@@ -65,28 +63,34 @@ class ProfesorServicio{
         );
             
         
-        $this -> conexion -> cerrarCOnexion();
+        $conexion -> cerrarCOnexion();
         return $profesor;
     }    
 
-    public function actualizar(Profesor $profesor){
-        $this -> conexion -> iniciarConexion();
-        $res = $this -> profesorDAO -> actualizar($profesor);
-        $this -> conexion -> cerrarConexion();
+    public static function actualizar(Profesor $profesor){
+        $conexion = new Conexion();
+        $profesorDAO = new ProfesorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $res = $profesorDAO -> actualizar($profesor);
+        $conexion -> cerrarConexion();
         return $res;
     }
 
-    public function insertar(Profesor $profesor){
-        $this -> conexion -> iniciarConexion();
-        $res = $this -> profesorDAO -> insertar($profesor);
-        $this -> conexion -> cerrarConexion();
+    public static function insertar(Profesor $profesor){
+        $conexion = new Conexion();
+        $profesorDAO = new ProfesorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $res = $profesorDAO -> insertar($profesor);
+        $conexion -> cerrarConexion();
         return $res;
     }
 
-    public function eliminar($idProfesor){
-        $this -> conexion -> iniciarConexion();
-        $res = $this -> profesorDAO -> eliminar($idProfesor);
-        $this -> conexion -> cerrarConexion();
+    public static function eliminar($idProfesor){
+        $conexion = new Conexion();
+        $profesorDAO = new ProfesorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $res = $profesorDAO -> eliminar($idProfesor);
+        $conexion -> cerrarConexion();
         return $res;
     }
 }

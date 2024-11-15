@@ -56,6 +56,6 @@
     
   <!-- </div> -->
   <?php require 'ui/profile/admin/components/modal_usuario.php'; ?>
-    
+  <script src="js/userControl.js"></script>
 </body>
 </html>

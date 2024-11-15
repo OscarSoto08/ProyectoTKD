@@ -1,7 +1,7 @@
 <div id="carouselExample<?php echo $evento -> getId(); ?>" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
     <?php 
-      $galeria = $galService -> consultarPorIdEvento($evento);
+      $galeria = GaleriaEventoServicio::consultarPorIdEvento($evento);
       if(empty($galeria)){
     // Una imagen vacia por defecto ?>  
         <div class="carousel-item active">

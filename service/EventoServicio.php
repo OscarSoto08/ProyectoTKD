@@ -1,17 +1,13 @@
 <?php
 class EventoServicio{
-    private $eventoDAO;
-    private $conexion;
-    public function __construct(){
-        $this -> conexion = new Conexion();
-        $this->eventoDAO = new EventoDAO($this -> conexion);
-    }
 
-    public function consultarTodos(){
+    public static function consultarTodos(){
         $eventos = [];
-        $this -> conexion -> iniciarConexion();
-        $this -> eventoDAO -> consultarTodos();
-        while($fila = $this -> conexion -> extraer()){
+        $conexion = new Conexion();
+        $eventoDAO = new EventoDAO($conexion);
+        $conexion -> iniciarConexion();
+        $eventoDAO -> consultarTodos();
+        while($fila = $conexion -> extraer()){
             $evento = new Evento(
                 $fila["0"],
                 $fila["1"],
@@ -24,17 +20,19 @@ class EventoServicio{
             );
             array_push($eventos, $evento);
         }
-        $this -> conexion -> cerrarConexion();
+        $conexion -> cerrarConexion();
         return $eventos;
     }
 
-    public function filtrar($entrada){
+    public static function filtrar($entrada){
         $eventos = [];
-        $this -> conexion -> iniciarConexion();
-        $entrada = $this -> conexion -> getMysqlConexion() -> real_escape_string($entrada);
-        $this -> eventoDAO -> filtrar($entrada);
-        if($this -> conexion -> numFilas() > 0){
-            while($fila = $this -> conexion -> extraer()){
+        $conexion = new Conexion();
+        $eventoDAO = new EventoDAO($conexion);
+        $conexion -> iniciarConexion();
+        $entrada = $conexion -> getMysqlConexion() -> real_escape_string($entrada);
+        $eventoDAO -> filtrar($entrada);
+        if($conexion -> numFilas() > 0){
+            while($fila = $conexion -> extraer()){
                 $evento = new Evento(
                     $fila["0"],
                     $fila["1"],
@@ -48,10 +46,10 @@ class EventoServicio{
                 array_push($eventos, $evento);
             }
 
-            $this -> conexion -> cerrarConexion();
+            $conexion -> cerrarConexion();
             return $eventos;
         }else{
-            $this -> conexion -> cerrarConexion();
+            $conexion -> cerrarConexion();
             return null;
         }
     }

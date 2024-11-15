@@ -18,7 +18,7 @@ if(session_status()==PHP_SESSION_NONE) session_start();
 if(empty($_SESSION['id']) || $_SESSION['tipoUsuario'] != 'estudiante') header('Location: cs='.base64_encode('true'));
 
 $idEst = $_SESSION['id'];
-$estudianteServ = new EstudianteServicio();
-$estudiante = $estudianteServ->consultarPorId($idEst);
+
+$estudiante = EstudianteServicio::consultarPorId($idEst);
 include 'ui/profile/student/components/navbar.php'; 
 ?>

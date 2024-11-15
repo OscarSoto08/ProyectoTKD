@@ -1,11 +1,6 @@
 <?php
 class EstudianteServicio{
-    private $conexion;
-    private $EstDAO;
-    public function __construct(){
-        $this -> conexion = new Conexion();
-        $this->EstDAO = new EstudianteDAO($this -> conexion);
-    }
+
     public static function autenticar(Persona $estudiante){
         $conexion = new Conexion();
         $EstDAO = new EstudianteDAO($conexion);
@@ -21,12 +16,14 @@ class EstudianteServicio{
         $conexion -> cerrarConexion();
         return false;
     }
-    public function consultarTodos(){
+    public static function consultarTodos(){
+        $conexion = new Conexion();
+        $EstDAO = new EstudianteDAO($conexion);
         $Estudiantes = array();
-        $this -> conexion -> iniciarConexion();
-        $this -> EstDAO -> consultarTodos();
+        $conexion -> iniciarConexion();
+        $EstDAO -> consultarTodos();
 
-        while($fila = $this -> conexion -> extraer()){
+        while($fila = $conexion -> extraer()){
             $Estudiante = new Estudiante(
                 $fila[0],
                 $fila[1],
@@ -41,15 +38,17 @@ class EstudianteServicio{
             );
             array_push($Estudiantes, $Estudiante);
         }
-        $this -> conexion -> cerrarConexion();;
+        $conexion -> cerrarConexion();;
         return $Estudiantes;
     }
 
-    public function consultarPorId($id) {
-        $this->conexion->iniciarConexion();
+    public static function consultarPorId($id) {
+        $conexion = new Conexion();
+        $EstDAO = new EstudianteDAO($conexion);
+        $conexion->iniciarConexion();
         $Estudiante = null; // Inicializamos en null
-        if ($this->EstDAO->consultarPorId($id)) { // Se espera que esto devuelva un boolean
-            $fila = $this->conexion->extraer(); // Obtener la fila
+        if ($EstDAO->consultarPorId($id)) { // Se espera que esto devuelva un boolean
+            $fila = $conexion->extraer(); // Obtener la fila
             if ($fila) { 
                 $Estudiante = new Estudiante(
                     $id,
@@ -65,28 +64,34 @@ class EstudianteServicio{
                 );
             }
         }
-        $this -> conexion -> cerrarConexion();
+        $conexion -> cerrarConexion();
         return $Estudiante;
     }    
 
-    public function actualizar(Estudiante $Estudiante){
-        $this -> conexion -> iniciarConexion();
-        $res = $this -> EstDAO -> actualizar($Estudiante);
-        $this -> conexion -> cerrarConexion();
+    public static function actualizar(Estudiante $Estudiante){
+        $conexion = new Conexion();
+        $EstDAO = new EstudianteDAO($conexion);
+        $conexion -> iniciarConexion();
+        $res = $EstDAO -> actualizar($Estudiante);
+        $conexion -> cerrarConexion();
         return $res;
     }
 
-    public function insertar(Estudiante $Estudiante){
-        $this -> conexion -> iniciarConexion();
-        $res = $this -> EstDAO -> insertar($Estudiante);
-        $this -> conexion -> cerrarConexion();
+    public static function insertar(Estudiante $Estudiante){
+        $conexion = new Conexion();
+        $EstDAO = new EstudianteDAO($conexion);
+        $conexion -> iniciarConexion();
+        $res = $EstDAO -> insertar($Estudiante);
+        $conexion -> cerrarConexion();
         return $res;
     }
 
-    public function eliminar($idEstudiante){
-        $this -> conexion -> iniciarConexion();
-        $res = $this -> EstDAO -> eliminar($idEstudiante);
-        $this -> conexion -> cerrarConexion();
+    public static function eliminar($idEstudiante){
+        $conexion = new Conexion();
+        $EstDAO = new EstudianteDAO($conexion);
+        $conexion -> iniciarConexion();
+        $res = $EstDAO -> eliminar($idEstudiante);
+        $conexion -> cerrarConexion();
         return $res;
     }
 }

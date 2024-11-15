@@ -1,19 +1,14 @@
 <?php
 class GaleriaEventoServicio{
-    private $GaleriaEventoDAO;
-    private $conexion;
 
-    public function __construct(){
-        $this -> conexion = new Conexion();
-        $this -> GaleriaEventoDAO = new Galeria_EventoDAO($this -> conexion);
-    }
-
-    public function consultarPorIdEvento(Evento $evento){
-        $this -> conexion -> iniciarConexion();
+    public static function consultarPorIdEvento(Evento $evento){
+        $conexion = new Conexion();
+        $GaleriaEventoDAO = new Galeria_EventoDAO($conexion);
+        $conexion -> iniciarConexion();
         $imagenes = [];
-        $resultado =  $this -> GaleriaEventoDAO -> consultarPorIdEvento( $evento -> getId() );
+        $resultado =  $GaleriaEventoDAO -> consultarPorIdEvento( $evento -> getId() );
         if($resultado){
-            while($fila = $this -> conexion -> extraer()){
+            while($fila = $conexion -> extraer()){
                 $GalEv = new Galeria_Evento(
                     $evento -> getId(),
                     $fila[0],
@@ -22,8 +17,9 @@ class GaleriaEventoServicio{
 
                 array_push($imagenes, $GalEv);
             }
-            $this -> conexion -> cerrarConexion();
+            $conexion -> cerrarConexion();
             return $imagenes;
         }
+        return null;
     }
 }

@@ -32,9 +32,7 @@ if (!isset($_SESSION['id']) || $_SESSION['tipoUsuario'] != 'administrador') {
     header("Location: ?pid=". base64_encode('ui/session/pages/login.php').'&cs='. base64_encode('true'));
     exit; // Asegúrate de salir después de redirigir
 }
-
-$adminService = new AdminServicio();
-if(!$administrador = $adminService->consultarPorId($_SESSION['id'])){ //Si el administrador llega a eliminarse a si mismo
+if(!$administrador = AdminServicio::consultarPorId($_SESSION['id'])){ //Si el administrador llega a eliminarse a si mismo
     session_destroy();
     header('Location: ?pid='. base64_encode('ui/session/pages/login.php'));
 }

@@ -59,7 +59,7 @@
             <label for="grado">Selecciona tu grado:</label>
             <select name="grado" class="form-select mb-4" id="selectGrado" required>
                 <?php 
-                $grados = $gradoServ->getTodosLosGrados();
+                $grados = GradoServicio::consultarTodos();
                 foreach ($grados as $gradoItem) {
                     echo '<option value="'. $gradoItem->getIdGrado() .'">'. $gradoItem->getNombre() .'</option>'; 
                 }

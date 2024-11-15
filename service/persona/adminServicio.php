@@ -1,12 +1,5 @@
 <?php 
 class AdminServicio{
-    private $adminDao;
-    private $conexion;
-    public function __construct(){
-        $this -> conexion = new Conexion();
-        $this->adminDao = new AdministradorDAO($this -> conexion);
-    }
-
     public static function autenticar(Persona $administrador){
         $conexion = new Conexion();
         $adminDao = new AdministradorDAO($conexion);
@@ -22,11 +15,13 @@ class AdminServicio{
         return false;
     }
     
-    public function consultarPorId($id_user){
-        $this -> conexion -> iniciarConexion();
-        $this -> adminDao -> consultarPorId( $id_user);
-        if(!$fila = $this -> conexion -> extraer()){
-            $this -> conexion -> cerrarConexion();
+    public static function consultarPorId($id_user){
+        $conexion = new Conexion();
+        $adminDao = new AdministradorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $adminDao -> consultarPorId( $id_user);
+        if(!$fila = $conexion -> extraer()){
+            $conexion -> cerrarConexion();
             return null;
         }else{
         $admin = new Administrador(
@@ -40,17 +35,19 @@ class AdminServicio{
             $fila[6],
             $fila[7],
         );
-        $this -> conexion -> cerrarConexion();
+        $conexion -> cerrarConexion();
         return $admin;
         }
     }
 
-    public function consultarTodos(){
+    public static function consultarTodos(){
         $administradores = array();
-        $this -> conexion -> iniciarConexion();
-        $this -> adminDao -> consultarTodos();
+        $conexion = new Conexion();
+        $adminDao = new AdministradorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $adminDao -> consultarTodos();
 
-        while($fila = $this -> conexion -> extraer()){
+        while($fila = $conexion -> extraer()){
             $admin = new Administrador(
                 $fila[0], // $idAdministrador
                 $fila[1], // $nombre
@@ -66,27 +63,33 @@ class AdminServicio{
         }
         
         
-        $this -> conexion -> cerrarConexion();;
+        $conexion -> cerrarConexion();;
         return $administradores;
     }
 
     public function insertar(Administrador $administrador){
-        $this -> conexion -> iniciarConexion();
-        $resultado = $this -> adminDao -> insertar($administrador);
-        $this -> conexion -> cerrarConexion();
+        $conexion = new Conexion();
+        $adminDao = new AdministradorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $resultado = $adminDao -> insertar($administrador);
+        $conexion -> cerrarConexion();
         return $resultado;
     }
 
     public function actualizar(Administrador $administrador){
-        $this -> conexion -> iniciarConexion();
-        $resultado = $this -> adminDao -> actualizar($administrador);
-        $this -> conexion -> cerrarConexion();
+        $conexion = new Conexion();
+        $adminDao = new AdministradorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $resultado = $adminDao -> actualizar($administrador);
+        $conexion -> cerrarConexion();
         return $resultado;
     }
     public function eliminar($id){
-        $this -> conexion -> iniciarConexion();
-        $resultado = $this -> adminDao -> eliminar($id);
-        $this -> conexion -> cerrarConexion();
+        $conexion = new Conexion();
+        $adminDao = new AdministradorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $resultado = $adminDao -> eliminar($id);
+        $conexion -> cerrarConexion();
         return $resultado;
     }
 }

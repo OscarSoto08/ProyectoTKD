@@ -1,27 +1,25 @@
 <?php
 class CodigoVerificacionServicio{
-    private $codigoDAO;
-    private $conexion;
-    public function __construct(){
-        $this -> conexion = new Conexion();
-        $this ->codigoDAO = new CodigoVerificacionDAO($this -> conexion);
-    }
 
-    public function generarCodigo($longitud){
+    public static function generarCodigo($longitud){
         return strtoupper(substr(bin2hex(random_bytes($longitud)), 0, $longitud));
     }
 
-    public function cambiarEstado(CodigoVerificacion $codigoVerificacion, $estado){
-        $this -> conexion -> iniciarConexion();
+    public static function cambiarEstado(CodigoVerificacion $codigoVerificacion, $estado){
+        $conexion = new Conexion();
+        $codigoDAO = new CodigoVerificacionDAO($conexion);
+        $conexion -> iniciarConexion();
         $codigoVerificacion -> setEstado($estado);
-        $this -> codigoDAO -> cambiarEstado( $codigoVerificacion);
-        $this -> conexion -> cerrarConexion();
+        $codigoDAO -> cambiarEstado( $codigoVerificacion);
+        $conexion -> cerrarConexion();
     }
 
-    public function insertar(CodigoVerificacion $codigoVerificacion){
-        $this -> conexion -> iniciarConexion();
-        $resultado = $this -> codigoDAO -> insertar($codigoVerificacion);
-        $this -> conexion -> cerrarConexion();
+    public  static function insertar(CodigoVerificacion $codigoVerificacion){
+        $conexion = new Conexion();
+        $codigoDAO = new CodigoVerificacionDAO($conexion);
+        $conexion -> iniciarConexion();
+        $resultado = $codigoDAO -> insertar($codigoVerificacion);
+        $conexion -> cerrarConexion();
         return $resultado;
     }
 }

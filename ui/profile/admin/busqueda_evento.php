@@ -12,29 +12,26 @@ require '../../../service/GaleriaEventoServicio.php';
 $texto = filter_input(INPUT_POST, 'texto', FILTER_SANITIZE_STRING) ?? '';
 
 $data = ''; // Lo que se va a devolver
-$evento_serv = new EventoServicio();
-$galService = new GaleriaEventoServicio();
-
 header('Content-Type: application/json');
 
-if ($eventos = $evento_serv->filtrar($texto)) {
+if ($eventos = EventoServicio::filtrar($texto)) {
     $i = 0;
     foreach ($eventos as $evento) {
         if ($i % 4 == 0) {
             $data .= "<div class='row p-5'>";
         }
-
+          
         $data .= "<div class='col-md-3'>";
         $data .= '<div class="container">';
         $data .= '<h1 class="eventoid" style="display: none";>ID del evento: '. $evento -> getId() .'</h1>';
-        $data .= '<h2>' . $evento->getNombre() . '</h2>';
+        $data .= '<h2> <span class="nombre_ev">' . $evento->getNombre() . '</span></h2>';
 
         // Aquí empieza el carrusel
         $carousel_cont = 0;
         $data .= '<div id="carouselExample' . $evento->getId() . '" class="carousel slide" data-bs-ride="carousel">';
         $data .= '<div class="carousel-inner">';
       
-        $galeria = $galService->consultarPorIdEvento($evento);
+        $galeria = GaleriaEventoServicio::consultarPorIdEvento($evento);
         if (empty($galeria)) {
             $data .= '<div class="carousel-item active">';
             $data .= '<img src="img/No_Image_Available.jpg" class="d-block w-100" alt="Imagen 1"></div>';
@@ -52,10 +49,12 @@ if ($eventos = $evento_serv->filtrar($texto)) {
         $data .= '<button class="carousel-control-next" type="button" data-bs-target="#carouselExample' . $evento->getId() . '" data-bs-slide="next">';
         $data .= '<span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Siguiente</span></button></div>';
 
-        $data .= '<p>' . $evento->getDescripcion() . '</p>';
-        $data .= '<p>Fecha inicio: ' . $evento->getFecha_inicio() . '</p>';
-        $data .= '<p class="' . ($evento->getEstado() == 'vencido' ? 'red' : 'green') . '">' . strtoupper($evento->getEstado()) . '</p>';
-        $data .= '<p>Precio: $' . $evento->getPrecio() . '</p>';
+        $data .= '<p> <span class="descripcion_ev">' . $evento->getDescripcion() . '</span></p>';
+        $data .= '<p>Fecha inicio: <span class="fecha_inicio_ev">' . $evento->getFecha_inicio() . '</span></p>';
+        $data .= '<p>Fecha fin: <span class="fecha_fin_ev">' . $evento->getFecha_fin() . '</span></p>';
+        $data .= '<p class="' . ($evento->getEstado() == 'vencido' ? 'red' : 'green') . '"> <span class="estado_ev">' . $evento->getEstado() . '</span></p>';
+        $data .= '<p>Precio: $<span class="precio_ev">' . $evento->getPrecio() . '</span></p>';
+        $data .= '<p>Ciudad: <span class="ciudad_ev">' . $evento->getCiudad() . '</span></p>';
         $data .= '<h5 class="text-center">Gestionar</h5>';
         $data .= '<div class="d-flex">
                     <button type="button" class="mx-auto btn fill" data-bs-toggle="modal" data-bs-target="#modal_evento">Evento</button>

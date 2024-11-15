@@ -5,7 +5,6 @@ require 'ui/session/includes.php';
 
 // Definicion de variables globales
 $grado = null;
-$gradoServ = new GradoServicio();
 
 //Manejo de errores
 $error = false;
@@ -14,7 +13,7 @@ if (isset($_POST['ingresar'])) {
     // Verifica si el campo "rol" está definido
     if (isset($_POST["rol"]) && $_POST["rol"] == "estudiante") {
         $idGrado = $_POST["grado"];
-        $grado = $gradoServ->consultar($idGrado);
+        $grado = GradoServicio::consultar($idGrado);
     }
     
     $user = new User(
@@ -31,10 +30,9 @@ if (isset($_POST['ingresar'])) {
     );
 
     // echo "El correo del usuario es: " . $_POST["correo"];
-    $tempUserService = new UserServicio();
 
     //Primero que nada tenemos que verificar si el usuario ya existe en la base de datos
-    if($tempUserService -> verificar($user)){
+    if(UserServicio::autenticar($user)){
         //entonces mandar un mensaje de que el usuario ya existe, sin embargo hay que tener en cuenta el estado del usuario
         $status = 0;
         switch ($user -> getEstado()) {
@@ -56,18 +54,17 @@ if (isset($_POST['ingresar'])) {
         }
     }
     
-    if($tempUserService -> registrar($user)){
+    if(UserServicio::registrar($user)){
        // echo "exito";     
         //Aca se genera el codigo de verificacion junto con el objeto para tener en cuenta las fechas
-        $codigoServ = new CodigoVerificacionServicio();
-        $idCodigo = $codigoServ -> generarCodigo(6);
+        $idCodigo = CodigoVerificacionServicio::generarCodigo(6);
         $fecha_creado = date('Y-m-d H:i:s');
         $fecha_expirado = date('Y-m-d H:i:s', strtotime('+10 minutes'));
 
         $codigo = new CodigoVerificacion($idCodigo, $fecha_creado, $fecha_expirado, 'valido', $user);
 
         //agregar el codigo a la bd
-        $codigoServ -> insertar($codigo);
+        CodigoVerificacionServicio::insertar($codigo);
         
         $mailRegistro = new Signup_Mail(
             $user->getCorreo(),

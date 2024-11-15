@@ -11,8 +11,6 @@ if(empty($_SESSION['codigo'])){
 }
 $codigo = unserialize($_SESSION ['codigo']);
 
-$codigoServ = new CodigoVerificacionServicio();
-
 $user = $codigo -> getUsuario();
 
 $idCodigoVerdadero = $codigo -> getIdCodigo();
@@ -23,7 +21,7 @@ $fecha_fin = new DateTime($codigo->getFecha_expirado());
 $diferencia = $fecha_actual->diff($fecha_fin);
 
 if ($diferencia->invert) {
-    if($codigo -> getEstado() == 'valido') $codigoServ -> cambiarEstado($codigo, 'invalido'); //Para este momento la fecha actual ya habrá superado la fecha limite por lo tanto si el estado no se ha actualizado todavia entonces se modifica
+    if($codigo -> getEstado() == 'valido') CodigoVerificacionServicio::cambiarEstado($codigo, 'invalido'); //Para este momento la fecha actual ya habrá superado la fecha limite por lo tanto si el estado no se ha actualizado todavia entonces se modifica
     header("Location: registro.php?codExp=1");
     die();
 }// else {
@@ -47,7 +45,7 @@ $segundos = $totalSegundos % 60;
 if (isset($_POST['validar'])) {
     $CodigoIngresado = $_POST['codigo'];
     if($CodigoIngresado == $idCodigoVerdadero){
-        $codigoServ -> cambiarEstado($codigo, 'invalido');
+        CodigoVerificacionServicio::cambiarEstado($codigo, 'invalido');
         header("Location: ?pid=". base64_encode('ui/session/pages/success.php'));
         exit();
     }else{
@@ -56,15 +54,15 @@ if (isset($_POST['validar'])) {
 }
 
 if(isset($_GET["resend"])) {
-    $codigoServ -> cambiarEstado($codigo, "invalido");
-    $idCodigo = $codigoServ -> generarCodigo(6);
+    CodigoVerificacionServicio::cambiarEstado($codigo, "invalido");
+        $idCodigo = CodigoVerificacionServicio::generarCodigo(6);
     $fecha_creado = date('Y-m-d H:i:s');
     $fecha_expirado = date('Y-m-d H:i:s', strtotime('+10 minutes'));
     $estado = 'valido';
 
     $codigo = new CodigoVerificacion($idCodigo, $fecha_creado, $fecha_expirado, $estado, $user);
     //agregar el codigo a la bd
-    $codigoServ -> insertar($codigo);
+    CodigoVerificacionServicio::insertar($codigo);
 
     $_SESSION["codigo"] = $codigo;
     $mailRegistro = new Signup_Mail(
