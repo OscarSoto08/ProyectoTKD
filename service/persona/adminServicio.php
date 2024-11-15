@@ -67,7 +67,7 @@ class AdminServicio{
         return $administradores;
     }
 
-    public function insertar(Administrador $administrador){
+    public static function insertar(Administrador $administrador){
         $conexion = new Conexion();
         $adminDao = new AdministradorDAO($conexion);
         $conexion -> iniciarConexion();
@@ -76,7 +76,7 @@ class AdminServicio{
         return $resultado;
     }
 
-    public function actualizar(Administrador $administrador){
+    public static function actualizar(Administrador $administrador){
         $conexion = new Conexion();
         $adminDao = new AdministradorDAO($conexion);
         $conexion -> iniciarConexion();
@@ -84,7 +84,7 @@ class AdminServicio{
         $conexion -> cerrarConexion();
         return $resultado;
     }
-    public function eliminar($id){
+    public static function eliminar($id){
         $conexion = new Conexion();
         $adminDao = new AdministradorDAO($conexion);
         $conexion -> iniciarConexion();
