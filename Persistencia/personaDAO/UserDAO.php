@@ -89,10 +89,10 @@ class UserDAO extends DAO{
         return intval($fila[0]);
     }
 
-    public function verificar(User $user){
+    public function verificar($correo){
         $sql = "SELECT `idUsuario_temporal`, `estado` FROM usuario_temporal WHERE correo = ?";
         $tipos = 's';
-        $valores = $user -> getCorreo();
-        return $this -> conexion -> prepararConsulta($sql, $tipos, $valores);
+        $valores = [ $correo ];
+        return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
     }
 }

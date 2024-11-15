@@ -7,6 +7,15 @@ class AdminServicio{
         $this->adminDao = new AdministradorDAO($this -> conexion);
     }
 
+    public static function buscarCorreo($correo){
+        $conexion = new Conexion();
+        $conexion -> iniciarConexion();
+        $adminDAO = new AdministradorDAO( $conexion);
+        $resultado = $adminDAO -> buscarCorreo($correo);
+        $conexion -> cerrarConexion();
+        return $resultado;
+    }
+
     public static function autenticar(Persona $administrador){
         $conexion = new Conexion();
         $adminDao = new AdministradorDAO($conexion);

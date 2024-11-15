@@ -37,7 +37,7 @@ CREATE TABLE `administrador` (
   `telefono` varchar(15) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `fechaNac` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `administrador`
@@ -59,7 +59,7 @@ CREATE TABLE `auditoria_admin_evento` (
   `accion` enum('crear','gestionar','eliminar') NOT NULL,
   `fechaHora` datetime NOT NULL,
   `detalleAnterior` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -71,7 +71,7 @@ CREATE TABLE `ciudad` (
   `idCiudad` int NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `Pais_idPais` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ciudad`
@@ -96,7 +96,7 @@ CREATE TABLE `codigo_verificacion` (
   `fecha_creado` datetime NOT NULL,
   `fecha_expirado` datetime NOT NULL,
   `idUser` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `codigo_verificacion`
@@ -114,7 +114,7 @@ INSERT INTO `codigo_verificacion` (`idCodigo_verificacion`, `codigo`, `estado`, 
 CREATE TABLE `curso` (
   `idCurso` int NOT NULL,
   `nombre` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -133,7 +133,7 @@ CREATE TABLE `estudiante` (
   `fechaNac` date NOT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `telefono` varchar(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `estudiante`
@@ -157,7 +157,7 @@ CREATE TABLE `evento` (
   `precio` decimal(15,3) NOT NULL,
   `fecha_inicio` datetime NOT NULL,
   `fecha_fin` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `evento`
@@ -176,7 +176,7 @@ CREATE TABLE `galeria_evento` (
   `idGaleria_Evento` int NOT NULL,
   `imagen` varchar(255) NOT NULL,
   `idEvento` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `galeria_evento`
@@ -196,7 +196,7 @@ INSERT INTO `galeria_evento` (`idGaleria_Evento`, `imagen`, `idEvento`) VALUES
 CREATE TABLE `grado` (
   `idGrado` int NOT NULL,
   `grado` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `grado`
@@ -224,7 +224,7 @@ CREATE TABLE `matriculacurso` (
   `Curso_idCurso` int NOT NULL,
   `Estudiante_idEstudiante` int NOT NULL,
   `fecha` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -235,7 +235,7 @@ CREATE TABLE `matriculacurso` (
 CREATE TABLE `pais` (
   `idPais` int NOT NULL,
   `nombre` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pais`
@@ -256,7 +256,7 @@ INSERT INTO `pais` (`idPais`, `nombre`) VALUES
 CREATE TABLE `participacion_estudiante_evento` (
   `estudiante_idEstudiante` int NOT NULL,
   `evento_idEvento` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -268,7 +268,7 @@ CREATE TABLE `participacion_profesor_curso` (
   `Profesor_idProfesor` int NOT NULL,
   `Curso_idCurso` int NOT NULL,
   `rolProfesor` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -279,7 +279,7 @@ CREATE TABLE `participacion_profesor_curso` (
 CREATE TABLE `participacion_profesor_evento` (
   `profesor_idProfesor` int NOT NULL,
   `evento_idEvento` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -292,7 +292,7 @@ CREATE TABLE `pregunta` (
   `pregunta` varchar(45) NOT NULL,
   `Subcurso_idSubcurso` int NOT NULL,
   `respuesta` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -310,7 +310,7 @@ CREATE TABLE `profesor` (
   `telefono` varchar(15) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `fechaNac` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `profesor`
@@ -331,7 +331,7 @@ CREATE TABLE `progreso_subcurso` (
   `Subcurso_idSubcurso` int NOT NULL,
   `MatriculaCurso_Curso_idCurso` int NOT NULL,
   `MatriculaCurso_Estudiante_idEstudiante` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -343,7 +343,7 @@ CREATE TABLE `subcurso` (
   `idSubcurso` int NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `Curso_idCurso` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -362,7 +362,7 @@ CREATE TABLE `usuario_temporal` (
   `fechaNac` date NOT NULL,
   `telefono` varchar(15) DEFAULT NULL,
   `Grado_idGrado` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `usuario_temporal`

@@ -27,4 +27,9 @@ $(document).ready(function(){
             });
         }, 500); // Espera 500 ms después de que el usuario deje de escribir
     });
+
+
+    $(document).on("click", "#btn_modal_evento", function(){
+
+    })
 });

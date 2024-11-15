@@ -1,1 +1,0 @@
-<h1>Aquí se van a hacer el CRUD de la galeria de eventos</h1>

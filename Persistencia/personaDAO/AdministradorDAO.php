@@ -12,6 +12,13 @@ class AdministradorDAO extends DAO{
         $valores = array($admin -> getCorreo(), $admin -> getClave());
         $this->conexion -> prepararConsulta($consulta, $tipos, ...$valores);
     }
+
+    public function buscarCorreo($correo){
+        $consulta = "SELECT idAdministrador FROM administrador WHERE correo = ?";
+        $tipos = 's';
+        return $this -> conexion -> prepararConsulta( $consulta, $tipos, ...[$correo]);
+    }
+
     public function consultarTodos(){
         $sql = "SELECT idAdministrador, nombre, apellido, correo, clave, imagen, telefono, fechaNac, estado
         FROM administrador WHERE 1";

@@ -23,17 +23,19 @@ class UserServicio{
         return true;
     }
 
-    public function verificar(User $User){
-        $this -> conexion -> iniciarConexion();
-        $result = $this -> UserDAO -> verificar($User);
-        if($result && $this -> conexion -> numFilas() == 1){
-            $registro = $this -> conexion -> extraer();
+    public static function autenticar(Persona $User){
+        $conexion = new Conexion();
+        $conexion -> iniciarConexion();
+        $UserDAO = new UserDAO( $conexion);
+        $result = $UserDAO -> verificar($User -> getCorreo());
+        if($result && $conexion -> numFilas() == 1){
+            $registro = $conexion -> extraer();
             $User -> setIdPersona($registro[0]);
             $User -> setEstado( $registro[1]);
-            $this -> conexion -> cerrarConexion();
+            $conexion -> cerrarConexion();
             return true;
         }
-        $this -> conexion -> cerrarConexion();
+        $conexion -> cerrarConexion();
         return false;
     }
 

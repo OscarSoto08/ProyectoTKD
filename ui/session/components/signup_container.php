@@ -7,27 +7,10 @@
             El código que te enviamos ya no está disponible, por favor ingresa tus credenciales nuevamente...
         </div> <?php 
     }
-    if(isset($_GET['UserAlreadyExists'])){ ?>
-    <?php if($_GET["status"] == '1'){ ?>
-    <div class="text-center alert alert-primary" role="alert">
-        Estamos verificando tus datos
-    </div> 
-    <?php } else if($_GET["status"] == '2'){ ?>
-    <div class="text-center alert alert-success" role="alert">
-        Datos validos, ya puedes iniciar sesión en la plataforma
-    </div> 
-    <?php } else if($_GET["status"] == '3') { ?>
-    <div class="text-center alert alert-danger" role="alert">
-        Acceso restringido
-    </div> 
-    <?php } else if($_GET["status"] == '0') { ?>
-    <div class="text-center alert alert-danger" role="alert">
-        Hubo un problema, intentalo de nuevo...
-    </div> 
-    <?php } } ?>     
+    ?>    
 <div class="form-container">
     
-    <a href="../../index.php">
+    <a href="?pid=<?php echo base64_encode('ui/session/pages/login.php'); ?>">
         <img id="kopulso-login-img" src="img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
     </a>
     
@@ -78,7 +61,7 @@
         }
     ?>
     <div class="register-forget opacity">
-        <a href="index.php">INICIAR SESION</a>
+        <a href="?pid=<?php echo base64_encode('ui/session/pages/login.php'); ?>">INICIAR SESION</a>
     </div>
 </div>
 <div class="circle circle-two"></div>
