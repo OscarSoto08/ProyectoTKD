@@ -4,13 +4,19 @@ include 'ui/profile/admin/components/modal_evento.php';
 include 'ui/profile/admin/components/modal_galeria.php'; 
 ?>
 <body>
-    <div id="content">
-
+<div style="text-align: center; margin-top: 20px;"> <!-- Añadido un contenedor con centrado -->
+    <button class="btn outline" data-bs-toggle="modal" data-bs-target="#modal_evento">
+        <svg style="width: 30px; height: 30px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path fill="#5c5050" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/>
+        </svg> AGREGAR EVENTO
+    </button>
+</div>
+<div id="content">
     <?php 
     $eventos = EventoServicio::consultarTodos();
     $i = 0;
     foreach ($eventos as $evento) {
-        if($i % 4 == 0){
+        if ($i % 4 == 0) {
             echo ' <div class="row p-5">';
         }
         ?>
@@ -40,17 +46,16 @@ include 'ui/profile/admin/components/modal_galeria.php';
             </div>
         </div>
         <?php
-       if ($i % 4 == 3) {
-        echo "</div>";
-            }
-            $i ++;
-        }
-        if ($i % 4 != 0) {
+        if ($i % 4 == 3) {
             echo "</div>";
-        }     
+        }
+        $i++;
+    }
+    if ($i % 4 != 0) {
+        echo "</div>";
+    }     
     ?>
     
     </div>
     <script src="js/eventControl.js"></script>
 </body>
-</html>

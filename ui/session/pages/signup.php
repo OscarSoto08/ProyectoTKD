@@ -38,15 +38,15 @@ if (isset($_POST['ingresar'])) {
         switch ($user -> getEstado()) {
             case 'pendiente':
                 $status = 1;
-                header("Location: ?pid=".base64_encode('ui/session/pages/signup.php')."&UserAlreadyExists=1&status=". $status ."");
+                header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status ."");
                 exit();
             case 'permitido':
                 $status = 2;
-                header("Location: ?pid=".base64_encode('ui/session/pages/signup.php')."&UserAlreadyExists=1&status=". $status ."");
+                header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status ."");
                 exit();
             case 'denegado': 
                 $status = 3;
-                header("Location: ?pid=".base64_encode('ui/session/pages/signup.php')."&UserAlreadyExists=1&status=". $status ."");
+                header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status ."");
                 exit();
             default:
                 $status = 0;
@@ -54,7 +54,25 @@ if (isset($_POST['ingresar'])) {
         }
     }
     
-    if(UserServicio::registrar($user)){
+
+// En este punto el usuario no existe en la tabla usuario_temporal pero puede que si exista en alguna tabla diferente como administrador
+
+//Tiene que haber una funcion buscarCorreo
+
+$servUsuarios = ['AdminServicio', 'EstudianteServicio', 'ProfesorServicio'];
+foreach($servUsuarios as $usuarioServ){
+    if($usuarioServ::buscarCorreo($user -> getCorreo())){
+        $error = false;
+        header('Location: ?pid='. base64_encode('ui/session/pages/login.php') . '&userAlreadyExists=1');        
+    }else{
+        $error = true;
+    }
+}
+
+
+
+
+    if($tempUserService -> registrar($user)){
        // echo "exito";     
         //Aca se genera el codigo de verificacion junto con el objeto para tener en cuenta las fechas
         $idCodigo = CodigoVerificacionServicio::generarCodigo(6);
@@ -98,6 +116,16 @@ if (isset($_POST['ingresar'])) {
         }
     </script>
 </body>
+<style>
+/* Ocultar la barra de desplazamiento */
+::-webkit-scrollbar {
+    display: none; /* Esto oculta la barra de desplazamiento */
+}
+
+body {
+    overflow: scroll; /* Asegura que se pueda desplazar, pero sin mostrar la barra */
+}
+</style>
 </html>
 
 

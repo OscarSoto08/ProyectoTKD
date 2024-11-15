@@ -40,4 +40,9 @@ $(document).ready(function(){
         $("#fecha_inicio").val($(this).closest('.col-md-3').find('.fecha_inicio_ev').text())
     })
     
+
+
+    $(document).on("click", "#btn_modal_evento", function(){
+
+    })
 });

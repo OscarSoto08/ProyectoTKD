@@ -30,8 +30,10 @@ class UserServicio{
             $User -> setIdPersona($registro[0]);
             $User -> setEstado( $registro[1]);
             $conexion -> cerrarConexion();
+            $conexion -> cerrarConexion();
             return true;
         }
+        $conexion -> cerrarConexion();
         $conexion -> cerrarConexion();
         return false;
     }
