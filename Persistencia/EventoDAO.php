@@ -10,6 +10,12 @@ class EventoDAO extends DAO {
     public function actualizar($objeto) {
     }
     
+
+    public function filtrar($busqueda){
+        $sql = "SELECT idEvento, nombre, descripcion, fecha_inicio, fecha_fin, Ciudad_idCiudad, precio, estado FROM evento WHERE nombre LIKE '%".$busqueda."%' OR fecha_inicio LIKE '%".$busqueda."%' OR fecha_fin LIKE '%".$busqueda."%' OR precio LIKE '%".$busqueda."%' OR estado LIKE '%".$busqueda."%'";
+
+        $this -> conexion -> ejecutarConsulta($sql);
+    }
     /**
      * @inheritDoc
      */

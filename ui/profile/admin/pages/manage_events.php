@@ -4,7 +4,8 @@ include 'ui/profile/admin/components/modal_evento.php';
 include 'ui/profile/admin/components/modal_galeria.php'; 
 ?>
 <body>
-    
+    <div id="content">
+
     <?php 
     $eventService = new EventoServicio();
     $eventos = $eventService->consultarTodos();
@@ -18,10 +19,12 @@ include 'ui/profile/admin/components/modal_galeria.php';
 
     <div class="col-md-3">
     <div class="container">                 
+    
+    <h1 class="eventoid" style="display: none;">ID del evento: <?php echo $evento -> getId(); ?></h1>
     <h2><?php echo $evento -> getNombre(); ?></h2>
                 
-    <?php $carousel_cont = 0; ?>            
-    <?php include 'ui/profile/admin/components/event_carousel.php'; ?>
+    <?php $carousel_cont = 0;         
+    include 'ui/profile/admin/components/event_carousel.php'; ?>
 
 
                 <p><?php echo $evento -> getDescripcion();?></p>
@@ -44,13 +47,10 @@ include 'ui/profile/admin/components/modal_galeria.php';
         }
         if ($i % 4 != 0) {
             echo "</div>";
-        }
-
-
-
-        
-                
+        }     
     ?>
+    
+    </div>
 
 </body>
 </html>

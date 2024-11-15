@@ -59,7 +59,7 @@ $script_actual = $ruta[count($ruta)-1];
       <?php if($script_actual == 'manage_events.php'){ ?>
      <ul class="navbar-nav" style="margin-right: auto; ">
       <li class="nav-item">
-      <input type="text" style="border-radius: 30px; text-align: center;" class="form-control" placeholder="Buscar Evento" aria-label="Recipient's username" aria-describedby="basic-addon2">
+      <input type="text" style="border-radius: 30px; text-align: center;" id="input_buscar_evento" class="form-control" placeholder="Buscar Evento" aria-label="Recipient's username" aria-describedby="basic-addon2">
 
       </li>
      </ul>
