@@ -32,17 +32,19 @@ $(document).ready(function(){
     $(document).on("click", ".btn_modal_evento", function(){
         // Usamos .closest() para encontrar el ancestro h1 que contiene el ID del evento.
         var id = $(this).closest('.col-md-3').find('.eventoid').text(); //El texto de h1 obtenido del ancestro
-        $('.modal-title').html('Editar evento id: '+ id)
+        $("#modal_evento").trigger("reset");
+        $('.modal-title').html('Editar evento ID: '+ id)
         $(".modal-title").css("color", "white");
         $(".modal-header").css("background-color", "DarkCyan"); 
 
         //Cada elemento que tenga una clase que termine en ev quiere decir que pertenece al container de evento y no al modal
+
+        $("#nombre").val($(this).closest('.col-md-3').find('.nombre_ev').text())
+        $("#descripcion").val($(this).closest('.col-md-3').find('.descripcion_ev').text())
         $("#fecha_inicio").val($(this).closest('.col-md-3').find('.fecha_inicio_ev').text())
+        $("#fecha_fin").val($(this).closest('.col-md-3').find('.fecha_fin_ev').text())
+        $("#precio").val($(this).closest('.col-md-3').find('.precio_ev').text())
+        $("#estado").val($(this).closest('.col-md-3').find('.estado_ev').text())
     })
     
-
-
-    $(document).on("click", "#btn_modal_evento", function(){
-
-    })
 });

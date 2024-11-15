@@ -12,7 +12,7 @@ class conexion{
     }
 
     public function iniciarConexion(){
-        $this -> mysqlconexion = new mysqli("localhost", "root", "", "proyTKD");
+        $this -> mysqlconexion = new mysqli("localhost", "root", "123456", "proyTKD");
        // $this -> mysqlconexion -> set_charset("utf-8");
 
         if($this -> mysqlconexion -> connect_error){

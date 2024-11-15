@@ -1,4 +1,4 @@
-
+<?php include ('ui/profile/admin/components/admin_header.php');?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,7 +20,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: var(--pri);
 }
 
 h1, h2, h3 {
@@ -29,7 +29,6 @@ h1, h2, h3 {
 
 /* Hero Section */
 .hero {
-    background-color: #007bff;
     color: white;
     padding: 60px 0;
     text-align: center;
@@ -57,6 +56,7 @@ h1, h2, h3 {
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+    background-color: #8597C4;
 }
 
 .card:hover {
@@ -81,6 +81,8 @@ h1, h2, h3 {
 /* Cursos Destacados */
 #cursos {
     background-color: #f8f9fa;
+    margin: 0 auto;
+    min-width: 90%;
 }
 
 #cursos .card {
@@ -127,94 +129,64 @@ footer p {
 <body>
 
 <!-- Hero Section -->
-<section class="hero bg-primary text-white text-center py-5">
+<!-- <section class="hero bg-primary text-white text-center py-5">
     <div class="container">
         <h1 class="display-4">Bienvenido a la Plataforma de Cursos Online</h1>
         <p class="lead">Aprende nuevas habilidades con los mejores expertos en diversos campos.</p>
         <a href="#cursos" class="btn btn-light btn-lg">Explora los Cursos</a>
     </div>
-</section>
-
-<!-- Categorías Populares -->
-<section class="container my-5">
-    <h2 class="text-center mb-4">Categorías Populares</h2>
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Tecnología">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Tecnología</h5>
-                    <p class="card-text">Cursos de desarrollo web, programación, inteligencia artificial y más.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Negocios">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Negocios</h5>
-                    <p class="card-text">Cursos sobre marketing digital, gestión empresarial, finanzas y más.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Diseño">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Diseño</h5>
-                    <p class="card-text">Cursos sobre diseño gráfico, UX/UI, y herramientas de diseño.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+</section> -->
 
 <!-- Cursos Destacados -->
-<section id="cursos" class="bg-light py-5">
-    <div class="container">
-        <h2 class="text-center mb-4">Cursos Destacados</h2>
+<section id="cursos" class="container">
+        <h2 class="text-center mb-4">Disciplinas de aprendizaje</h2>
         <div class="row">
-            <div class="col-md-4 mb-4">
+            <div class="col-md-6 mb-4">
                 <div class="card">
-                    <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Curso de JavaScript">
+                    <img src="img/tkd_combate.webp" class="card-img-top" alt="Curso de JavaScript">
                     <div class="card-body">
-                        <h5 class="card-title">Curso de JavaScript</h5>
+                        <h5 class="card-title">Combate - Gyeorugi</h5>
                         <p class="card-text">Aprende JavaScript desde cero hasta nivel avanzado.</p>
                         <a href="#" class="btn btn-primary">Ver Curso</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-6 mb-4">
                 <div class="card">
-                    <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Curso de Marketing Digital">
+                    <img src="img/poomsae.webp" class="card-img-top" alt="Curso de Marketing Digital">
                     <div class="card-body">
-                        <h5 class="card-title">Curso de Marketing Digital</h5>
+                        <h5 class="card-title">Poomsae</h5>
                         <p class="card-text">Domina las herramientas y estrategias de marketing online.</p>
                         <a href="#" class="btn btn-primary">Ver Curso</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            </div>
+            <div class="row">
+            <div class="col-md-6 mb-4">
                 <div class="card">
-                    <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Curso de Diseño UX/UI">
+                    <img src="img/terminologia.jpg" class="card-img-top" alt="Curso de Diseño UX/UI">
                     <div class="card-body">
-                        <h5 class="card-title">Curso de Diseño UX/UI</h5>
+                        <h5 class="card-title">Terminologia del Taekwondo </h5>
+                        <p class="card-text">Crea experiencias de usuario excepcionales con diseño UX/UI.</p>
+                        <a href="#" class="btn btn-primary">Ver Curso</a>
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-6 mb-4">
+                <div class="card">
+                    <img src="img/def_personal.jpeg" class="card-img-top" alt="Curso de Diseño UX/UI">
+                    <div class="card-body">
+                        <h5 class="card-title">Defensa Personal</h5>
                         <p class="card-text">Crea experiencias de usuario excepcionales con diseño UX/UI.</p>
                         <a href="#" class="btn btn-primary">Ver Curso</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-3">
-    <p>&copy; 2024 Plataforma de Cursos Online. Todos los derechos reservados.</p>
-</footer>
 
-<!-- Bootstrap JS y dependencias -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

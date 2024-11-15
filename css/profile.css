@@ -8,7 +8,7 @@
 
 
 :root{
-  --pri: #e3b23f;
+  --pri: #ADBBDA;
   --sec: #343a40;
   --ter: #CAFFB9;
 }
@@ -116,6 +116,7 @@ Recuperado de uiverse
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
 
+  background-color: #8697C4;
   display: flex;
   flex-direction: column;
   text-align: center;

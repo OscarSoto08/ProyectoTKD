@@ -23,7 +23,7 @@ if ($eventos = EventoServicio::filtrar($texto)) {
           
         $data .= "<div class='col-md-3'>";
         $data .= '<div class="container">';
-        $data .= '<h1 class="eventoid" style="display: none";>ID del evento: '. $evento -> getId() .'</h1>';
+        $data .= '<h1 style="display: none";>ID del evento: <span class="eventoid">'. $evento -> getId() .'</span></h1>';
         $data .= '<h2> <span class="nombre_ev">' . $evento->getNombre() . '</span></h2>';
 
         // Aquí empieza el carrusel
@@ -52,13 +52,13 @@ if ($eventos = EventoServicio::filtrar($texto)) {
         $data .= '<p> <span class="descripcion_ev">' . $evento->getDescripcion() . '</span></p>';
         $data .= '<p>Fecha inicio: <span class="fecha_inicio_ev">' . $evento->getFecha_inicio() . '</span></p>';
         $data .= '<p>Fecha fin: <span class="fecha_fin_ev">' . $evento->getFecha_fin() . '</span></p>';
-        $data .= '<p class="' . ($evento->getEstado() == 'vencido' ? 'red' : 'green') . '"> <span class="estado_ev">' . $evento->getEstado() . '</span></p>';
+        $data .= '<p class="' . ($evento->getEstado() == 'VENCIDO' ? 'red' : 'green') . '"> <span class="estado_ev">' . $evento->getEstado() . '</span></p>';
         $data .= '<p>Precio: $<span class="precio_ev">' . $evento->getPrecio() . '</span></p>';
         $data .= '<p>Ciudad: <span class="ciudad_ev">' . $evento->getCiudad() . '</span></p>';
         $data .= '<h5 class="text-center">Gestionar</h5>';
         $data .= '<div class="d-flex">
-                    <button type="button" class="mx-auto btn fill" data-bs-toggle="modal" data-bs-target="#modal_evento">Evento</button>
-                    <button type="button" class="mx-auto btn fill" data-bs-toggle="modal" data-bs-target="#modal_galeria">Galeria</button>
+                    <button type="button" class="mx-auto btn fill btn_modal_evento" data-bs-toggle="modal" data-bs-target="#modal_evento">Evento</button>
+                    <button type="button" class="mx-auto btn fill btn_modal_evento" data-bs-toggle="modal" data-bs-target="#modal_galeria">Galeria</button>
                     </div>';
         $data .= '</div></div>';
 

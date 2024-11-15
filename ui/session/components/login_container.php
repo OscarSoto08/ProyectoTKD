@@ -22,7 +22,7 @@ if(isset($_GET['status'])){ ?>
     <?php 
     } 
 } 
-if($_GET['userAlreadyExists'] == 1){ ?>
+if(isset($_GET["userAlreadyExists"]) && $_GET['userAlreadyExists'] == 1){ ?>
     <div class="text-center alert alert-success" role="alert">
         El usuario que intentas registrar ya existe en la plataforma. <br> ¡Intenta iniciar sesion!
     </div> 

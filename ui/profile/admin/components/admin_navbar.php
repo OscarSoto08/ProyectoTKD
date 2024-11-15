@@ -52,7 +52,7 @@ $script_actual = $ruta[count($ruta)-1];
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_courses.php'); ?>">Cursos</a>
+          <a class="nav-link <?php echo ($script_actual == 'manage_courses.php') ? 'active' : ''; ?>" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/manage_courses.php'); ?>">Cursos</a>
         </li>
         
       </ul>

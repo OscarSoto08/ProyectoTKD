@@ -53,8 +53,8 @@
                     <div class="mb-3">
                         <label for="estado" class="form-label">Estado</label>
                         <select class="form-select" id="estado" name="estado" required>
-                            <option value="Activo">Activo</option>
-                            <option value="Inactivo">Inactivo</option>
+                            <option value="VENCIDO">Vencido</option>
+                            <option value="DISPONIBLE">Disponible</option>
                         </select>
                     </div>
 
