@@ -34,7 +34,6 @@ class UserServicio{
             return true;
         }
         $conexion -> cerrarConexion();
-        $conexion -> cerrarConexion();
         return false;
     }
 

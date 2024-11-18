@@ -38,7 +38,7 @@ if ($eventos = EventoServicio::filtrar($texto)) {
         }
         foreach ($galeria as $imagen) {
             $data .= '<div class="carousel-item ' . ($carousel_cont == 0 ? 'active' : '') . '">';
-            $data .= '<img src="' . $imagen->getImagen() . '" class="d-block w-100" alt="Imagen 1"></div>';
+            $data .= '<img src="' . $imagen->getImagen() . '" class="img-fluid" alt="Imagen 1"></div>';
             $carousel_cont++;
         }
 

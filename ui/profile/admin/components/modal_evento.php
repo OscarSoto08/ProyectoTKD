@@ -58,12 +58,46 @@
                         </select>
                     </div>
 
-                    <!-- Botón de Guardar -->
+                    
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar Evento</button>
+                    <!-- Botón de Guardar -->
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Evento</button>
+                </div>
+            </form>
+
+
+            <!-- Formulario para agregar/editar una imagen -->
+            <form id="galleryForm">
+                <h2 class="text-center">Gestionar Imagenes</h2>
+                    <input type="hidden" id="imageId" name="imageId" value="">
+                    <div class="mb-3">
+                        <label for="imageTitle" class="form-label">Título de la imagen</label>
+                        <input type="text" class="form-control" id="imageTitle" name="imageTitle" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="imageFile" class="form-label">Archivo de imagen</label>
+                        <input type="file" class="form-control" id="imageFile" name="imageFile">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
+
+                <!-- Tabla para mostrar las imágenes de la galería -->
+                <table class="table mt-3" id="galleryTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Imagen</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se agregarán las imágenes con AJAX -->
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>

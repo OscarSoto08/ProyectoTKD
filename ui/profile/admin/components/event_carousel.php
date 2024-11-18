@@ -13,7 +13,7 @@
     ?>
     <!-- Para este caso el arreglo no estará vacio, así que se recorre as always -->
         <div class="carousel-item <?php echo $carousel_cont == 0 ? 'active': ''; ?>">
-            <img src="<?php echo $imagen -> getImagen(); ?>" class="d-block w-100" alt="Imagen 1">
+            <img class="img-fluid" src="<?php echo $imagen -> getImagen(); ?>"  alt="Imagen 1">
         </div>
         <?php
         $carousel_cont+=1;

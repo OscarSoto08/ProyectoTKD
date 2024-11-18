@@ -16,12 +16,12 @@ include 'ui/profile/admin/components/modal_galeria.php';
     $eventos = EventoServicio::consultarTodos();
     $i = 0;
     foreach ($eventos as $evento) {
-        if ($i % 4 == 0) {
+        if ($i % 3 == 0) {
             echo ' <div class="row p-5">';
         }
         ?>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
     <div class="container">                 
     
     <h1 class="eventoid" style="display: none;"><?php echo $evento -> getId(); ?></h1>
@@ -37,21 +37,20 @@ include 'ui/profile/admin/components/modal_galeria.php';
                 <p class="<?php echo $evento -> getEstado() == 'VENCIDO' ? 'red' : 'green' ?>"><span class="estado_ev"><?php echo $evento -> getEstado(); ?></span></p>
                 <p>Precio: $<span class="precio_ev"><?php echo $evento -> getPrecio(); ?></span></p>
                 <p>Ciudad: <span class="ciudad_ev"><?php echo $evento -> getCiudad(); ?></span></p>
-                <h5 class="text-center">Gestionar</h5>
+                
                 <div class="d-flex">
-                    <button type="button" class="mx-auto btn fill btn_modal_evento" data-bs-toggle="modal" data-bs-target="#modal_evento">Evento</button>
-                    <button type="button" class="mx-auto btn fill btn_modal_galeria" data-bs-toggle="modal" data-bs-target="#modal_galeria">Galeria</button>
+                    <button type="button" class="mx-auto btn fill btn_modal_evento" data-bs-toggle="modal" data-bs-target="#modal_evento"><h5 class="text-center">Gestionar  evento</h5></button>
                 </div>
 
             </div>
         </div>
         <?php
-        if ($i % 4 == 3) {
+        if ($i % 3 == 2) {
             echo "</div>";
         }
         $i++;
     }
-    if ($i % 4 != 0) {
+    if ($i % 3 != 0) {
         echo "</div>";
     }     
     ?>

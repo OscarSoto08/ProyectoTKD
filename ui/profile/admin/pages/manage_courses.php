@@ -147,7 +147,7 @@ footer p {
                     <div class="card-body">
                         <h5 class="card-title">Combate - Gyeorugi</h5>
                         <p class="card-text">Aprende JavaScript desde cero hasta nivel avanzado.</p>
-                        <a href="#" class="btn btn-primary">Ver Curso</a>
+                        <a href="?pid=<?php echo base64_encode('ui/profile/admin/pages/combate_course.php');?>" class="btn btn-primary">Ver Curso</a>
                     </div>
                 </div>
             </div>
