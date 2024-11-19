@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Cursos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<?php include 'ui/profile/admin/components/admin_header.php'; ?>
     <style>
-body {
-    background-color: #f8f9fa;
-}
 
 .navbar-brand {
     font-size: 1.5rem;
@@ -58,33 +49,13 @@ body {
 }
 
     </style>
-</head>
 <body>
-    <!-- Barra de Navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Gestión de Cursos</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Gestión de Cursos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Estudiantes</a></li>
-                </ul>
-                <div class="ms-auto">
-                    <button class="btn btn-outline-light">Cerrar Sesión</button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
+<div class="d-flex flex-row m-auto row g-3 container align-center justify-content-around">
     <!-- Vista General del Curso -->
-    <div class="container my-4">
+    <div class="col my-4">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1 class="display-5">Curso: Matemáticas Avanzadas</h1>
+                <h1 class="display-5">Curso: <?php echo 'combate'; ?></h1>
                 <p class="lead">Total de Estudiantes: <strong>30</strong></p>
             </div>
         </div>
@@ -104,34 +75,43 @@ body {
     </div>
 
     <!-- Detalle del Nivel -->
-    <div class="container" id="nivelDetalle" style="display: none;">
+    <div class="col" id="nivelDetalle" style="display: none;">
         <h2 class="text-center">Nivel 1: Introducción</h2>
         <p class="text-center">Gestión de preguntas y estudiantes</p>
 
         <!-- Preguntas estilo "¿Quién Quiere Ser Millonario?" -->
         <div class="accordion" id="preguntasAccordion">
-            <div class="accordion-item" id="pregunta1">
-                <h2 class="accordion-header" id="heading1">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePregunta1">
-                        ¿Cuál es la raíz cuadrada de 16?
-                    </button>
-                </h2>
-                <div id="collapsePregunta1" class="accordion-collapse collapse">
-                    <div class="accordion-body">
-                        <ul class="list-group mb-3">
-                            <li class="list-group-item">A. 6</li>
-                            <li class="list-group-item">B. 5</li>
-                            <li class="list-group-item">C. 4 <span class="badge bg-success">Correcta</span></li>
-                            <li class="list-group-item">D. 3</li>
-                        </ul>
-                        <!-- Botones de acción -->
-                        <button class="btn btn-sm btn-warning me-2" onclick="editarPregunta(1)">Editar</button>
-                        <button class="btn btn-sm btn-danger" onclick="eliminarPregunta(1)">Eliminar</button>
-                    </div>
-                </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                ¿
+            </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+            <ul class="list-group mb-3">
+                    <li class="list-group-item">A. 6</li>
+                    <li class="list-group-item">B. 5</li>
+                    <li class="list-group-item">C. 4 <span class="badge bg-success">Correcta</span></li>
+                    <li class="list-group-item">D. 3</li>
+                </ul>
+                <!-- Botones de acción -->
+                <button class="btn btn-sm btn-warning me-2" onclick="editarPregunta(1)">Editar</button>
+                <button class="btn btn-sm btn-danger" onclick="eliminarPregunta(1)">Eliminar</button>
+            </div>
             </div>
         </div>
+        </div>
+        </div>
     </div>
+
+
+
+
+
+
+
+</div>
 
     <!-- Modal para editar preguntas -->
     <div class="modal fade" id="modalEditarPregunta" tabindex="-1" aria-labelledby="modalEditarPreguntaLabel" aria-hidden="true">
@@ -170,14 +150,11 @@ body {
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
 // Muestra el detalle del nivel seleccionado
 function verNivel(nivelId) {
     // Ocultar otros contenidos y mostrar el nivel
     document.getElementById('nivelDetalle').style.display = 'block';
-    alert(`Mostrando detalles del Nivel ${nivelId}`);
 }
 
 // Editar una pregunta (abre el modal y carga los datos)

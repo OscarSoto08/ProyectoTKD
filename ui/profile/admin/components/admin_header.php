@@ -21,6 +21,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
 
     <link rel="stylesheet" href="css/profile.css">
+
+    <!-- Incluir dependencias y navbar -->
     <?php 
         require 'ui/profile/admin/includes.php';
         require 'ui/profile/admin/components/admin_navbar.php';

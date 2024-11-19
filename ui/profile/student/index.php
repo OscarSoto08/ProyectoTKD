@@ -15,7 +15,7 @@ require 'ui/profile/student/components/header.php';
         <h1>Cursos disponibles</h1>
         <div class="row">
             <div class="col">
-                <div class="container"><a href="">Combate</a></div>
+                <div class="container"><a href="?pid=<?php echo base64_encode('ui/profile/student/pages/subcurso.php');?>">Combate</a></div>
             </div>
             <div class="col">
                 <div class="container"><a href="">Poomsae</a></div>
