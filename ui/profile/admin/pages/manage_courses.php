@@ -1,17 +1,4 @@
-<?php include ('ui/profile/admin/components/admin_header.php');?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plataforma para aprender de manera interactiva con cursos online.">
-    <meta name="keywords" content="cursos online, educación, aprender, plataforma de cursos">
-    <title>Plataforma de Cursos Online</title>
-
-    <!-- Enlace a Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Enlace a Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<?php require 'ui/profile/admin/components/admin_header.php'; ?>
 
     <!-- Estilos personalizados -->
      <style>
@@ -20,7 +7,6 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--pri);
 }
 
 h1, h2, h3 {
@@ -44,10 +30,6 @@ h1, h2, h3 {
     margin-bottom: 30px;
 }
 
-.hero .btn {
-    font-size: 1.2rem;
-    padding: 15px 30px;
-}
 
 /* Categorías Populares */
 .card {
@@ -56,7 +38,7 @@ h1, h2, h3 {
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
-    background-color: #8597C4;
+    background-color: var(--pri);
 }
 
 .card:hover {
@@ -93,15 +75,7 @@ h1, h2, h3 {
     padding: 20px;
 }
 
-#cursos .btn-primary {
-    background-color: #007bff;
-    border: none;
-    padding: 10px 20px;
-}
 
-#cursos .btn-primary:hover {
-    background-color: #0056b3;
-}
 
 /* Footer */
 footer {
@@ -147,7 +121,7 @@ footer p {
                     <div class="card-body">
                         <h5 class="card-title">Combate - Gyeorugi</h5>
                         <p class="card-text">Aprende JavaScript desde cero hasta nivel avanzado.</p>
-                        <a href="?pid=<?php echo base64_encode('ui/profile/admin/pages/combate_course.php');?>" class="btn btn-primary">Ver Curso</a>
+                        <a class="btn fill" href="?pid=<?php echo base64_encode('ui/profile/admin/pages/combate_course.php');?>" class="btn btn-primary">Ver Curso</a>
                     </div>
                 </div>
             </div>
@@ -157,7 +131,7 @@ footer p {
                     <div class="card-body">
                         <h5 class="card-title">Poomsae</h5>
                         <p class="card-text">Domina las herramientas y estrategias de marketing online.</p>
-                        <a href="#" class="btn btn-primary">Ver Curso</a>
+                        <a href="#" class="btn fill">Ver Curso</a>
                     </div>
                 </div>
             </div>
@@ -169,7 +143,7 @@ footer p {
                     <div class="card-body">
                         <h5 class="card-title">Terminologia del Taekwondo </h5>
                         <p class="card-text">Crea experiencias de usuario excepcionales con diseño UX/UI.</p>
-                        <a href="#" class="btn btn-primary">Ver Curso</a>
+                        <a href="#" class="btn fill">Ver Curso</a>
                     </div>
                 </div>
             </div>
@@ -179,7 +153,7 @@ footer p {
                     <div class="card-body">
                         <h5 class="card-title">Defensa Personal</h5>
                         <p class="card-text">Crea experiencias de usuario excepcionales con diseño UX/UI.</p>
-                        <a href="#" class="btn btn-primary">Ver Curso</a>
+                        <a href="#" class="btn fill">Ver Curso</a>
                     </div>
                 </div>
             </div>
