@@ -20,7 +20,7 @@ $paginasConSesion = [
     'ui/profile/admin/pages/manage_users.php',
     'ui/profile/admin/pages/manage_events.php',
     'ui/profile/admin/pages/manage_courses.php',
-    'ui/profile/admin/pages/combate_course.php',
+    'ui/profile/admin/pages/course.php',
     'ui/profile/student/index.php',
     'ui/profile/student/pages/subcurso.php',
     'ui/profile/teacher/index.php'

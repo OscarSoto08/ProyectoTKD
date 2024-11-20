@@ -1,7 +1,6 @@
 <?php 
 require 'ui/profile/admin/components/admin_header.php';
 include 'ui/profile/admin/components/modal_evento.php'; 
-include 'ui/profile/admin/components/modal_galeria.php'; 
 ?>
 <body>
 <div style="text-align: center; margin-top: 20px;"> <!-- Añadido un contenedor con centrado -->
