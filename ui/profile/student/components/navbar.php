@@ -16,7 +16,7 @@ $script_actual = $ruta[count($ruta)-1];
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="opciones-navbar">
         <li class="nav-item">
-        <a class="nav-link <?php echo ($script_actual == 'index.php') ? 'active'  : ''; ?>" aria-current="page" href="../admin">Inicio</a>
+        <a class="nav-link <?php echo ($script_actual == 'index.php') ? 'active'  : ''; ?>" aria-current="page" href="?pid=<?php echo base64_encode('ui/profile/student/index.php');?>">Inicio</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Gestionar eventos</a>
