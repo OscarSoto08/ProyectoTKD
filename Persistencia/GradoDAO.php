@@ -17,8 +17,7 @@ class GradoDAO extends DAO{
         FROM grado
         WHERE idGrado = ?";
         $tipos = "i";
-        $valores = $id;
-        $this -> conexion -> prepararConsulta($sql,$tipos,$valores);
+        return $this -> conexion -> prepararConsulta($sql,$tipos,$id);
     }
     
     /**

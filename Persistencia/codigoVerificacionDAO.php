@@ -5,10 +5,10 @@ class CodigoVerificacionDAO extends DAO{
     }
     
     public function cambiarEstado(CodigoVerificacion $codigo){
-        $sql = "UPDATE `codigo_verificacion` SET `estado` = ?";
-        $tipo = 's';
-        $valor = $codigo -> getEstado();
-        return ($this -> conexion -> prepararConsulta($sql, $tipo, $valor))? true : false;
+        $sql = "UPDATE `codigo_verificacion` SET `estado` = ? WHERE idCodigo_verificacion = ?";
+        $tipo = 'si';
+        $valores = [ $codigo -> getEstado(), $codigo -> getId()];
+        return $this -> conexion -> prepararConsulta($sql, $tipo, ...$valores);
     }
         /**
      * @inheritDoc
@@ -38,18 +38,17 @@ class CodigoVerificacionDAO extends DAO{
      * @inheritDoc
      */
     public function insertar($objeto) {
-        $maxId = $this -> maxId()+1;
-        $sql = "INSERT INTO `codigo_verificacion`(`idCodigo_verificacion`,`codigo`, `fecha_creado`, `fecha_expirado`, `estado`, `idUser`) VALUES (?,?,?,?,?,?)";
+        $sql = "INSERT INTO `codigo_verificacion`(`idCodigo_verificacion`,`contenido_codigo`, `fecha_creado`, `fecha_expirado`, `estado`, `idUsuario`) VALUES (?,?,?,?,?,?)";
         $tipos = 'issssi';
         $valores = [
-            $maxId,
-            $objeto -> getIdCodigo(),
-            $objeto -> getFecha_creado(),
-            $objeto -> getFecha_expirado(),
+            $this -> maxId() +1,
+            $objeto -> getContenidoCodigo(),
+            $objeto -> getFechaCreado(),
+            $objeto -> getFechaExpirado(),
             $objeto -> getEstado(),
-            $objeto -> getUsuario() -> getIdPersona()
+            $objeto -> getUsuario() -> getIdUsuario()
         ];
-        return ($this -> conexion -> prepararConsulta($sql, $tipos, ...$valores))? true : false;
+        return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
     }
     
     /**

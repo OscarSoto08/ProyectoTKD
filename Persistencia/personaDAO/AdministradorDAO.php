@@ -13,10 +13,10 @@ class AdministradorDAO extends DAO{
         $this->conexion -> prepararConsulta($consulta, $tipos, ...$valores);
     }
 
-    public function buscarCorreo($correo){
-        $consulta = "SELECT idAdministrador FROM administrador WHERE correo = ?";
-        $tipos = 's';
-        return $this -> conexion -> prepararConsulta( $consulta, $tipos, ...[$correo]);
+    public function consultarPorCorreo($correo){
+        $consulta = "SELECT idUsuario FROM usuario WHERE correo = ? and idTipo_usuario = ?";
+        $tipos = 'si';
+        return $this -> conexion -> prepararConsulta( $consulta, $tipos, ...[$correo, 1]); # El valor 1 es Administrador en la bd
     }
 
     public function consultarTodos(){
@@ -34,23 +34,23 @@ class AdministradorDAO extends DAO{
         $this -> conexion -> prepararConsulta($consulta, $tipos, ...$valores);
     }
     public function insertar($objeto){
-        $sql = "INSERT INTO `administrador`(`idAdministrador`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `telefono`, `imagen`, `fechaNac`) VALUES (?,?,?,?,?,?,?,?,?)";
-         $tipos = "issssssss";
-         $objeto -> setIdPersona($this -> maxId() + 1);
+        $sql = "CALL CrearUsuario(?,?,?,?,?,?,?,?,?,?,?,NULL)";
+         $tipos = "issssssssis";
          $valores = [
-            $objeto -> getIdPersona(),
+            $this -> maxId() + 1,
             $objeto -> getNombre(),
             $objeto -> getApellido(),
             $objeto -> getCorreo(),
             $objeto -> getClave(),
-            $objeto -> getEstado(),
+            $objeto -> getEstadoRegistro(),
+            $objeto -> getFechaNacimiento(),
             $objeto -> getTelefono(),
             $objeto -> getImagen(),
-            $objeto -> getFNac()
+            $objeto -> getTipoUsuario(),
+            $objeto -> getEstado()
          ];
          return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
     }
-
     public function actualizar($objeto){
         $sql = "UPDATE `administrador` SET `nombre` = ? ,`apellido` = ?,`correo`= ?,`clave`= ?,`estado`= ?,`telefono`= ?,`imagen`= ?,`fechaNac`= ? WHERE `idAdministrador` = ?";   
         $tipos = 'ssssssssi';

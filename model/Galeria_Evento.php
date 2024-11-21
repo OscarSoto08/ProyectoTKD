@@ -4,7 +4,7 @@ class Galeria_Evento{
     private $idGaleria;
     private $imagen;
 
-    public function __construct($Evento = null, $idGaleria = null, $imagen = null){
+    public function __construct($Evento = '', $idGaleria = '', $imagen = ''){
         $this->Evento = $Evento;
         $this->idGaleria = $idGaleria;
         $this->imagen = $imagen;

@@ -1,6 +1,6 @@
 <?php 
-class AdminServicio{
-    public static function autenticar(Persona $administrador){
+class Administrador_Servicio{
+    public static function autenticar(Usuario $administrador){
         $conexion = new Conexion();
         $adminDao = new AdministradorDAO($conexion);
         //echo '<br>Es la funcion estatica autenticar del servicio para administradores<br>';
@@ -9,8 +9,22 @@ class AdminServicio{
         $conexion -> cerrarConexion();
         if($conexion -> numFilas() > 0){
             $fila = $conexion -> extraer();
-            $administrador -> setIdPersona($fila[0]);
+            $administrador -> setIdUsuario($fila[0]);
             return true;
+        }
+        return false;
+    }
+
+    //Esta funcion se usa en sign-up solamente
+    public static function consultarPorCorreo($correo){
+        $conexion = new Conexion();
+        $adminDAO = new AdministradorDAO($conexion);
+        $conexion -> iniciarConexion();
+        if($adminDAO -> consultarPorCorreo($correo)){
+            $conexion -> cerrarConexion();
+            if($conexion -> numFilas() > 0){
+                return true;
+            }
         }
         return false;
     }
@@ -69,11 +83,11 @@ class AdminServicio{
 
     public static function insertar(Administrador $administrador){
         $conexion = new Conexion();
-        $adminDao = new AdministradorDAO($conexion);
+        $adminDAO = new AdministradorDAO($conexion);
         $conexion -> iniciarConexion();
-        $resultado = $adminDao -> insertar($administrador);
+        $adminDAO -> insertar($administrador);
+        $administrador -> setidUsuario($conexion -> obtenerKey() + 1);
         $conexion -> cerrarConexion();
-        return $resultado;
     }
 
     public static function actualizar(Administrador $administrador){

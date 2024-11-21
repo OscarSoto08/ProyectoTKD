@@ -5,9 +5,13 @@ class EstudianteDAO extends DAO{
         parent::__construct($conexion);
     }
     
-    /**
-     * @inheritDoc
-     */
+
+    public function consultarPorCorreo($correo){
+        $consulta = "SELECT idUsuario FROM usuario WHERE correo = ? and idTipo_usuario = ?";
+        $tipos = 'si';
+        return $this -> conexion -> prepararConsulta( $consulta, $tipos, ...[$correo, 3]); # El valor 3 es Estudiante en la bd
+    }
+
     public function autenticar($correo, $clave){
         $sql = "SELECT idEstudiante FROM estudiante WHERE correo = ? AND clave = ?";
         $tipos = 'ss';
@@ -66,22 +70,33 @@ class EstudianteDAO extends DAO{
      * @inheritDoc
      */
     public function insertar($objeto) {
-        $sql = "INSERT INTO `estudiante`(`idEstudiante`, `nombre`, `apellido`, `correo`, `clave`, `Grado_idGrado`, `estado`, `fechaNac`, `imagen`, `telefono`) VALUES(?,?,?,?,?,?,?,?,?,?)";
-        $tipos = "issssissss";
+        // Definir la consulta del procedimiento almacenado
+        $sql = "CALL CrearUsuario(?,?,?,?,?,?,?,?,?,?,?,?)";
+    
+        // Definir los tipos de los parámetros (tipos en función de los datos que recibimos)
+        $tipos = "issssssssisi";
+        
+        // Obtener los valores del objeto
         $valores = [
-            $objeto -> getIdPersona(),
-            $objeto -> getNombre(),
-            $objeto -> getApellido(),
-            $objeto -> getCorreo(),
-            $objeto -> getClave(),
-            $objeto -> getGrado(),
-            $objeto -> getEstado(),
-            $objeto -> getFNac(),
-            $objeto -> getImagen(),
-            $objeto -> getTelefono()
+            $this -> maxId() + 1,
+            $objeto->getNombre(),                // Nombre
+            $objeto->getApellido(),              // Apellido
+            $objeto->getCorreo(),                // Correo
+            $objeto->getClave(),                 // Clave
+            $objeto->getEstadoRegistro(),       // Estado de registro
+            $objeto->getFechaNacimiento(),      // Fecha de nacimiento
+            $objeto->getTelefono(),              // Teléfono
+            $objeto->getImagen(),                // Imagen
+            $objeto->getTipoUsuario(),           // Tipo de usuario (1, 2, 3)
+            $objeto->getEstado(),                // Estado
+            $objeto->getGrado()->getIdGrado()    // ID del grado (si `getGrado()` es un objeto con el método `getIdGrado()`)
         ];
-        return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
+        // Llamar al método prepararConsulta para ejecutar el procedimiento
+        $this->conexion->prepararConsulta($sql, $tipos, ...$valores);
+    
     }
+    
+    
     /**
      * @inheritDoc
      */

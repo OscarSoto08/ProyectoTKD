@@ -1,0 +1,19 @@
+reglas de negocio de la app:
+
+1. Las preguntas pueden tener diferentes puntajes
+2. 
+
+Consulta para saber cuales preguntas faltan por respuesta:
+select r.idRespuesta
+from respuesta r left join pregunta p on r.pregunta_idPregunta = p.idPregunta
+where r.idRespuesta is null
+
+IMPORTANTE: SE HIZO UN CAMBIO EN EL NOMBRE DE LA CLASE ADMIN SERVICIO Y LA CLASE USUARIO SERVICIO YA NO ESTÁ, SE CAMBIARON TODAS LAS CLASES SERVICIO
+
+¿Que toca hacer?
+1. Re-ordenar el modelo de la aplicación
+2. Ajustar los servicios y las clases dao
+3. Actualizar la capa de login
+4. Actualizar el crud de usuarios (Quitar usuario temporal) y agregar los usuarios no admitidos
+5. Agregar el crud de los eventos y los cursos mediante ajax
+6. Hacer el back-end de los cursos

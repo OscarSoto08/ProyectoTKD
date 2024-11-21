@@ -1,5 +1,5 @@
 <?php
-class GradoServicio{
+class Grado_Servicio{
     private $GradoDAO;
     private $conexion;
     public function __construct(){

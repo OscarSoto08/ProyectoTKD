@@ -5,102 +5,105 @@ require 'ui/session/includes.php';
 
 // Definicion de variables globales
 $grado = null;
-
+$usuario = null; //Si el usuario al final del algoritmo es nulo se envia un mensaje de error
 //Manejo de errores
+$usuario_servicio = null;
 $error = false;
 
 if (isset($_POST['ingresar'])) {
-    // Verifica si el campo "rol" está definido
-    if (isset($_POST["rol"]) && $_POST["rol"] == "estudiante") {
-        $idGrado = $_POST["grado"];
-        $grado = GradoServicio::consultar($idGrado);
-    }
     
-    $user = new User(
-        null,
-        $_POST['nombre'],
-        $_POST['apellido'],
-        $_POST['correo'],
-        md5($_POST['clave']),
-        $_POST['fNac'],
-        'pendiente',
-        $_POST['telefono'],
-        $_POST['rol'],
-        $grado
-    );
+# 1. Lectura de datos    
+    $nombre = $_POST['nombre'] ?? '';
+    $apellido = $_POST['apellido'] ?? '';
+    $fecha_nacimiento = $_POST['fecha_nacimiento'] ?? '';
+    $correo = $_POST['correo'] ?? '';
+    $clave = $_POST['clave'] ? md5($_POST['clave']) : '';
+    $telefono = $_POST['telefono'] ??'';
+    $tipo_usuario = $_POST['tipo_usuario'] ??'';
+    $idGrado = $_POST['grado'] ??'';
 
-    // echo "El correo del usuario es: " . $_POST["correo"];
-
-    //Primero que nada tenemos que verificar si el usuario ya existe en la base de datos
-    if(UserServicio::autenticar($user)){
-        //entonces mandar un mensaje de que el usuario ya existe, sin embargo hay que tener en cuenta el estado del usuario
-        $status = 0;
-        switch ($user -> getEstado()) {
-            case 'pendiente':
-                $status = 1;
-                header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status ."");
-                exit();
-            case 'permitido':
-                $status = 2;
-                header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status ."");
-                exit();
-            case 'denegado': 
-                $status = 3;
-                header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status ."");
-                exit();
-            default:
-                $status = 0;
+#Identificacion del tipo de usuario
+    if ($tipo_usuario != '') {
+        switch ($tipo_usuario) {
+            case 'estudiante':
+                $usuario = new Estudiante(
+                    null,
+                    $nombre,
+                    $apellido,
+                    $correo,
+                    $clave,
+                    'pendiente',
+                    $fecha_nacimiento,
+                    $telefono,
+                    3,
+                    'activo',
+                    Grado_Servicio::consultar($idGrado) // Instancia de grado
+                );
+                $usuario_servicio = 'Estudiante_Servicio';
+                break;
+            case 'profesor':
+                $usuario = new Profesor(
+                    null,
+                    $nombre,
+                    $apellido,
+                    $correo,
+                    $clave,
+                    'pendiente',
+                    $fecha_nacimiento,
+                    $telefono,
+                    2,
+                    'activo'
+                );
+                $usuario_servicio = 'Profesor_Servicio';
                 break;
         }
     }
     
 
-// En este punto el usuario no existe en la tabla usuario_temporal pero puede que si exista en alguna tabla diferente como administrador
+# 3. Verificación de si el usuario está en la plataforma o no
 
-//Tiene que haber una funcion buscarCorreo
-
-$servUsuarios = ['AdminServicio', 'EstudianteServicio', 'ProfesorServicio'];
-foreach($servUsuarios as $usuarioServ){
-    if($usuarioServ::buscarCorreo($user -> getCorreo())){
-        $error = false;
-        header('Location: ?pid='. base64_encode('ui/session/pages/login.php') . '&userAlreadyExists=1');        
-    }else{
-        $error = true;
+$tipos_usuario_serv = ['Administrador_Servicio', 'Profesor_Servicio', 'Estudiante_Servicio'];
+foreach ($tipos_usuario_serv as $tipo_usuario) {
+    if($tipo_usuario::consultarPorCorreo($usuario -> getCorreo())){ 
+        switch($usuario -> getEstadoRegistro()){ # 4. El estado determina el mensaje que saldrá en login
+            case 'pendiente': 
+                header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=1"); // status = 1: Estamos verificando tus datos
+                exit();
+            case 'permitido':
+                header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=2"); // status = 2. Datos validos, ya puedes iniciar sesión en la plataforma
+                exit();
+            case 'denegado':
+                header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=3"); // status = 3. Acceso restringido
+                exit();    
+        }
     }
 }
 
+# 5. En este punto el usuario no existe asi que lo registramos
+$usuario_servicio::insertar($usuario);
 
 
+#6. Validamos las credenciales con un código de verificación
+$contenido_codigo = CodigoVerificacion_Servicio::generarCodigo(6);
+$fecha_creado = date('Y-m-d H:i:s');
+$fecha_expirado = date('Y-m-d H:i:s', strtotime('+10 minutes'));
 
-    if($tempUserService -> registrar($user)){
-       // echo "exito";     
-        //Aca se genera el codigo de verificacion junto con el objeto para tener en cuenta las fechas
-        $idCodigo = CodigoVerificacionServicio::generarCodigo(6);
-        $fecha_creado = date('Y-m-d H:i:s');
-        $fecha_expirado = date('Y-m-d H:i:s', strtotime('+10 minutes'));
+#7. Una vez generado el codigo lo insertamos en la base de datos
+$codigo = new CodigoVerificacion('', $contenido_codigo, $fecha_creado, $fecha_expirado, 'valido', $usuario);
+CodigoVerificacion_Servicio::insertar($codigo);
 
-        $codigo = new CodigoVerificacion($idCodigo, $fecha_creado, $fecha_expirado, 'valido', $user);
+#8. Se envia un correo para validar el código 
+$mailRegistro = new Signup_Mail(
+$usuario->getCorreo(),
+$usuario->getNombre(),
+$codigo->getContenidoCodigo()
+);
+$mailRegistro -> enviarCorreo();
+$_SESSION['codigo'] = serialize($codigo);
+#9. Se redirige a verificar codigo para la lógica
+header("Location: ?pid=" . base64_encode('ui/session/pages/verify_code.php')); 
 
-        //agregar el codigo a la bd
-        CodigoVerificacionServicio::insertar($codigo);
-        
-        $mailRegistro = new Signup_Mail(
-            $user->getCorreo(),
-            $user->getNombre(),
-            $idCodigo
-        );
-
-        //faltaria enviar el codigo a la base de datos
-        $mailRegistro -> enviarCorreo();
-        $_SESSION["codigo"] = serialize($codigo);
-        header("Location: ?pid=" . base64_encode('ui/session/pages/verify_code.php')); 
-    }else{
-        $error = true;
-        header("Location: ?pid=". base64_encode("ui/session/pages/signup.php"));
-        die();
-    }
 }
-
 ?>
 
 <body>

@@ -1,7 +1,7 @@
 <?php
-class EstudianteServicio{
+class Estudiante_Servicio{
 
-    public static function autenticar(Persona $estudiante){
+    public static function autenticar(Usuario $estudiante){
         $conexion = new Conexion();
         $EstDAO = new EstudianteDAO($conexion);
         $conexion -> iniciarConexion();
@@ -9,11 +9,24 @@ class EstudianteServicio{
         $EstDAO -> autenticar($estudiante -> getCorreo(), $estudiante -> getClave());
         if($conexion -> numFilas() == 1){
             $resultado = $conexion -> extraer();
-            $estudiante -> setIdPersona($resultado[0]);
+            $estudiante -> setIdUsuario($resultado[0]);
             $conexion -> cerrarConexion();
             return true;
         }
         $conexion -> cerrarConexion();
+        return false;
+    }
+    //Esta funcion se usa en sign-up solamente
+    public static function consultarPorCorreo($correo){
+        $conexion = new Conexion();
+        $EstudianteDAO = new EstudianteDAO($conexion);
+        $conexion -> iniciarConexion();
+        if($EstudianteDAO -> consultarPorCorreo($correo)){
+            $conexion -> cerrarConexion();
+            if($conexion -> numFilas() > 0){
+                return true;
+            }
+        }
         return false;
     }
     public static function consultarTodos(){
@@ -77,14 +90,15 @@ class EstudianteServicio{
         return $res;
     }
 
-    public static function insertar(Estudiante $Estudiante){
+    public static function insertar(Estudiante $estudiante){
         $conexion = new Conexion();
-        $EstDAO = new EstudianteDAO($conexion);
+        $EstudianteDAO = new EstudianteDAO($conexion);
         $conexion -> iniciarConexion();
-        $res = $EstDAO -> insertar($Estudiante);
+        $EstudianteDAO -> insertar($estudiante);
+        $estudiante -> setidUsuario($conexion -> obtenerKey() + 1);
         $conexion -> cerrarConexion();
-        return $res;
     }
+
 
     public static function eliminar($idEstudiante){
         $conexion = new Conexion();

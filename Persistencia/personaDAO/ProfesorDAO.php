@@ -29,6 +29,11 @@ class ProfesorDAO extends DAO{
         ];
         return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
     }
+    public function consultarPorCorreo($correo){
+        $consulta = "SELECT idUsuario FROM usuario WHERE correo = ? and idTipo_usuario = ?";
+        $tipos = 'si';
+        return $this -> conexion -> prepararConsulta( $consulta, $tipos, ...[$correo, 2]); # El valor 2 es Profesor en la bd
+    }
     
     /**
      * @inheritDoc
@@ -60,23 +65,25 @@ class ProfesorDAO extends DAO{
     /**
      * @inheritDoc
      */
-    public function insertar($objeto) {
-        $nuevoId = $this -> maxId() + 1;
-        $sql = "INSERT INTO `profesor`(`idProfesor`,`nombre`, `apellido`, `correo`, `clave`, `estado`, `imagen`, `fechaNac`, `telefono`) 
-        VALUES (?,?,?,?,?,?,?,?,?)";
-        $tipos = "issssssss";
-        $valores = [
-            $nuevoId,
+    public function insertar($objeto){
+        $sql = "CALL CrearUsuario(?,?,?,?,?,?,?,?,?,?,?,?)";
+         $tipos = "issssssssisi";
+         $valores = [
+            $this -> maxId() + 1,
             $objeto -> getNombre(),
             $objeto -> getApellido(),
             $objeto -> getCorreo(),
             $objeto -> getClave(),
-            $objeto -> getEstado(),
+            $objeto -> getEstadoRegistro(),
+            $objeto -> getFechaNacimiento(),
+            $objeto -> getTelefono(),
             $objeto -> getImagen(),
-            $objeto -> getFNac(), 
-            $objeto -> getTelefono()
-        ];
-        return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
+            $objeto -> getTipoUsuario(),
+            $objeto -> getEstado(),
+            'xxxxxx'
+         ];
+         
+         return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
     }
     
     /**

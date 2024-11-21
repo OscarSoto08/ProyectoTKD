@@ -1,7 +1,10 @@
 <?php
-class ProfesorServicio{
+/**
+ * Summary of Profesor_Servicio
+ */
+class Profesor_Servicio{
 
-    public static function autenticar(Persona $profesor){
+    public static function autenticar(Usuario $profesor){
         $conexion = new Conexion();
         $profesorDAO = new ProfesorDAO($conexion);
         $conexion -> iniciarConexion();
@@ -10,7 +13,7 @@ class ProfesorServicio{
         if($conexion -> numFilas() != 1) return false;
 
         $resultado = $conexion -> extraer();
-        $profesor -> setIdPersona($resultado[0]);
+        $profesor -> setIdUsuario($resultado[0]);
         return true;
     }
 
@@ -41,6 +44,19 @@ class ProfesorServicio{
         return $profesores;
     }
 
+    public static function consultarPorCorreo($correo){
+        $conexion = new Conexion();
+        $ProfesorDAO = new ProfesorDAO($conexion);
+        $conexion -> iniciarConexion();
+        if($ProfesorDAO -> consultarPorCorreo($correo)){
+            $conexion -> cerrarConexion();
+            if($conexion -> numFilas() > 0){ #significa que hay al menos un registro con ese correo
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static function consultarPorId($id) {
         $conexion = new Conexion();
         $profesorDAO = new ProfesorDAO($conexion);
@@ -63,7 +79,7 @@ class ProfesorServicio{
         );
             
         
-        $conexion -> cerrarCOnexion();
+        $conexion -> cerrarConexion();
         return $profesor;
     }    
 
@@ -76,14 +92,20 @@ class ProfesorServicio{
         return $res;
     }
 
+    /**
+     * Usado en el crud de usuarios y en registro
+     */
+
     public static function insertar(Profesor $profesor){
         $conexion = new Conexion();
-        $profesorDAO = new ProfesorDAO($conexion);
+        $ProfesorDAO = new ProfesorDAO($conexion);
         $conexion -> iniciarConexion();
-        $res = $profesorDAO -> insertar($profesor);
+        $ProfesorDAO -> insertar($profesor);
+        $profesor -> setidUsuario($conexion -> obtenerKey() + 1);
         $conexion -> cerrarConexion();
-        return $res;
     }
+
+
 
     public static function eliminar($idProfesor){
         $conexion = new Conexion();
