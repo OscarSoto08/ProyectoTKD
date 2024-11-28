@@ -26,7 +26,7 @@
     <?php 
         require 'ui/profile/admin/includes.php';
         require 'ui/profile/admin/components/admin_navbar.php';
-    ?>
+    ?> 
 
     <!-- El contenido de la página aquí -->
 

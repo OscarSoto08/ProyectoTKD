@@ -1,4 +1,7 @@
 <?php 
+/**
+ * Summary of CodigoVerificacion
+ */
 class CodigoVerificacion{
     private $id;
     private $contenido_codigo;
