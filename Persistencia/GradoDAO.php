@@ -15,9 +15,8 @@ class GradoDAO extends DAO{
     public function consultarPorId($id) {
         $sql = "SELECT grado
         FROM grado
-        WHERE idGrado = ?";
-        $tipos = "i";
-        return $this -> conexion -> prepararConsulta($sql,$tipos,$id);
+        WHERE idGrado = " . $id;
+        $this -> conexion -> ejecutarConsulta( $sql );
     }
     
     /**

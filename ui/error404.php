@@ -1,5 +1,5 @@
-<?php require 'ui/home/components/navbar.php'; ?>
-<?php require 'ui/home/components/head.php'; ?>
+<?php require 'ui/inicio/components/navbar.php'; ?>
+<?php require 'ui/inicio/components/head.php'; ?>
 <style>
     body {
         font-size: 16px;

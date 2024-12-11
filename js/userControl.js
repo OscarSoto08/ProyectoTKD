@@ -18,7 +18,7 @@ switch (rolParam) {
     case '1':
         tabla_usuarios = $("#tabla_usuarios").DataTable({
             "ajax":{
-                "url":"ui/profile/admin/crud_usuario.php",
+                "url":"ui/administrador/crud_usuario.php",
                 "method": "POST",
                 "data": {action: action, rolParam: rolParam},
                 "dataSrc": ""
@@ -40,7 +40,7 @@ switch (rolParam) {
         
         tabla_usuarios = $("#tabla_usuarios").DataTable({
             "ajax":{
-                "url":"ui/profile/admin/crud_usuario.php",
+                "url":"ui/administrador/crud_usuario.php",
                 "method": "POST",
                 "data": {action: action, rolParam: rolParam},
                 "dataSrc": ""
@@ -61,7 +61,7 @@ switch (rolParam) {
     case '3':
         tabla_usuarios = $("#tabla_usuarios").DataTable({
             "ajax":{
-                "url":"ui/profile/admin/crud_usuario.php",
+                "url":"ui/administrador/crud_usuario.php",
                 "method": "POST",
                 "data": {action: action, rolParam: rolParam},
                 "dataSrc": ""
@@ -81,7 +81,7 @@ switch (rolParam) {
     case '4':
         tabla_usuarios = $("#tabla_usuarios").DataTable({
             "ajax": {
-                "url": "ui/profile/admin/crud_usuario.php",
+                "url": "ui/administrador/crud_usuario.php",
                 "method": "post",
                 "data": {action: action, rolParam: rolParam},
                 "dataSrc": ""
@@ -188,7 +188,7 @@ $(document).on("click", ".btnBorrar", function(){
     var respuesta = confirm("¿Está seguro que desea eliminar el registro: " + idUsuario + "?");
     if(respuesta){
         $.ajax({
-            url: "ui/profile/admin/crud_usuario.php",
+            url: "ui/administrador/crud_usuario.php",
             type: 'POST',
             dataType: 'JSON',
             data: {idUsuario: idUsuario, action: action, rolParam: rolParam},
@@ -216,7 +216,7 @@ $(document).on("click", ".btnEditar", function(){
     if(rolParam == 2 || rolParam == 4){$("#grado-section").css("display", "block")}
     if(rolParam == 4) $("#rol-section").css("display", "block");
     $.ajax({
-        url: 'ui/profile/admin/crud_usuario.php',
+        url: 'ui/administrador/crud_usuario.php',
         type: 'POST',
         dataType: 'JSON',
         data: {action: 5, idUsuario: idUsuario, rolParam: rolParam},

@@ -12,7 +12,7 @@ class conexion{
     }
 
     public function iniciarConexion(){
-        $this -> mysqlconexion = new mysqli("localhost", "root", "123456", "proyTKD");
+        $this -> mysqlconexion = new mysqli("localhost", "root", "", "proyTKD");
        // $this -> mysqlconexion -> set_charset("utf-8");
 
         if($this -> mysqlconexion -> connect_error){
@@ -49,7 +49,7 @@ class conexion{
         return ($this ->  resultado != null) ? $this -> resultado -> num_rows : 0;  
     }
 
-    public function extraer(){
+    public function extraer(): array|bool|null{
         return $this -> resultado -> fetch_row();
     }
     public function extraerAssoc(){

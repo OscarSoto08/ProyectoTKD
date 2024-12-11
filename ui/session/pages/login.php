@@ -5,47 +5,47 @@ require 'ui/session/includes.php';
 $errorAuth = false;
 
 if(isset($_SESSION['id']) && isset($_SESSION['tipoUsuario'])){ //Verificar que el usuario ya existe y que usuario es para redirigirlo a su index
-    if($_SESSION['tipoUsuario'] == 'administrador') header('Location: ?pid='. base64_encode('ui/profile/admin/index.php'));
-    if($_SESSION['tipoUsuario'] == 'estudiante') header('Location: ?pid='. base64_encode('ui/profile/student/index.php'));
-    if($_SESSION['tipoUsuario'] == 'profesor') header('Location: ?pid='. base64_encode('ui/profile/teacher/index.php'));
+    if($_SESSION['tipoUsuario'] == 'administrador') header('Location: ?pid='. base64_encode('ui/administrador/index.php'));
+    if($_SESSION['tipoUsuario'] == 'estudiante') header('Location: ?pid='. base64_encode('ui/estudiante/index.php'));
+    if($_SESSION['tipoUsuario'] == 'profesor') header('Location: ?pid='. base64_encode('ui/profesor/index.php'));
 }
 
 if (isset($_POST['autenticar'])) {
 $correo = $_POST['correo'];
 $clave = md5($_POST['clave']);
 
-$usuario = new Persona(null,null,null,$correo, $clave, null,null,null);
-$servUsuarios = ['AdminServicio', 'EstudianteServicio', 'ProfesorServicio', 'UserServicio'];
+$usuario = new Persona(null,null,null,$correo, $clave, null,null,null, null, null);
+$servUsuarios = ['Administrador', 'Estudiante', 'Profesor', 'Usuario'];
 foreach($servUsuarios as $usuarioServ){
     if($usuarioServ::autenticar($usuario)){
         $errorAuth = false;
-        $_SESSION["id"] = $usuario -> getIdPersona();
-        if($usuarioServ == 'AdminServicio'){  
+        $_SESSION["id"] = $usuario -> getIdUsuario();
+        if($usuarioServ == 'Administrador'){  
             $_SESSION['tipoUsuario'] = 'administrador';
-            header('Location: ?pid='. base64_encode('ui/profile/admin/index.php'));
+            header('Location: ?pid='. base64_encode('ui/administrador/index.php'));
         }
-        if($usuarioServ == 'EstudianteServicio'){
+        if($usuarioServ == 'Estudiante'){
             $_SESSION['tipoUsuario'] = 'estudiante';
-            header('Location: ?pid='. base64_encode('ui/profile/student/index.php'));
+            header('Location: ?pid='. base64_encode('ui/estudiante/index.php'));
         } 
-        if($usuarioServ == 'ProfesorServicio'){
+        if($usuarioServ == 'Profesor'){
             $_SESSION['tipoUsuario'] = 'profesor';
-            header('Location: ?pid='. base64_encode('ui/profile/teacher/index.php'));
+            header('Location: ?pid='. base64_encode('ui/profesor/index.php'));
         } 
-        if($usuarioServ == 'UserServicio'){
+        if($usuarioServ == 'Usuario'){
             $status = 0;
-            switch ($usuario -> getEstado()) {
+            switch ($usuario -> getEstadoRegistro()) {
                 case 'pendiente':
                     $status = 1;
-                    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status ."");
+                    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status);
                     exit();
                 case 'permitido':
                     $status = 2;
-                    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status ."");
+                    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status);
                     exit();
                 case 'denegado': 
                     $status = 3;
-                    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status ."");
+                    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status);
                     exit();
                 default:
                     $status = 0;
@@ -60,13 +60,8 @@ foreach($servUsuarios as $usuarioServ){
 ?>
 
 <body>
-
-
-
-
     <section class="container">
         <?php include 'ui/session/components/login_container.php' ?>
     </section>
-
 </body>
 </html>

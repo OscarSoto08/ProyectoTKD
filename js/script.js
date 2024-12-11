@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Selecciona todos los elementos con la clase .dropdown-item
 
     //Primero que se cargue la info general
-    fetch('ui/home/pages/brief-info.php')
+    fetch('ui/inicio/pages/brief-info.php')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Red error'); // Lanza un error si la respuesta no es exitosa
