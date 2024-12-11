@@ -90,7 +90,7 @@ class UsuarioDAO extends DAO{
     }
 
     public function verificar($correo){
-        $sql = "SELECT `idUsuario`, `estado_registro` FROM usuario WHERE correo = ?";
+        $sql = "SELECT `idUsuario`, `estado` FROM usuario WHERE correo = ?";
         $tipos = 's';
         $valores = [ $correo];
         return $this -> conexion -> prepararConsulta($sql, $tipos,... $valores);

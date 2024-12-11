@@ -52,7 +52,7 @@ class EstudianteDAO extends DAO{
      * @inheritDoc
      */
     public function consultarTodos() {
-        $sql = "SELECT u.idUsuario, u.nombre, u.apellido, u.correo, u.clave, u.estado_registro, u.fecha_nacimiento, u.telefono, u.idTipo_usuario, u.imagen, e.Grado_idGrado
+        $sql = "SELECT u.idUsuario, u.nombre, u.apellido, u.correo, u.clave, u.estado, u.fecha_nacimiento, u.telefono, u.idTipo_usuario, u.imagen, e.Grado_idGrado
         FROM estudiante e JOIN usuario u ON u.idUsuario = e.idEstudiante";
         $this -> conexion -> ejecutarConsulta($sql);
     }
@@ -71,10 +71,10 @@ class EstudianteDAO extends DAO{
      */
     public function insertar($objeto) {
         // Definir la consulta del procedimiento almacenado
-        $sql = "CALL CrearUsuario(?,?,?,?,?,?,?,?,?,?,?,?)";
-    
+        $sql = "CALL CrearUsuario(?,?,?,?,?,?,?,?,?,?,?)";
+        $objeto = new Estudiante();
         // Definir los tipos de los parámetros (tipos en función de los datos que recibimos)
-        $tipos = "issssssssisi";
+        $tipos = "isssssssisi";
         
         // Obtener los valores del objeto
         $valores = [
@@ -83,17 +83,15 @@ class EstudianteDAO extends DAO{
             $objeto->getApellido(),              // Apellido
             $objeto->getCorreo(),                // Correo
             $objeto->getClave(),                 // Clave
-            $objeto->getEstadoRegistro(),       // Estado de registro
+            $objeto->getEstado(),               // Estado de registro
             $objeto->getFechaNacimiento(),      // Fecha de nacimiento
             $objeto->getTelefono(),              // Teléfono
-            $objeto->getImagen(),                // Imagen
             $objeto->getTipoUsuario(),           // Tipo de usuario (1, 2, 3)
-            $objeto->getEstado(),                // Estado
+            $objeto->getImagen(),                // Imagen
             $objeto->getGrado()->getIdGrado()    // ID del grado (si `getGrado()` es un objeto con el método `getIdGrado()`)
         ];
         // Llamar al método prepararConsulta para ejecutar el procedimiento
         $this->conexion->prepararConsulta($sql, $tipos, ...$valores);
-    
     }
     
     

@@ -19,12 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
 
-    document.querySelectorAll('.dropdown-item').forEach(item => {
+    document.querySelectorAll('.nav-link').forEach(item => {
         // Agrega un evento de clic a cada elemento
         item.addEventListener('click', function(e) {
             // e.preventDefault(); // Evita el comportamiento predeterminado del enlace
             const page = this.getAttribute('data-page'); // Obtiene la URL de la página desde el atributo data-page
-
+            console.log(page)
             // Lógica para cargar la página vía AJAX
             fetch(page)
                 .then(response => {

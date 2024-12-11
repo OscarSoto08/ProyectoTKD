@@ -2,8 +2,9 @@
 session_start();
 
 if(isset($_GET['cs']) && base64_decode($_GET['cs']) == 'true') session_destroy();
-
-
+include 'ui/components/Header.php';
+include 'ui/components/Navbar.php';
+include 'ui/components/Navitem.php';
 
 $paginasSinSesion = [
     'ui/session/pages/login.php',
@@ -23,23 +24,30 @@ $paginasConSesion = [
 ];
 
 if(empty($_GET['pid'])){
-    include 'ui/inicio/components/head.php';
-    include 'ui/inicio/components/navbar.php';
-    ?>
-    <body>
-    <div id="datos">
-        <div class="row mb-10 container mx-auto">
-            <div class="col container">
 
-                <div class="card border-dark p-8" id="content">
-                </div>
+$header = new Header(css:['css/styleAG.css', 'css/style.css', 'css/events.css'], js: ['js/script.js', 'js/events.js', 'js/main.js']);
+$header->render(); 
+$navbar = new Navbar(nav_items: [
+    new Navitem(posicion: 'izquierda', contenido: ['INICIO'], atributos: ["data-page='ui/inicio/pages/brief-info.php'"]),
+    new Navitem(posicion: 'izquierda', contenido: ['EVENTOS'],atributos: ["data-page='ui/inicio/pages/events.php'"]),
+    new Navitem(posicion: 'centro', contenido: ['HISTORIA'], atributos: ["data-page='ui/inicio/pages/history.php'"]),
+    new Navitem(posicion: 'centro', contenido: ['QUIENES SOMOS'], atributos: ["data-page='ui/inicio/pages/tree.php'"]),
+    new Navitem(posicion: 'derecha', contenido: ['CONTACTO'], link: ''),
+    new Navitem(posicion:'derecha', contenido: ['INGRESAR'], link: 'ui/session/pages/login.php')
+]);
+$navbar -> render();
+?>
+<div id="datos">
+    <div class="row mb-10 mx-auto">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="card border-dark p-8" id="content">
             </div>
         </div>
     </div>
-</body>
-</html>
-
+</div>
 <?php
+$header->close();
 }else{
     $pid = base64_decode($_GET['pid']);
     // echo $pid;

@@ -6,18 +6,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearUsuario`(
     IN apellido VARCHAR(45),
     IN correo VARCHAR(100),
     IN clave VARCHAR(255),
-    IN estado_registro VARCHAR(30),
+    IN estado VARCHAR(45),
     IN fecha_nacimiento DATE,
     IN telefono VARCHAR(15),
-    IN imagen VARCHAR(255),
     IN idTipo_usuario INT,
-    IN estado VARCHAR(45),
+    IN imagen VARCHAR(255),
     IN idGrado INT
 )
 BEGIN
     -- Insertar en la tabla Usuario
-    INSERT INTO Usuario (idUsuario, nombre, apellido, correo, clave, estado_registro, fecha_nacimiento, telefono, imagen, idTipo_usuario)
-    VALUES (idUsuario, nombre, apellido, correo, clave, estado_registro, fecha_nacimiento, telefono, imagen, idTipo_usuario);
+    INSERT INTO Usuario (idUsuario, nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, imagen, idTipo_usuario)
+    VALUES (idUsuario, nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, imagen, idTipo_usuario);
 
     -- Obtener el ID del usuario insertado
     -- SET @idUsuario = LAST_INSERT_ID();
@@ -25,16 +24,16 @@ BEGIN
     -- Dependiendo del tipo de usuario, insertar en la tabla correspondiente
     IF idTipo_usuario = 1 THEN
         -- Insertar en la tabla administrador
-        INSERT INTO administrador(idAdministrador, estado) 
-        VALUES (idUsuario, estado);
+        INSERT INTO administrador(idAdministrador) 
+        VALUES (idUsuario);
     ELSEIF idTipo_usuario = 2 THEN
         -- Insertar en la tabla profesor
-        INSERT INTO profesor(idProfesor, estado) 
-        VALUES (idUsuario, estado);
+        INSERT INTO profesor(idProfesor) 
+        VALUES (idUsuario);
     ELSEIF idTipo_usuario = 3 THEN
         -- Insertar en la tabla estudiante
-        INSERT INTO estudiante(idEstudiante, estado, Grado_idGrado) 
-        VALUES (idUsuario, estado, idGrado);
+        INSERT INTO estudiante(idEstudiante, Grado_idGrado) 
+        VALUES (idUsuario, idGrado);
     END IF;
 END //
 DELIMITER ;

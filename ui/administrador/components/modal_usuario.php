@@ -50,14 +50,9 @@
                       <div class="form-group">
                       <label for="estado" class="col-form-label">Estado</label>
                       <select name="estado" id="estado" aria-label="Estado actual del usuario">
-                        <?php if($_GET['rol'] != '4'){ ?>
-                          <option value="activo" selected>Activo</option>
-                          <option value="inactivo">Inactivo</option>
-                        <?php } else { ?>
                           <option value="pendiente" selected>Pendiente</option>
                           <option value="permitido">Permitido</option>
                           <option value="denegado">Denegado</option>
-                        <?php } ?>
                       </select>
                     </div>            
                   </div> 

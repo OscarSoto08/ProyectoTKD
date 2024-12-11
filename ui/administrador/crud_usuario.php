@@ -87,8 +87,10 @@ function devolverTodos($user_serv) {
 }
 
 
+echo $usuario_servicio;
 switch ($action) {
     case '1':
+        echo $usuario_servicio;
         if($usuario_servicio::insertar($usuario)) $data = devolverTodos($usuario_servicio);
         break;
     case '2':
