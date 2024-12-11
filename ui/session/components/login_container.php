@@ -1,6 +1,4 @@
 <div class="login-container">
-
-
 <?php
 if(isset($_GET['status'])){ ?>
     <?php if($_GET["status"] == '1'){ ?>
@@ -29,11 +27,8 @@ if(isset($_GET["userAlreadyExists"]) && $_GET['userAlreadyExists'] == 1){ ?>
 <?php    
 }
 ?> 
-
-
-
-    <div class="circle circle-one"></div>
-    <div class="form-container">
+<div class="circle circle-one"></div>
+<div class="form-container">
         <a href="?">
         <img id="kopulso-login-img" src="img/kopulsoNOchiquito.png" alt="illustration" class="illustration" />
         </a>
@@ -56,8 +51,6 @@ if(isset($_GET["userAlreadyExists"]) && $_GET['userAlreadyExists'] == 1){ ?>
             <a href="?pid=<?php echo base64_encode('ui/session/pages/signup.php');?>">REGISTRARSE</a>
             <a href="">OLVIDÉ MI CLAVE</a>
         </div>
-        
-    </div>
-    
-    <div class="circle circle-two"></div>
+    </div>    
+<div class="circle circle-two"></div>
 </div>

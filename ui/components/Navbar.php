@@ -10,19 +10,19 @@ public function render(){
 
   $left_nav_items = implode(' ',array_map(function($nav_item){
     if($nav_item -> getPosicion() == 'izquierda'){
-      return $nav_item -> render();
+      return $nav_item -> getNavItem();
     }
   }, $this->nav_items));
 
   $center_nav_items = implode('',array_map(function($nav_item){
     if($nav_item -> getPosicion() == 'centro'){
-      return $nav_item -> render();
+      return $nav_item -> getNavItem();
     }
   }, $this->nav_items));
 
   $right_nav_items = implode(' ',array_map(function($nav_item){
     if($nav_item -> getPosicion() == 'derecha'){
-      return $nav_item -> render();
+      return $nav_item -> getNavItem();
     }
   }, $this->nav_items));
 
@@ -30,7 +30,7 @@ public function render(){
   <nav class='mb-5 navbar navbar-expand-lg bg-dark' data-bs-theme='dark'>
   <div class='container-fluid' style='color: white;'>
     <div class='d-flex flex-column justify-content-center align-items-center mx-4'>
-    <a class='navbar-brand  mx-3' href='". (($this -> home_url == '') ? '/' : "?pid=" . base64_encode($this -> home_url)) ."'>
+    <a class='navbar-brand  mx-3' href='". (($this -> home_url == '') ? '?' : "?pid=" . base64_encode($this -> home_url)) ."'>
       <img src='img/image.png' alt='' style='width: 40px; height: 40px;' srcset=''>
     </a>
     LTA - KOPULSO
@@ -51,7 +51,6 @@ public function render(){
     </div>
   </div>
 </nav>
-
 ";
 }
 }

@@ -34,7 +34,7 @@ foreach($servUsuarios as $usuarioServ){
         } 
         if($usuarioServ == 'Usuario'){
             $status = 0;
-            switch ($usuario -> getEstadoRegistro()) {
+            switch ($usuario -> getEstado()) {
                 case 'pendiente':
                     $status = 1;
                     header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status);
