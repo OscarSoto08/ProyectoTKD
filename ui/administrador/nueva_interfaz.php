@@ -6,27 +6,19 @@ $header -> render();
 
 $navbar = new Navbar(nav_items:[
   //?Centro
-  new Navitem("centro", ["<ul class='ul d-flex flex-row overflow-hidden p-0'>
-    <li class='li'>
-      <button class='button'><p class='p'>Cursos</p></button>
-    </li>
-  ", "<li class='li'>
-      <button class='button'><p class='p'>Eventos</p></button>
-    </li>", "<li class='li'>
-      <button class='button'><p class='p'>Eventos</p></button>
-    </li> </ul>"]),
+  new Navitem("centro", ["<h1 style='text-transform: capitalize;'>Bienvenido Administrador</h1>"]),
   new Navitem(posicion: "derecha", contenido: ["<i style='font-size: 30px' class='fa-solid fa-arrow-right-from-bracket'></i>"], getParams: ["cs" => base64_encode("true")])
 ], home_url: "ui/administrador/index.php");
 $navbar -> render();
 
 ?>
 <div class="d-flex flex-wrap">
-<div class="sidebar">
+<div class="sidebar ">
 
-<div class="mi-perfil row mb-3 card infos">
-  <div class="image mx-auto mb-2"><img style="width: 7rem; height: 7rem;" src="<?php echo $administrador->getImagen() ?? 'img/tkd_combate.webp' ?>"/></div>
-  <div class="info">
-    <div>
+<div class="mi-perfil card infos">
+    <div class="image"><img style="width: 7rem; height: 7rem;" src="img/tkd_combate.webp"/></div>
+    <div class="info">
+  <div>
       <p class="name">
         <?php echo $administrador -> getNombre() ?>
       </p>
@@ -34,19 +26,25 @@ $navbar -> render();
           <?php echo $administrador -> getCorreo() ?>
           <br>
           <?php echo $administrador -> getTelefono() ?>
-          <br>
-          <?php echo $administrador -> getFechaNacimiento() ?>
       </p>
-    </div>
-    <?php 
-      $btn = new Button("button",["btn", "fill"], "1", "editar","Editar mi perfil");
-      $btn-> render();
-    ?>
+      </div>
   </div>
-</div>
+  </div>
 
-  <div class="text-center card" style="border-radius: 10px; border: 2px solid white; color:aliceblue;">
-    <h6 class="mb-1">Porcentaje de cursos con una tasa de aprobación mayor al 80%</h6><canvas id="myChart1"></canvas></div>
+<div class="acciones p-3 card">
+  <ul class="ul p-0">
+    <li class="li">
+      <button class="button"><p class="p">Cursos</p></button>
+    </li>
+    <li class="li">
+      <button class="button"><p class="p">Eventos</p></button>
+    </li>
+    <li class="li">
+      <button class="button"><p class="p">Usuarios</p></button>
+    </li>
+  </ul>
+</div>
+  <div class="text-center card" style="border-radius: 10px; border: 2px solid white; margin: 0 auto; color:aliceblue;"><canvas id="myChart1"></canvas></div>
 </div>
 
 <div class="contenido row">
@@ -77,28 +75,26 @@ $navbar -> render();
     <!-- Filter -->
     <div class="col group mb-4">
       
-    <div class='radio-input'>
-        <label class='label'>
+      <div class="radio-input">
+        <label class="label">
           <input
-            type='radio'
-            id='value-1'
-            checked=''
-            name='value-radio'
-            value='value-1'
+            type="radio"
+            id="value-1"
+            checked=""
+            name="value-radio"
+            value="value-1"
           />
-          <p class='text'>Estudiantes</p>
+          <p class="text">Estudiantes</p>
         </label>
-        <label class='label'>
-          <input type='radio' id='value-2' name='value-radio' value='value-2' />
-          <p class='text'>Profesores</p>
+        <label class="label">
+          <input type="radio" id="value-2" name="value-radio" value="value-2" />
+          <p class="text">Profesores</p>
         </label>
-        <label class='label'>
-          <input type='radio' id='value-3' name='value-radio' value='value-3' />
-          <p class='text'>Administradores</p>
+        <label class="label">
+          <input type="radio" id="value-3" name="value-radio" value="value-3" />
+          <p class="text">Administradores</p>
         </label>
-  </div>
-
-     
+      </div>      
     </div>
 
     </div>
@@ -106,7 +102,7 @@ $navbar -> render();
 
     <!-- Dynamic Data -->
     <div class="row">
-      <div class="cards mb-3" style="width: 100%; display: flex; flex-direction: column; overflow-y: scroll; max-height: 500px;">
+      <div class="cards mb-3" style="width: 100%; display: flex; flex-direction: column; overflow-y: scroll; max-height: 600px;">
           <?php 
           $i = 0;
           foreach(Usuario::consultarTodos() as $usuario){
@@ -118,15 +114,14 @@ $navbar -> render();
               };
 
               $tipo_usuario = match ($usuario->getTipoUsuario()) {
-                '1' => 'Administrador',
-                '2' => 'Estudiante',
-                '3' => 'Profesor',
+                '1' => 'ADMINISTRADOR',
+                '2' => 'ESTUDIANTE',
+                '3' => 'PROFESOR',
               };
 
-              echo "<div class='card-item card $color' style='width: 800px;'>
-                      <p hidden class='id'>{$usuario->getIdUsuario()}</p>
+              echo "<div class='card $color' style='width: 800px;'>
                       <p class='tip'>{$usuario -> getNombre()} {$usuario->getApellido()}</p>
-                      <p class='second-text' style='font-size: 15px'>{$tipo_usuario}</p>
+                      <p class='second-text'>{$tipo_usuario}</p>
                   </div>";
           }
           ?>
@@ -137,38 +132,30 @@ $navbar -> render();
 
 <!-- Columna 2 -->
   <div class="col-lg-6 d-flex flex-column">
-  <div class="container" style="height: 100%; max-height: 100%;">
+  <div class="container" style="height: 100%; max-height: 100%; overflow-y: scroll;">
     <!-- Informacion -->
-     <div class="row text-center" style="height: 400px;">
-     
-     <div class="card" style="border: 0.5px solid white; margin-bottom: 15px;">
-      
-     <div class="mx-auto mb-4"><img style="width: 60%;" src="<?php echo $administrador->getImagen() ?? 'img/tkd_combate.webp' ?>"/></div>
-     
-     <p>Nombre: <span id="nombre_show"></span></p>
-     <p>Apellido: <span id="apellido_show"></span></p>
-     <p>Correo: <span id="correo_show"></span></p>
-     <p>Estado: <span id="estado_show"></span></p>
-     <p>Fecha nacimiento: <span id="fecha_nacimiento_show"></span></p>
-     <p>Telefono: <span id="telefono_show"></span></p>
-    
-    
-    
-    </div>
-
-
+     <div class="row text-center" style="height: 400px; overflow-y: scroll;">
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
+      <p>ESTA ES LA INFORMACION</p>
      </div>
     <!-- Acciones -->
-      <div id="acciones" class="mt-4 row text-center">
+      <div id="acciones" class="row text-center">
         <div class="col">
           <?php 
             $btn = new Button("button",["btn", "fill"], "1", "editar","Editar");
-            $btn-> render();
-          ?>
-        </div>
-        <div class="col">
-        <?php 
-            $btn = new Button("button",["btn", "fill"], "2", "eliminar","Ver todos  ");
             $btn-> render();
           ?>
         </div>
@@ -262,7 +249,7 @@ $navbar -> render();
       plugins: {
           title: {
               display: true,
-              text: '',
+              text: 'Porcentaje de cursos con una tasa de aprobación mayor al 80%',
               padding: {
                     top: 10,
                     bottom: 30
@@ -284,47 +271,5 @@ $navbar -> render();
     }
   });
 </script>
-
-
-<!-- Para usuarios -->
-<script>
-//? 1: Consultar por id
-//? 2: Editar
-//? 3: Eliminar
-//? 4: Crear
-
-  //? Este script sera para ver la informacion de cada evento, usuario o curso
-$(document).ready(function(){
-  $(document).on("click", ".card-item", function(){
-    carta = $(this).closest(".card-item")
-    id = carta.find(".id").text()
-    action ='1'
-    tipo_usuario = carta.find("p:eq(2)").text()
-    ruta = 'ui/administrador/user_control.php'
-
-    $.ajax({
-      url: "indexAjax.php",
-      type: "POST",
-      data: {id: id, action: action, tipo_usuario: tipo_usuario, ruta: ruta},
-      dataType: 'json',
-      success: function(response){
-       console.log(response)
-       $("#nombre_show").html(response.nombre)
-       $("#apellido_show").html(response.apellido)
-       $("#correo_show").html(response.correo)
-       $("#estado_show").html(response.estado)
-       $("#fecha_nacimiento_show").html(response.fecha_nacimiento)
-       $("#telefono_show").html(response.telefono)
-      },
-      error: function(xhr, status, error) {
-        console.error('Error:', error);
-    }
-    })
-  })
-});
-
-$()
-</script>
-
 <?php
 $header -> close();

@@ -38,7 +38,7 @@ $estado = $_POST['estado'] ?? '';
 
 $usuario_servicio = '';
 $usuario = null;
-$data = [];
+$data = null;
 
 // $action = '5'; $rolParam = '2'; $id_user = '1';
 
@@ -58,7 +58,6 @@ case '3':
 case '4':
     $usuario_servicio = 'Usuario';
     $usuario = new Usuario($id_user, $nombre, $apellido, $correo, $clave,$fNac, $estado, $telefono, $rol, $grado);
-    
     break;
 }
 
@@ -77,7 +76,6 @@ function devolverTodos($user_serv) {
             "estado" => $obj->getEstado(),
             "telefono" => $obj->getTelefono(),
             "grado" => ($obj instanceof Estudiante) ? $obj -> getGrado() -> getNombre() : "",
-            "rol" => ""
         ];
         
         return $array_asc;
@@ -87,10 +85,8 @@ function devolverTodos($user_serv) {
 }
 
 
-echo $usuario_servicio;
 switch ($action) {
     case '1':
-        echo $usuario_servicio;
         if($usuario_servicio::insertar($usuario)) $data = devolverTodos($usuario_servicio);
         break;
     case '2':

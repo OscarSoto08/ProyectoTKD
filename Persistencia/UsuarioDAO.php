@@ -36,7 +36,7 @@ class UsuarioDAO extends DAO{
      * @inheritDoc
      */
     public function consultarTodos() {
-        $sql = "SELECT `idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado` FROM usuario_temporal WHERE 1";
+        $sql = "SELECT `idUsuario`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `fecha_nacimiento`, `telefono`, idTipo_usuario,`imagen` FROM usuario WHERE 1";
         $this -> conexion -> ejecutarConsulta($sql);
     }
     

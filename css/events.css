@@ -52,16 +52,6 @@ nav ul li a:hover {
     color: #dfdfe2; /* Color de texto al pasar el ratón por encima */
 }
 
-/* Estilos para los iconos de redes sociales en el encabezado */
-.redes-img {
-    display: flex; /* Flexbox para alinear los iconos horizontalmente */
-    gap: 10px; /* Espaciado entre los iconos */
-}
-
-.redes-img img {
-    width: 45px; /* Ancho de cada icono */
-    height: 45px; /* Alto de cada icono */
-}
 
 /* Estilo para el área principal del contenido */
 main {

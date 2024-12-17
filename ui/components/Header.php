@@ -29,9 +29,10 @@ echo "
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='preconnect' href='https://fonts.googleapis.com'>
+    <script src='https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js'></script>
     <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
     <link href='https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap' rel='stylesheet'>
-
+    <script src='https://kit.fontawesome.com/14596e32cc.js' crossorigin='anonymous'></script>
     <!-- JQUERY -->
     <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
     <!-- BOOTSTRAP -->

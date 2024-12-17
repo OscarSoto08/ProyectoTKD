@@ -1,5 +1,5 @@
 <?php 
-class Persona{
+class Persona implements JsonSerializable{
     protected $idUsuario;
     protected $nombre;
     protected $apellido;
@@ -24,6 +24,8 @@ class Persona{
 		$this->imagen = $imagen;
 	}
 	//GETTERS
+	
+	public function getIdUsuario() { return $this->idUsuario; }
 	public function getNombre() { return $this->nombre; }
 	public function getApellido() { return $this->apellido; }
 	public function getCorreo() { return $this->correo; }
@@ -32,10 +34,10 @@ class Persona{
 	public function getFechaNacimiento() { return $this->fecha_nacimiento; }
 	public function getTelefono() { return $this->telefono; }
 	public function getTipoUsuario() { return $this->tipo_usuario; }
-	public function getIdUsuario() { return $this->idUsuario; }
 	public function getImagen() { return $this->imagen; }
 	//SETTERS
 	
+	public function setIdUsuario($idUsuario) { $this->idUsuario = $idUsuario; }
 	public function setNombre($nombre) { $this->nombre = $nombre; }
 	public function setApellido($apellido) { $this->apellido = $apellido; }
 	public function setCorreo($correo) { $this->correo = $correo; }
@@ -44,6 +46,22 @@ class Persona{
 	public function setFechaNacimiento($fecha_nacimiento) { $this->fecha_nacimiento = $fecha_nacimiento; }
 	public function setTelefono($telefono) { $this->telefono = $telefono; }
 	public function setTipoUsuario($tipo_usuario) { $this->tipo_usuario = $tipo_usuario; }
-	public function setIdUsuario($idUsuario) { $this->idUsuario = $idUsuario; }
 	public function setImagen($imagen) { $this->imagen = $imagen; }
+	/**
+	 * @inheritDoc
+	 */
+    public function jsonSerialize(): array {
+		return [
+            'idUsuario' => $this->idUsuario,
+            'nombre' => $this->nombre,
+            'apellido' => $this->apellido,
+            'correo' => $this->correo,
+            'clave' => $this->clave,
+            'estado' => $this->estado,
+            'fecha_nacimiento' => $this->fecha_nacimiento,
+            'telefono' => $this->telefono,
+            'tipo_usuario' => $this->tipo_usuario,
+            'imagen' => $this->imagen
+        ];
+	}
 }

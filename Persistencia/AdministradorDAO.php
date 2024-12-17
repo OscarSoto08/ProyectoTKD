@@ -25,7 +25,7 @@ class AdministradorDAO extends DAO{
         $this -> conexion -> ejecutarConsulta($sql);
     }
     public function consultarPorId($id){
-        $consulta = "SELECT nombre, apellido, correo, clave, imagen, telefono, fecha_nacimiento  #, estado
+        $consulta = "SELECT nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, idTipo_usuario, imagen
                     FROM usuario
                     WHERE idUsuario = ? AND idTipo_usuario = 1;
         ";

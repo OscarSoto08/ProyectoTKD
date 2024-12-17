@@ -2,7 +2,7 @@
 /**
  * Summary of Administrador
  */
-class Administrador extends Persona {
+class Administrador extends Persona{
     public function __construct($idPersona='', $nombre='', $apellido='', $correo='', $clave='', $estado='', $fecha_nacimiento='', $telefono='', $tipo_usuario = '', $imagen=null){
         parent::__construct($idPersona, $nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
     }
@@ -53,7 +53,9 @@ class Administrador extends Persona {
             $fila[3],
             $fila[4],
             $fila[5],
-            $fila[6]
+            $fila[6],
+            $fila[7],
+            $fila[8]
         );
         $conexion -> cerrarConexion();
         return $admin;
@@ -112,4 +114,5 @@ class Administrador extends Persona {
         $conexion -> cerrarConexion();
         return $resultado;
     }
+    
 }

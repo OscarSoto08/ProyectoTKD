@@ -81,11 +81,6 @@ h5{
 html {
   scroll-behavior: smooth;
 }
-html, body {
-  scroll-behavior: smooth; /* Asegura desplazamiento suave */
-  margin: 0;
-  padding: 0;
-}
 
 form {
   margin-top: 0; /* Asegura que no haya márgenes innecesarios arriba */

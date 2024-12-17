@@ -1,0 +1,36 @@
+
+nav{
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+
+
+    border-bottom: 0.2rem solid #fff;
+    padding: 0.4em;
+    min-height: 20%;
+    max-height: 20%;
+}
+.container-fluid{
+    background: transparent;
+}
+.nav-link, .dropdown-item{
+color: rgb(0, 0, 0);
+font-size: 17px;
+}
+.nav-item{
+padding: 0 15px;
+border-radius: 40px;
+margin: 0 15px;
+}
+nav h1{
+    color: #fff;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 22px #0fa;
+}
+
+.navbar-toggler{
+    background: white;
+}
