@@ -38,10 +38,14 @@ class ProfesorDAO extends DAO{
     /**
      * @inheritDoc
      */
-    public function consultarPorId($id) {
-        $sql = "SELECT nombre, apellido, correo, clave, imagen, telefono, fechaNac, estado FROM profesor WHERE idProfesor = ?";
-        $tipo = 's';
-        return ($this -> conexion -> prepararConsulta($sql, $tipo, $id));
+    public function consultarPorId($id){
+        $consulta = "SELECT nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, idTipo_usuario, imagen
+                    FROM usuario
+                    WHERE idUsuario = ? AND idTipo_usuario = 3;
+        ";
+        $tipos = "i";
+        $valores = array($id);
+        $this -> conexion -> prepararConsulta($consulta, $tipos, ...$valores);
     }
     
     /**

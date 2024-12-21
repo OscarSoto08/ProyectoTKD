@@ -11,7 +11,7 @@
 </head>
 
 <?php 
-require 'ui/profile/student/includes.php';
+require 'ui/estudiante/includes.php';
 
 if(session_status()==PHP_SESSION_NONE) session_start();
 
@@ -19,6 +19,6 @@ if(empty($_SESSION['id']) || $_SESSION['tipoUsuario'] != 'estudiante') header('L
 
 $idEst = $_SESSION['id'];
 
-$estudiante = EstudianteServicio::consultarPorId($idEst);
-include 'ui/profile/student/components/navbar.php'; 
+$estudiante = Estudiante::consultarPorId($idEst);
+include 'ui/estudiante/components/navbar.php'; 
 ?>

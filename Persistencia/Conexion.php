@@ -27,9 +27,9 @@ class conexion{
         if ($stmt = $this->mysqlconexion->prepare($consulta)) {
             // Asegúrate de que $tipos y $valores son válidos
             $stmt->bind_param($tipos, ...$valores);
-    
             if ($stmt->execute()) {
                 $this->resultado = $stmt->get_result();
+                // echo $consulta;
                 return true;
             } else {
                 echo "Error al realizar la consulta: " . $stmt->error;

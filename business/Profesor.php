@@ -55,33 +55,30 @@ class Profesor extends Persona {
         }
         return false;
     }
-
-    public static function consultarPorId($id) {
+    public static function consultarPorId($id_user){
         $conexion = new Conexion();
-        $profesorDAO = new ProfesorDAO($conexion);
-        $conexion->iniciarConexion();
-    
-        $profesorDAO->consultarPorId($id); // Se espera que esto devuelva un boolean
-        $fila = $conexion->extraer(); // Obtener la fila
-
-        // Creamos un nuevo objeto Profesor con los datos de la fila
-        $profesor = new Profesor(
-            $id, // $idProfesor
-            $fila[0], // $nombre
-            $fila[1], // $apellido
-            $fila[2], // $correo
-            $fila[3], // $clave
-            $fila[4], // $foto
-            $fila[5], // $telefono
-            $fila[6], // $fNac
-            $fila[7]  // $estado
+        $ProfesorDAO = new ProfesorDAO($conexion);
+        $conexion -> iniciarConexion();
+        $ProfesorDAO -> consultarPorId( $id_user);
+        if(!$fila = $conexion -> extraer()){
+        $Profesor = null;
+        }else{
+        $Profesor = new Profesor(
+            $id_user,
+            $fila[0],
+            $fila[1],
+            $fila[2],
+            $fila[3],
+            $fila[4],
+            $fila[5],
+            $fila[6],
+            $fila[7],
+            $fila[8]
         );
-            
-        
         $conexion -> cerrarConexion();
-        return $profesor;
-    }    
-
+        return $Profesor;
+        }
+    }
     public static function actualizar(Profesor $profesor){
         $conexion = new Conexion();
         $profesorDAO = new ProfesorDAO($conexion);

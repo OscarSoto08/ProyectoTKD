@@ -12,10 +12,9 @@ class Usuario extends Persona{
         $conexion = new Conexion();
         $UsuarioDAO = new UsuarioDAO($conexion);
         $conexion -> iniciarConexion();
-        
-        $resultado = $UsuarioDAO -> actualizar($Usuario);
+        $respuesta = $UsuarioDAO -> actualizar($Usuario);
         $conexion -> cerrarConexion();
-        return $resultado;
+        return $respuesta;
     }
     public static function registrar(Usuario $Usuario){
         $conexion = new Conexion();
@@ -109,5 +108,32 @@ class Usuario extends Persona{
         $resultado = $UsuarioDAO -> eliminar($id);
         $conexion -> cerrarConexion();
         return $resultado;
+    }
+
+    public static function filtrar_tipo_usuario($filtro){
+        $conexion = new Conexion();
+        $UsuarioDAO = new UsuarioDAO($conexion);
+        $usuarios = [];
+        $conexion -> iniciarConexion();
+        $UsuarioDAO -> filtrar_tipo_usuario($filtro);
+        while($fila = $conexion -> extraer()){
+            $usuario = new Usuario(
+                $fila[0],
+                $fila[1],
+                $fila[2],
+                $fila[3],
+                $fila[4],
+                $fila[5],
+                $fila[6],
+                $fila[7],
+                $fila[8],
+                $fila[9]
+            );
+            array_push($usuarios, $usuario);
+            // `idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado`
+            // array_push($usuarios, $usuario);
+        }
+        $conexion -> cerrarConexion();
+        return $usuarios;
     }
 }

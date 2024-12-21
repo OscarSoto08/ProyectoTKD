@@ -1,14 +1,11 @@
 <?php 
-require 'model/model_persona/Persona.php';
-require 'model/model_persona/Estudiante.php';
-require 'model/Grado.php';
-
-require 'service/persona/estudianteServicio.php';
-require 'service/gradoServicio.php';
+require 'business/Persona.php';
+require 'business/Estudiante.php';
+require 'business/Grado.php';
 
 require 'Persistencia/DAO.php';
 require 'Persistencia/Conexion.php';
-require 'Persistencia/personaDAO/EstudianteDAO.php';
+require 'Persistencia/EstudianteDAO.php';
 require 'Persistencia/GradoDAO.php';
 
 

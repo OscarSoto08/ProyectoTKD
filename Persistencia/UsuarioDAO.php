@@ -5,19 +5,16 @@ class UsuarioDAO extends DAO{
      * @inheritDoc
      */
     public function actualizar($objeto) {
-        $sql = "UPDATE `usuario_temporal` SET `nombre`= ?,`apellido`= ?,`correo`= ?,`clave`= ?, `rol` = ?, `Grado_idGrado`= ?,`estado`= ?,`fechaNac`= ?, `telefono`= ? WHERE idUsuario_temporal = ?";
-        $tipos = "sssssisssi";
+        $sql = "UPDATE usuario SET `nombre` = ?, `apellido` = ?, `correo` = ?, `estado` = ?, `fecha_nacimiento` = ?, `telefono` = ? WHERE idUsuario = ?";
+        $tipos = "ssssssi";
         $valores = [
             $objeto -> getNombre(),
             $objeto -> getApellido(),
             $objeto -> getCorreo(),
-            $objeto -> getClave(),
-            $objeto -> getRol(),
-            $objeto -> getGrado(),
             $objeto -> getEstado(),
-            $objeto -> getFNac(),
+            $objeto -> getFechaNacimiento(),
             $objeto -> getTelefono(),
-            $objeto -> getIdPersona()
+            $objeto -> getIdUsuario()
         ];
 
         return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
@@ -94,5 +91,25 @@ class UsuarioDAO extends DAO{
         $tipos = 's';
         $valores = [ $correo];
         return $this -> conexion -> prepararConsulta($sql, $tipos,... $valores);
+    }
+    public function filtrar(Usuario $filtro){
+        $sql = "SELECT `idUsuario`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `fecha_nacimiento`, `telefono`, idTipo_usuario,`imagen`
+                FROM usuario 
+                WHERE nombre LIKE '%{$filtro->getNombre()}%' OR 
+                    apellido LIKE '%{$filtro->getApellido()}%' OR 
+                    correo LIKE '%{$filtro->getCorreo()}%' OR 
+                    clave LIKE '%{$filtro->getClave()}%' OR 
+                    estado LIKE '%{$filtro->getEstado()}%' OR 
+                    fecha_nacimiento LIKE '%{$filtro->getFechaNacimiento()}%' OR
+                    telefono LIKE '%{$filtro->getTelefono()}%' OR
+                    idTipo_usuario LIKE '%{$filtro->getTipoUsuario()}%';";
+        echo $sql;
+        $this -> conexion -> ejecutarConsulta($sql);
+    }
+
+    public function filtrar_tipo_usuario($idTipo_usuario){
+        return $this->conexion->ejecutarConsulta("SELECT `idUsuario`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `fecha_nacimiento`, `telefono`, idTipo_usuario,`imagen`
+                FROM usuario 
+                WHERE idTipo_usuario = {$idTipo_usuario}");
     }
 }

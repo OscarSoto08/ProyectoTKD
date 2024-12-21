@@ -77,31 +77,32 @@ class Estudiante extends Persona {
         return $Estudiantes;
     }
 
-    public static function consultarPorId($id) {
+    public static function consultarPorId($id_user){
         $conexion = new Conexion();
-        $EstDAO = new EstudianteDAO($conexion);
-        $conexion->iniciarConexion();
-        $Estudiante = null; // Inicializamos en null
-        if ($EstDAO->consultarPorId($id)) { // Se espera que esto devuelva un boolean
-            $fila = $conexion->extraer(); // Obtener la fila
-            if ($fila) { 
-                $Estudiante = new Estudiante(
-                    $id,
-                    $fila[0],
-                    $fila[1],
-                    $fila[2],
-                    $fila[3],
-                    $fila[4],
-                    $fila[5],
-                    $fila[6],
-                    $fila[7],
-                    $fila[8]
-                );
-            }
-        }
+        $EstudianteDAO = new EstudianteDAO($conexion);
+        $conexion -> iniciarConexion();
+        $EstudianteDAO -> consultarPorId( $id_user);
+        if(!$fila = $conexion -> extraer()){
+            $conexion -> cerrarConexion();
+            echo "algo pasa";
+            return null;
+        }else{
+        $Estudiante = new Estudiante(
+            $id_user,
+            $fila[0],
+            $fila[1],
+            $fila[2],
+            $fila[3],
+            $fila[4],
+            $fila[5],
+            $fila[6],
+            $fila[7],
+            $fila[8]
+        );
         $conexion -> cerrarConexion();
         return $Estudiante;
-    }    
+        }
+    }
 
     public static function actualizar(Estudiante $Estudiante){
         $conexion = new Conexion();

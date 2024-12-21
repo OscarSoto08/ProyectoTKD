@@ -11,10 +11,10 @@ abstract class DAO{
         $this -> conexion = $conexion;
     }
     // METODOS DEL CRUD
-    abstract function consultarTodos();
-    abstract function consultarPorId($id);
-    abstract function insertar($objeto);
-    abstract function actualizar($objeto);
-    abstract function eliminar($id);
-    abstract function maxId();
+    abstract public function consultarTodos();
+    abstract public function consultarPorId($id);
+    abstract public function insertar($objeto);
+    abstract public function actualizar($objeto);
+    abstract public function eliminar($id);
+    abstract public function maxId();
 }

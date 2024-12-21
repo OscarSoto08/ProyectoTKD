@@ -1,5 +1,5 @@
 <?php 
-require 'ui/profile/student/components/header.php';
+require 'ui/estudiante/components/header.php';
 ?>
 <style>
     
@@ -15,7 +15,7 @@ require 'ui/profile/student/components/header.php';
         <h1>Cursos disponibles</h1>
         <div class="row">
             <div class="col">
-                <div class="container"><a href="?pid=<?php echo base64_encode('ui/profile/student/pages/subcurso.php');?>">Combate</a></div>
+                <div class="container"><a href="?pid=<?php echo base64_encode('ui/estudiante/pages/subcurso.php');?>">Combate</a></div>
             </div>
             <div class="col">
                 <div class="container"><a href="">Poomsae</a></div>
@@ -28,7 +28,7 @@ require 'ui/profile/student/components/header.php';
             </div>
         </div>
         
-        <?php include 'ui/profile/student/components/carousel.php'?>
+        <?php include 'ui/estudiante/components/carousel.php'?>
     
     </div>
 

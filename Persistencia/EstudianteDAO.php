@@ -40,12 +40,14 @@ class EstudianteDAO extends DAO{
     /**
      * @inheritDoc
      */
-    public function consultarPorId($id) {
-        $sql = "SELECT nombre, apellido, correo, clave, Grado_idGrado, estado, fechaNac, imagen, telefono 
-        FROM estudiante
-        WHERE idEstudiante = ?";
-        $tipo = "i";
-        return $this -> conexion -> prepararConsulta($sql, $tipo, $id);
+    public function consultarPorId($id){
+        $consulta = "SELECT nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, idTipo_usuario, imagen
+                    FROM usuario
+                    WHERE idUsuario = ?;
+        ";
+        $tipos = "i";
+        $valores = [$id];
+        $this -> conexion -> prepararConsulta($consulta, $tipos, ...$valores);
     }
     
     /**
