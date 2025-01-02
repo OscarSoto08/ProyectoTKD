@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-12-2024 a las 14:35:31
+-- Tiempo de generación: 02-01-2025 a las 18:25:46
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,36 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `proytkd`
 --
-
-DELIMITER $$
---
--- Procedimientos
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearUsuario` (IN `idUsuario` INT, IN `nombre` VARCHAR(45), IN `apellido` VARCHAR(45), IN `correo` VARCHAR(100), IN `clave` VARCHAR(255), IN `estado_registro` VARCHAR(30), IN `fecha_nacimiento` DATE, IN `telefono` VARCHAR(15), IN `imagen` VARCHAR(255), IN `idTipo_usuario` INT, IN `estado` VARCHAR(45), IN `idGrado` INT)   BEGIN
-    -- Insertar en la tabla Usuario
-    INSERT INTO Usuario (idUsuario, nombre, apellido, correo, clave, estado_registro, fecha_nacimiento, telefono, imagen, idTipo_usuario)
-    VALUES (idUsuario, nombre, apellido, correo, clave, estado_registro, fecha_nacimiento, telefono, imagen, idTipo_usuario);
-
-    -- Obtener el ID del usuario insertado
-    -- SET @idUsuario = LAST_INSERT_ID();
-
-    -- Dependiendo del tipo de usuario, insertar en la tabla correspondiente
-    IF idTipo_usuario = 1 THEN
-        -- Insertar en la tabla administrador
-        INSERT INTO administrador(idAdministrador, estado) 
-        VALUES (idUsuario, estado);
-    ELSEIF idTipo_usuario = 2 THEN
-        -- Insertar en la tabla profesor
-        INSERT INTO profesor(idProfesor, estado) 
-        VALUES (idUsuario, estado);
-    ELSEIF idTipo_usuario = 3 THEN
-        -- Insertar en la tabla estudiante
-        INSERT INTO estudiante(idEstudiante, estado, Grado_idGrado) 
-        VALUES (idUsuario, estado, idGrado);
-    END IF;
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -108,21 +78,6 @@ INSERT INTO `ciudad` (`idCiudad`, `nombre`, `Pais_idPais`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `codigo_verificacion`
---
-
-CREATE TABLE `codigo_verificacion` (
-  `idCodigo_verificacion` int(11) NOT NULL,
-  `contenido_codigo` varchar(45) NOT NULL,
-  `estado` enum('valido','invalido') NOT NULL,
-  `fecha_creado` datetime NOT NULL,
-  `fecha_expirado` datetime NOT NULL,
-  `idUsuario` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `curso`
 --
 
@@ -157,7 +112,12 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`idEstudiante`, `Grado_idGrado`) VALUES
-(2, 2);
+(2, 5),
+(5, 9),
+(6, 9),
+(7, 9),
+(8, 9),
+(9, 9);
 
 -- --------------------------------------------------------
 
@@ -240,10 +200,10 @@ INSERT INTO `grado` (`idGrado`, `grado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historial`
+-- Estructura de tabla para la tabla `historico`
 --
 
-CREATE TABLE `historial` (
+CREATE TABLE `historico` (
   `idHistorial` int(11) NOT NULL,
   `puntaje_obtenido` int(11) NOT NULL,
   `pregunta_idPregunta` int(11) NOT NULL,
@@ -367,6 +327,14 @@ CREATE TABLE `profesor` (
   `idProfesor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `profesor`
+--
+
+INSERT INTO `profesor` (`idProfesor`) VALUES
+(3),
+(4);
+
 -- --------------------------------------------------------
 
 --
@@ -449,6 +417,34 @@ INSERT INTO `tipo_usuario` (`idTipo_usuario`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `token`
+--
+
+CREATE TABLE `token` (
+  `idToken` int(11) NOT NULL,
+  `codigo` varchar(45) NOT NULL,
+  `motivo` varchar(45) DEFAULT NULL,
+  `estado` enum('valido','invalido') NOT NULL,
+  `fecha_creado` datetime NOT NULL,
+  `fecha_expirado` datetime NOT NULL,
+  `idUsuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `token`
+--
+
+INSERT INTO `token` (`idToken`, `codigo`, `motivo`, `estado`, `fecha_creado`, `fecha_expirado`, `idUsuario`) VALUES
+(1, '00719FDC72', 'registro', 'valido', '2024-12-25 00:07:39', '2024-12-25 00:47:39', 4),
+(2, '31A880DBAA', 'registro', 'valido', '2024-12-26 04:44:03', '2024-12-26 05:24:03', 5),
+(3, 'FA17606FF1', 'registro', 'valido', '2024-12-26 04:44:16', '2024-12-26 05:24:16', 6),
+(4, '0E042BDA8C', 'registro', 'valido', '2024-12-26 04:44:30', '2024-12-26 05:24:30', 7),
+(5, '58672FE1C0', 'registro', 'valido', '2024-12-26 04:46:51', '2024-12-26 05:26:51', 8),
+(6, '184C959DA7', 'registro', 'valido', '2024-12-26 20:36:01', '2024-12-26 21:16:01', 9);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -462,16 +458,24 @@ CREATE TABLE `usuario` (
   `fecha_nacimiento` date NOT NULL,
   `telefono` varchar(15) DEFAULT NULL,
   `imagen` varchar(255) DEFAULT NULL,
-  `idTipo_usuario` int(11) NOT NULL
+  `idTipo_usuario` int(11) NOT NULL,
+  `username` varchar(45) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `fecha_nacimiento`, `telefono`, `imagen`, `idTipo_usuario`) VALUES
-(1, 'Oscar', 'Gonzalez', 'og@tkd.com', '202cb962ac59075b964b07152d234b70', 'permitido', '2005-08-14', '3135746229', NULL, 1),
-(2, 'Sebastian', 'Soto', 'sebas@tkd.com', '202cb962ac59075b964b07152d234b70', 'permitido', '2021-02-25', '3131313', NULL, 2);
+INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `fecha_nacimiento`, `telefono`, `imagen`, `idTipo_usuario`, `username`) VALUES
+(1, 'Oscar', 'Gonzalez', 'og@tkd.com', '202cb962ac59075b964b07152d234b70', 'permitido', '2014-12-02', '3135746229', NULL, 1, ''),
+(2, 'Sebastian', 'Soto Lozano', 'sebas@tkd.com', '202cb962ac59075b964b07152d234b70', 'permitido', '0000-00-00', '984984984', ' ', 3, ''),
+(3, 'Sebas', 'Tian', 'ah@tkd.com', '202cb962ac59075b964b07152d234b70', 'permitido', '2021-05-20', '2', '', 2, ''),
+(4, 'sadfsafdsgafsdghareyryne', '', 'oscaralejandrosoto9@gmail.com', '', '', '0000-00-00', '', '', 3, ''),
+(5, 'sdfasd', '', 'oscaralejandrosoto9@gmail.com', '', '', '0000-00-00', '', '', 2, ''),
+(6, 'sdfasd', '', 'oscaralejandrosoto9@gmail.com', '', '', '0000-00-00', '', '', 2, ''),
+(7, 'sdfasd', '', 'oscaralejandrosoto9@gmail.com', '', '', '0000-00-00', '', '', 2, ''),
+(8, 'sdfasd', '', 'oscaralejandrosoto9@gmail.com', '', '', '0000-00-00', '', '', 2, ''),
+(9, 'oscar', '', 'oscaralejandrosoto9@gmail.com', '', '', '0000-00-00', '', '', 2, '');
 
 --
 -- Índices para tablas volcadas
@@ -488,8 +492,8 @@ ALTER TABLE `administrador`
 --
 ALTER TABLE `auditoria_admin_evento`
   ADD PRIMARY KEY (`idAuditoriaAdminEvento`),
-  ADD KEY `fk_Evento_Evento1` (`Evento_idEvento`),
-  ADD KEY `fk_auditoria_admin_evento_administrador1` (`administrador_idAdministrador`);
+  ADD KEY `fk_auditoria_admin_evento_administrador1` (`administrador_idAdministrador`),
+  ADD KEY `fk_Evento_Evento1` (`Evento_idEvento`);
 
 --
 -- Indices de la tabla `ciudad`
@@ -497,13 +501,6 @@ ALTER TABLE `auditoria_admin_evento`
 ALTER TABLE `ciudad`
   ADD PRIMARY KEY (`idCiudad`),
   ADD KEY `fk_Ciudad_Pais1` (`Pais_idPais`);
-
---
--- Indices de la tabla `codigo_verificacion`
---
-ALTER TABLE `codigo_verificacion`
-  ADD PRIMARY KEY (`idCodigo_verificacion`),
-  ADD KEY `fk_codigo_verificacion_usuario_temporal1` (`idUsuario`);
 
 --
 -- Indices de la tabla `curso`
@@ -539,14 +536,14 @@ ALTER TABLE `grado`
   ADD PRIMARY KEY (`idGrado`);
 
 --
--- Indices de la tabla `historial`
+-- Indices de la tabla `historico`
 --
-ALTER TABLE `historial`
+ALTER TABLE `historico`
   ADD PRIMARY KEY (`idHistorial`),
-  ADD KEY `fk_historial_pregunta1` (`pregunta_idPregunta`),
-  ADD KEY `fk_historial_respuesta1` (`idRespuesta_marcada`),
+  ADD KEY `fk_historial_estudiante1` (`estudiante_idEstudiante`),
   ADD KEY `fk_historial_nivel1` (`nivel_idSubcurso`),
-  ADD KEY `fk_historial_estudiante1` (`estudiante_idEstudiante`);
+  ADD KEY `fk_historial_pregunta1` (`pregunta_idPregunta`),
+  ADD KEY `fk_historial_respuesta1` (`idRespuesta_marcada`);
 
 --
 -- Indices de la tabla `nivel`
@@ -609,6 +606,13 @@ ALTER TABLE `tipo_usuario`
   ADD PRIMARY KEY (`idTipo_usuario`);
 
 --
+-- Indices de la tabla `token`
+--
+ALTER TABLE `token`
+  ADD PRIMARY KEY (`idToken`),
+  ADD KEY `fk_codigo_verificacion_usuario_temporal1` (`idUsuario`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
@@ -638,12 +642,6 @@ ALTER TABLE `ciudad`
   MODIFY `idCiudad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `codigo_verificacion`
---
-ALTER TABLE `codigo_verificacion`
-  MODIFY `idCodigo_verificacion` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
@@ -653,7 +651,7 @@ ALTER TABLE `curso`
 -- AUTO_INCREMENT de la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
-  MODIFY `idEstudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idEstudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `evento`
@@ -674,9 +672,9 @@ ALTER TABLE `grado`
   MODIFY `idGrado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `historial`
+-- AUTO_INCREMENT de la tabla `historico`
 --
-ALTER TABLE `historial`
+ALTER TABLE `historico`
   MODIFY `idHistorial` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -701,7 +699,7 @@ ALTER TABLE `pregunta`
 -- AUTO_INCREMENT de la tabla `profesor`
 --
 ALTER TABLE `profesor`
-  MODIFY `idProfesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idProfesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `respuesta`
@@ -710,10 +708,16 @@ ALTER TABLE `respuesta`
   MODIFY `idRespuesta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
+-- AUTO_INCREMENT de la tabla `token`
+--
+ALTER TABLE `token`
+  MODIFY `idToken` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
@@ -723,14 +727,14 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `administrador`
 --
 ALTER TABLE `administrador`
-  ADD CONSTRAINT `fk_administrador_usuario_temporal1` FOREIGN KEY (`idAdministrador`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_administrador_usuario_temporal1` FOREIGN KEY (`idAdministrador`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `auditoria_admin_evento`
 --
 ALTER TABLE `auditoria_admin_evento`
   ADD CONSTRAINT `fk_Evento_Evento1` FOREIGN KEY (`Evento_idEvento`) REFERENCES `evento` (`idEvento`),
-  ADD CONSTRAINT `fk_auditoria_admin_evento_administrador1` FOREIGN KEY (`administrador_idAdministrador`) REFERENCES `administrador` (`idAdministrador`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_auditoria_admin_evento_administrador1` FOREIGN KEY (`administrador_idAdministrador`) REFERENCES `administrador` (`idAdministrador`);
 
 --
 -- Filtros para la tabla `ciudad`
@@ -739,17 +743,11 @@ ALTER TABLE `ciudad`
   ADD CONSTRAINT `fk_Ciudad_Pais1` FOREIGN KEY (`Pais_idPais`) REFERENCES `pais` (`idPais`);
 
 --
--- Filtros para la tabla `codigo_verificacion`
---
-ALTER TABLE `codigo_verificacion`
-  ADD CONSTRAINT `fk_codigo_verificacion_usuario_temporal1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
 -- Filtros para la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
   ADD CONSTRAINT `fk_Estudiante_Grado` FOREIGN KEY (`Grado_idGrado`) REFERENCES `grado` (`idGrado`),
-  ADD CONSTRAINT `fk_estudiante_usuario_temporal1` FOREIGN KEY (`idEstudiante`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_estudiante_usuario_temporal1` FOREIGN KEY (`idEstudiante`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `evento`
@@ -764,13 +762,13 @@ ALTER TABLE `galeria_evento`
   ADD CONSTRAINT `galeria_evento_ibfk_1` FOREIGN KEY (`idEvento`) REFERENCES `evento` (`idEvento`);
 
 --
--- Filtros para la tabla `historial`
+-- Filtros para la tabla `historico`
 --
-ALTER TABLE `historial`
-  ADD CONSTRAINT `fk_historial_estudiante1` FOREIGN KEY (`estudiante_idEstudiante`) REFERENCES `estudiante` (`idEstudiante`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_historial_nivel1` FOREIGN KEY (`nivel_idSubcurso`) REFERENCES `nivel` (`idNivel`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_historial_pregunta1` FOREIGN KEY (`pregunta_idPregunta`) REFERENCES `pregunta` (`idPregunta`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_historial_respuesta1` FOREIGN KEY (`idRespuesta_marcada`) REFERENCES `respuesta` (`idRespuesta`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `historico`
+  ADD CONSTRAINT `fk_historial_estudiante1` FOREIGN KEY (`estudiante_idEstudiante`) REFERENCES `estudiante` (`idEstudiante`),
+  ADD CONSTRAINT `fk_historial_nivel1` FOREIGN KEY (`nivel_idSubcurso`) REFERENCES `nivel` (`idNivel`),
+  ADD CONSTRAINT `fk_historial_pregunta1` FOREIGN KEY (`pregunta_idPregunta`) REFERENCES `pregunta` (`idPregunta`),
+  ADD CONSTRAINT `fk_historial_respuesta1` FOREIGN KEY (`idRespuesta_marcada`) REFERENCES `respuesta` (`idRespuesta`);
 
 --
 -- Filtros para la tabla `nivel`
@@ -783,7 +781,7 @@ ALTER TABLE `nivel`
 --
 ALTER TABLE `participacion_estudiante_evento`
   ADD CONSTRAINT `fk_estudiante_has_evento_evento1` FOREIGN KEY (`evento_idEvento`) REFERENCES `evento` (`idEvento`),
-  ADD CONSTRAINT `fk_participacion_estudiante_evento_estudiante1` FOREIGN KEY (`estudiante_idEstudiante1`) REFERENCES `estudiante` (`idEstudiante`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_participacion_estudiante_evento_estudiante1` FOREIGN KEY (`estudiante_idEstudiante1`) REFERENCES `estudiante` (`idEstudiante`);
 
 --
 -- Filtros para la tabla `participacion_profesor_curso`
@@ -795,7 +793,7 @@ ALTER TABLE `participacion_profesor_curso`
 -- Filtros para la tabla `participacion_profesor_evento`
 --
 ALTER TABLE `participacion_profesor_evento`
-  ADD CONSTRAINT `fk_participacion_profesor_evento_profesor1` FOREIGN KEY (`profesor_idProfesor`) REFERENCES `profesor` (`idProfesor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_participacion_profesor_evento_profesor1` FOREIGN KEY (`profesor_idProfesor`) REFERENCES `profesor` (`idProfesor`),
   ADD CONSTRAINT `fk_profesor_has_evento_evento1` FOREIGN KEY (`evento_idEvento`) REFERENCES `evento` (`idEvento`);
 
 --
@@ -808,19 +806,25 @@ ALTER TABLE `pregunta`
 -- Filtros para la tabla `profesor`
 --
 ALTER TABLE `profesor`
-  ADD CONSTRAINT `fk_profesor_usuario1` FOREIGN KEY (`idProfesor`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_profesor_usuario1` FOREIGN KEY (`idProfesor`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `respuesta`
 --
 ALTER TABLE `respuesta`
-  ADD CONSTRAINT `fk_respuesta_pregunta1` FOREIGN KEY (`pregunta_idPregunta`) REFERENCES `pregunta` (`idPregunta`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_respuesta_pregunta1` FOREIGN KEY (`pregunta_idPregunta`) REFERENCES `pregunta` (`idPregunta`);
+
+--
+-- Filtros para la tabla `token`
+--
+ALTER TABLE `token`
+  ADD CONSTRAINT `fk_codigo_verificacion_usuario_temporal1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_usuario_tipo_usuario1` FOREIGN KEY (`idTipo_usuario`) REFERENCES `tipo_usuario` (`idTipo_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario_tipo_usuario1` FOREIGN KEY (`idTipo_usuario`) REFERENCES `tipo_usuario` (`idTipo_usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
