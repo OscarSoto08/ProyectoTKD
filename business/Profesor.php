@@ -1,7 +1,7 @@
 <?php
 class Profesor extends Persona {
-    public function __construct($idUsuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $estado = "", $fecha_nacimiento = "", $telefono = "", $tipo_usuario = null, $imagen = "") {
-        parent::__construct($idUsuario,$nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
+    public function __construct($idUsuario = 0, $username, $nombre = "", $apellido = "", $correo = "", $clave = "", $estado = "", $fecha_nacimiento = "", $telefono = "", $tipo_usuario = null, $imagen = "") {
+        parent::__construct($idUsuario,$username, $nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
     }
 	public static function autenticar(Persona $profesor){
         $conexion = new Conexion();
@@ -42,19 +42,7 @@ class Profesor extends Persona {
         $conexion -> cerrarConexion();
         return $profesores;
     }
-
-    public static function consultarPorCorreo($correo){
-        $conexion = new Conexion();
-        $ProfesorDAO = new ProfesorDAO($conexion);
-        $conexion -> iniciarConexion();
-        if($ProfesorDAO -> consultarPorCorreo($correo)){
-            $conexion -> cerrarConexion();
-            if($conexion -> numFilas() > 0){ #significa que hay al menos un registro con ese correo
-                return true;
-            }
-        }
-        return false;
-    }
+    
     public static function consultarPorId($id_user){
         $conexion = new Conexion();
         $ProfesorDAO = new ProfesorDAO($conexion);
@@ -91,16 +79,13 @@ class Profesor extends Persona {
     /**
      * Usado en el crud de usuarios y en registro
      */
-
-    public static function insertar(Profesor $profesor){
+    public function insertar(){
         $conexion = new Conexion();
         $ProfesorDAO = new ProfesorDAO($conexion);
         $conexion -> iniciarConexion();
-        $ProfesorDAO -> insertar($profesor);
-        $profesor -> setidUsuario($conexion -> obtenerKey() + 1);
+        $ProfesorDAO -> insertar($this);
         $conexion -> cerrarConexion();
     }
-
 
 
     public static function eliminar($idProfesor){

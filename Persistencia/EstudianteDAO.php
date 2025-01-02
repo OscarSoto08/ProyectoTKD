@@ -1,11 +1,6 @@
 <?php 
 class EstudianteDAO extends DAO{
 
-    public function __construct(Conexion $conexion){
-        parent::__construct($conexion);
-    }
-    
-
     public function consultarPorCorreo($correo){
         $consulta = "SELECT idUsuario FROM usuario WHERE correo = ? and idTipo_usuario = ?";
         $tipos = 'si';
@@ -72,28 +67,7 @@ class EstudianteDAO extends DAO{
      * @inheritDoc
      */
     public function insertar($objeto) {
-        // Definir la consulta del procedimiento almacenado
-        $sql = "CALL CrearUsuario(?,?,?,?,?,?,?,?,?,?,?)";
-        $objeto = new Estudiante();
-        // Definir los tipos de los parámetros (tipos en función de los datos que recibimos)
-        $tipos = "isssssssisi";
-        
-        // Obtener los valores del objeto
-        $valores = [
-            $this -> maxId() + 1,
-            $objeto->getNombre(),                // Nombre
-            $objeto->getApellido(),              // Apellido
-            $objeto->getCorreo(),                // Correo
-            $objeto->getClave(),                 // Clave
-            $objeto->getEstado(),               // Estado de registro
-            $objeto->getFechaNacimiento(),      // Fecha de nacimiento
-            $objeto->getTelefono(),              // Teléfono
-            $objeto->getTipoUsuario(),           // Tipo de usuario (1, 2, 3)
-            $objeto->getImagen(),                // Imagen
-            $objeto->getGrado()->getIdGrado()    // ID del grado (si `getGrado()` es un objeto con el método `getIdGrado()`)
-        ];
-        // Llamar al método prepararConsulta para ejecutar el procedimiento
-        $this->conexion->prepararConsulta($sql, $tipos, ...$valores);
+        Usuario::insertar($objeto);
     }
     
     
@@ -101,7 +75,7 @@ class EstudianteDAO extends DAO{
      * @inheritDoc
      */
     public function maxId() {
-        $sql = "SELECT MAX(idEstudiante) FROM estudiante;";
+        $sql = "SELECT MAX(idUsuario) FROM usuario;";
         $this -> conexion -> ejecutarConsulta($sql);
         $fila = $this -> conexion -> extraer();
         if($fila[0] == null){

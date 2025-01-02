@@ -21,21 +21,6 @@ class Administrador extends Persona{
         }
         return false;
     }
-
-    //Esta funcion se usa en sign-up solamente
-    public static function consultarPorCorreo($correo){
-        $conexion = new Conexion();
-        $adminDAO = new AdministradorDAO($conexion);
-        $conexion -> iniciarConexion();
-        if($adminDAO -> consultarPorCorreo($correo)){
-            $conexion -> cerrarConexion();
-            if($conexion -> numFilas() > 0){
-                return true;
-            }
-        }
-        return false;
-    }
-    
     public static function consultarPorId($id_user){
         $conexion = new Conexion();
         $adminDao = new AdministradorDAO($conexion);

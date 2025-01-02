@@ -1,10 +1,10 @@
 <?php
-class CodigoVerificacionDAO extends DAO{
+class TokenDAO extends DAO{
     public function __construct(Conexion $conexion){
         parent::__construct($conexion);
     }
     
-    public function cambiarEstado(CodigoVerificacion $codigo){
+    public function cambiarEstado(Token $codigo){
         $sql = "UPDATE `codigo_verificacion` SET `estado` = ? WHERE idCodigo_verificacion = ?";
         $tipo = 'si';
         $valores = [ $codigo -> getEstado(), $codigo -> getId()];
@@ -38,13 +38,14 @@ class CodigoVerificacionDAO extends DAO{
      * @inheritDoc
      */
     public function insertar($objeto) {
-        $sql = "INSERT INTO `codigo_verificacion`(`idCodigo_verificacion`,`contenido_codigo`, `fecha_creado`, `fecha_expirado`, `estado`, `idUsuario`) VALUES (?,?,?,?,?,?)";
-        $tipos = 'issssi';
+        $sql = "INSERT INTO `Token`(`idToken`,`codigo`, `motivo`, `fecha_creado`, `fecha_expirado`, `estado`, `idUsuario`) VALUES (?,?,?,?,?,?,?)";
+        $tipos = 'isssssi';
         $valores = [
             $this -> maxId() +1,
-            $objeto -> getContenidoCodigo(),
-            $objeto -> getFechaCreado(),
-            $objeto -> getFechaExpirado(),
+            $objeto -> getCodigo(),
+            $objeto -> getMotivo(),
+            $objeto -> getFecha_creado(),
+            $objeto -> getFecha_expirado(),
             $objeto -> getEstado(),
             $objeto -> getUsuario() -> getIdUsuario()
         ];
@@ -55,7 +56,7 @@ class CodigoVerificacionDAO extends DAO{
      * @inheritDoc
      */
     public function maxId() {
-        $sql = "SELECT MAX(idCodigo_verificacion) FROM codigo_verificacion;";
+        $sql = "SELECT MAX(idToken) FROM Token;";
         $this -> conexion -> ejecutarConsulta($sql);
         $fila = $this -> conexion -> extraer();
         if($fila[0] == null){

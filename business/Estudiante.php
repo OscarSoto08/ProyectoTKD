@@ -2,8 +2,8 @@
 class Estudiante extends Persona {
 
     private $grado;
-    public function __construct($idUsuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $estado = "", $fecha_nacimiento = "", $telefono = "", $tipo_usuario = null, $imagen = "", $grado = null) {
-        parent::__construct($idUsuario,$nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
+    public function __construct($idUsuario = 0,$username="", $nombre = "", $apellido = "", $correo = "", $clave = "", $estado = "", $fecha_nacimiento = "", $telefono = "", $tipo_usuario = null, $imagen = "", $grado = null) {
+        parent::__construct($idUsuario,$username,$nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
         $this -> grado = $grado;
     }
     //GETTERS
@@ -27,19 +27,6 @@ class Estudiante extends Persona {
         return false;
     }
 
-    //Esta funcion se usa en sign-up solamente
-    public static function consultarPorCorreo($correo){
-        $conexion = new Conexion();
-        $EstudianteDAO = new EstudianteDAO($conexion);
-        $conexion -> iniciarConexion();
-        if($EstudianteDAO -> consultarPorCorreo($correo)){
-            $conexion -> cerrarConexion();
-            if($conexion -> numFilas() > 0){
-                return true;
-            }
-        }
-        return false;
-    }
     public static function consultarTodos(){
         $conexion = new Conexion();
         $EstDAO = new EstudianteDAO($conexion);
@@ -84,7 +71,6 @@ class Estudiante extends Persona {
         $EstudianteDAO -> consultarPorId( $id_user);
         if(!$fila = $conexion -> extraer()){
             $conexion -> cerrarConexion();
-            echo "algo pasa";
             return null;
         }else{
         $Estudiante = new Estudiante(
@@ -104,21 +90,20 @@ class Estudiante extends Persona {
         }
     }
 
-    public static function actualizar(Estudiante $Estudiante){
+    public function actualizar(){
         $conexion = new Conexion();
         $EstDAO = new EstudianteDAO($conexion);
         $conexion -> iniciarConexion();
-        $res = $EstDAO -> actualizar($Estudiante);
+        $res = $EstDAO -> actualizar($this);
         $conexion -> cerrarConexion();
         return $res;
     }
 
-    public static function insertar(Estudiante $estudiante){
+    public function insertar(){
         $conexion = new Conexion();
         $EstudianteDAO = new EstudianteDAO($conexion);
         $conexion -> iniciarConexion();
-        $EstudianteDAO -> insertar($estudiante);
-        $estudiante -> setidUsuario($conexion -> obtenerKey() + 1);
+        $EstudianteDAO -> insertar($this);
         $conexion -> cerrarConexion();
     }
 

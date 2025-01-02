@@ -1,5 +1,16 @@
 <?php
-class conexion{
+interface ConexionInterface{
+    public function iniciarConexion();
+    public function cerrarConexion();
+    public function ejecutarConsulta(string $query);
+    public function prepararConsulta(string $consulta, string $tipos, ...$valores);
+    public function numFilas();
+    public function extraer();
+    public function extraerAssoc();
+    public function obtenerKey();
+}
+
+class MySQLConexion implements ConexionInterface{
     private $mysqlconexion;
     private $resultado;
 

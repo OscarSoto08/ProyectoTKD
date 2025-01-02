@@ -15,7 +15,7 @@ $correo = $_POST['correo'];
 $clave = md5($_POST['clave']);
 
 $usuario = new Persona(null,null,null,$correo, $clave, null,null,null, null, null);
-$servUsuarios = ['Administrador', 'Estudiante', 'Profesor', 'Usuario'];
+$servUsuarios = ['Administrador', 'Estudiante', 'Profesor'];
 foreach($servUsuarios as $usuarioServ){
     if($usuarioServ::autenticar($usuario)){
         $errorAuth = false;

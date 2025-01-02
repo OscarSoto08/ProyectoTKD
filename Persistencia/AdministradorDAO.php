@@ -34,22 +34,7 @@ class AdministradorDAO extends DAO{
         $this -> conexion -> prepararConsulta($consulta, $tipos, ...$valores);
     }
     public function insertar($objeto){
-        $sql = "CALL CrearUsuario(?,?,?,?,?,?,?,?,?,?,?,NULL)";
-         $tipos = "issssssssis";
-         $valores = [
-            $this -> maxId() + 1,
-            $objeto -> getNombre(),
-            $objeto -> getApellido(),
-            $objeto -> getCorreo(),
-            $objeto -> getClave(),
-            $objeto -> getEstadoRegistro(),
-            $objeto -> getFechaNacimiento(),
-            $objeto -> getTelefono(),
-            $objeto -> getImagen(),
-            $objeto -> getTipoUsuario(),
-            $objeto -> getEstado()
-         ];
-         return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
+        Usuario::insertar($objeto);
     }
     public function actualizar($objeto){
         $sql = "UPDATE `administrador` SET `nombre` = ? ,`apellido` = ?,`correo`= ?,`clave`= ?,`estado`= ?,`telefono`= ?,`imagen`= ?,`fechaNac`= ? WHERE `idAdministrador` = ?";   

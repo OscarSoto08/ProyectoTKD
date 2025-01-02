@@ -4,8 +4,8 @@
  */
 class Usuario extends Persona{
 
-    public function __construct($idUsuario = 0, $nombre = "", $apellido = "", $correo = "", $clave = "", $estado = "", $fecha_nacimiento = "", $telefono = "", $tipo_usuario = null, $imagen = "") {
-        parent::__construct($idUsuario,$nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
+    public function __construct($idUsuario = 0, $username="", $nombre = "", $apellido = "", $correo = "", $clave = "", $estado = "", $fecha_nacimiento = "", $telefono = "", $tipo_usuario = null, $imagen = "") {
+        parent::__construct($idUsuario,$username,$nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
     }
     
 	public static function actualizar(Usuario $Usuario){
@@ -90,6 +90,22 @@ class Usuario extends Persona{
         );
         $conexion -> cerrarConexion();
         return $usuario;
+    }
+
+    public static function verificar($usuario){
+        $conexion = new Conexion();
+        $UsuarioDAO = new UsuarioDAO($conexion);
+        $conexion -> iniciarConexion();
+        if($UsuarioDAO -> verificar($usuario->getCorreo())){
+            $conexion -> cerrarConexion();
+            if($conexion -> numFilas() > 0){ #significa que hay al menos un registro con ese correo
+                $resultado = $conexion->extraer();
+                $usuario->setIdUsuario($resultado[0]);
+                $usuario->setEstado($resultado[1]);
+                return true;
+            }
+        }
+        return false;
     }
 
     public static function insertar(Usuario $Usuario){

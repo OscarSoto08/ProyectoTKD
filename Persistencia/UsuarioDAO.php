@@ -24,7 +24,7 @@ class UsuarioDAO extends DAO{
      * @inheritDoc
      */
     public function consultarPorId($id) {
-        $sql = "SELECT `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado` FROM usuario_temporal WHERE `idUsuario_temporal` = ?";
+        $sql = "SELECT nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, imagen, idTipo_usuario, username FROM usuario WHERE idUsuario = ?";
         $tipos = "i";
         $this -> conexion -> prepararConsulta($sql, $tipos, $id);
     }
@@ -36,7 +36,6 @@ class UsuarioDAO extends DAO{
         $sql = "SELECT `idUsuario`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `fecha_nacimiento`, `telefono`, idTipo_usuario,`imagen` FROM usuario WHERE 1";
         $this -> conexion -> ejecutarConsulta($sql);
     }
-    
     /**
      * @inheritDoc
      */
@@ -49,27 +48,37 @@ class UsuarioDAO extends DAO{
      * @inheritDoc
      */
     public function insertar($objeto) {
-        $maxId = $this -> maxId() + 1;
-        if($objeto -> getGrado() == null) $idGrado = null;
-        else $idGrado = $objeto -> getGrado() -> getIdGrado();
-        $sql = 'INSERT INTO `usuario_temporal`(`idUsuario_temporal`, `nombre`, `apellido`, `correo`, `clave`, `fechaNac`, `estado`, `telefono`, `rol`, `Grado_idGrado`) VALUES (?,?,?,?,?,?,?,?,?,?)';
-        $tipos = 'issssssssi';
-        $valores = [
-            $maxId,
-            $objeto->getNombre(),
-            $objeto->getApellido(),
-            $objeto->getCorreo(),
-            $objeto->getClave(),
-            $objeto->getFNac(),
-            $objeto -> getEstado(),
-            $objeto -> getTelefono(),
-            $objeto->getRol(),
-            $idGrado
-        ];
-        if($this -> conexion -> prepararConsulta($sql, $tipos, ...$valores)) {
-            return true;
-        }
-        return false;
+        $id = $this -> maxId() + 1;
+        $username = $objeto->getUsername();
+        $nombre = $objeto->getNombre();
+        $apellido = $objeto->getApellido();
+        $correo = $objeto->getCorreo();
+        $clave = $objeto->getClave();
+        $estado = $objeto->getEstado();
+        $fechaNacimiento = $objeto->getFechaNacimiento();
+        $telefono = $objeto->getTelefono();
+        $imagen = $objeto->getImagen();
+        $tipoUsuario = $objeto->getTipoUsuario();
+        $gradoId = $objeto->getGrado()->getIdGrado() ?? '';
+
+
+        $sql1 = "INSERT INTO Usuario (idUsuario, username, nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, imagen, idTipo_usuario)
+        VALUES ('{$id}', '{$username}', '{$nombre}', '{$apellido}', '{$correo}', '{$clave}', '{$estado}', '{$fechaNacimiento}', '{$telefono}', '{$imagen}', '{$tipoUsuario}')";
+        
+        $sql2 = match($tipoUsuario){
+            1 => "INSERT INTO administrador(idAdministrador) VALUES ('{$id}');",
+            2 => "INSERT INTO estudiante(idEstudiante, Grado_idGrado) VALUES ('{$id}', '{$gradoId}')",
+            3 => "INSERT INTO profesor(idProfesor) VALUES ('{$id}');"
+        };
+            
+             
+
+        echo $sql1 . " YYYYY " . $sql2;
+
+        $this->conexion->ejecutarConsulta($sql1);
+        $this->conexion->ejecutarConsulta($sql2);
+
+        $objeto->setIdUsuario($id);
     }
 
     
@@ -89,9 +98,10 @@ class UsuarioDAO extends DAO{
     public function verificar($correo){
         $sql = "SELECT `idUsuario`, `estado` FROM usuario WHERE correo = ?";
         $tipos = 's';
-        $valores = [ $correo];
+        $valores = [$correo];
         return $this -> conexion -> prepararConsulta($sql, $tipos,... $valores);
     }
+
     public function filtrar(Usuario $filtro){
         $sql = "SELECT `idUsuario`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `fecha_nacimiento`, `telefono`, idTipo_usuario,`imagen`
                 FROM usuario 

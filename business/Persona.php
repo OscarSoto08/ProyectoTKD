@@ -1,6 +1,7 @@
 <?php 
-class Persona implements JsonSerializable{
-    protected $idUsuario;
+class Persona{
+	protected $idUsuario;
+	protected $username;
     protected $nombre;
     protected $apellido;
     protected $correo;
@@ -11,8 +12,9 @@ class Persona implements JsonSerializable{
 	protected $tipo_usuario; //No hace falta una clase para tipo usuario porque solo manejo 3 datos, seria codigo innecesario
 	protected $imagen;
 	
-	public function __construct($idUsuario, $nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen) {
+	public function __construct($idUsuario, $username, $nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen) {
 		$this->idUsuario = $idUsuario;
+		$this -> username = $username;
 		$this->nombre = $nombre;
 		$this->apellido = $apellido;
 		$this->correo = $correo;
@@ -26,6 +28,7 @@ class Persona implements JsonSerializable{
 	//GETTERS
 	
 	public function getIdUsuario() { return $this->idUsuario; }
+	public function getUsername() {return $this -> username;}
 	public function getNombre() { return $this->nombre; }
 	public function getApellido() { return $this->apellido; }
 	public function getCorreo() { return $this->correo; }
@@ -38,6 +41,7 @@ class Persona implements JsonSerializable{
 	//SETTERS
 	
 	public function setIdUsuario($idUsuario) { $this->idUsuario = $idUsuario; }
+	public function setUsername($username){$this -> username = $username; }
 	public function setNombre($nombre) { $this->nombre = $nombre; }
 	public function setApellido($apellido) { $this->apellido = $apellido; }
 	public function setCorreo($correo) { $this->correo = $correo; }

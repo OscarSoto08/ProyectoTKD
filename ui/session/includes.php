@@ -1,5 +1,5 @@
 <?php 
-require_once 'business/CodigoVerificacion.php';
+require_once 'business/Token.php';
 require_once 'business/Grado.php';
 require_once 'business/Persona.php';
 require_once 'business/Usuario.php'; 
@@ -10,7 +10,7 @@ require_once 'business/Signup_Mail.php';
 
 require_once 'Persistencia/DAO.php';
 require_once 'Persistencia/Conexion.php';
-require_once 'Persistencia/codigoVerificacionDAO.php';
+require_once 'Persistencia/TokenDAO.php';
 require_once 'Persistencia/UsuarioDAO.php';
 require_once 'Persistencia/EstudianteDAO.php';
 require_once 'Persistencia/GradoDAO.php';

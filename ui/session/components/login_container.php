@@ -7,7 +7,7 @@ if(isset($_GET['status'])){ ?>
     </div> 
     <?php } else if($_GET["status"] == '2'){ ?>
     <div class="text-center alert alert-success" role="alert">
-        Datos validos, ya puedes iniciar sesión en la plataforma
+        El usuario que intentas registrar ya existe en la plataforma. <br> ¡Intenta iniciar sesion!
     </div> 
     <?php } else if($_GET["status"] == '3') { ?>
     <div class="text-center alert alert-danger" role="alert">
@@ -18,14 +18,13 @@ if(isset($_GET['status'])){ ?>
         Hubo un problema, intentalo de nuevo...
     </div> 
     <?php 
-    } 
-} 
-if(isset($_GET["userAlreadyExists"]) && $_GET['userAlreadyExists'] == 1){ ?>
-    <div class="text-center alert alert-success" role="alert">
-        El usuario que intentas registrar ya existe en la plataforma. <br> ¡Intenta iniciar sesion!
+    } else if($_GET["status"] == '4') { ?>
+    <div class="text-center alert alert-info" role="alert">
+        ¡Muy bien!, te hemos enviado un correo para completar tu registro en la plataforma 😊
     </div> 
-<?php    
-}
+    <?php 
+    }
+} 
 ?> 
 <div class="circle circle-one"></div>
 <div class="form-container">

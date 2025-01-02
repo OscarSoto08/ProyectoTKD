@@ -14,18 +14,10 @@
 </a>
 <h1 class="opacity">Registro</h1>
 <form action="?pid=<?php echo base64_encode('ui/session/pages/signup.php');?>" method="post">
-    <label for="nombre">Nombres</label>
-    <input id="nombre" name="nombre" type="text" placeholder="NOMBRES" required />
-    <label for="apellido">Apellidos</label>
-    <input id="apellido" name="apellido" type="text" placeholder="APELLIDOS" required />
-    <label for="fecha_nacimiento">Fecha de nacimiento</label>
-    <input id="fecha_nacimiento" name="fecha_nacimiento" type="date" required />
-    <label for="correo">Correo</label>
+    <label for="username">Nombre de usuario</label>
+    <input id="username" name="username" type="text" placeholder="NOMBRE" required />
+    <label for="correo">Correo de contacto</label>
     <input id="correo" name="correo" type="email" placeholder="CORREO" required />
-    <label for="password">Contraseña</label>
-    <input id="password" name="clave" type="password" placeholder="CONTRASEÑA" required />
-    <label for="telefono">Telefono</label>
-    <input id="telefono" name="telefono" type="tel" placeholder="TELEFONO" pattern="[0-9]{10}" required />
     <label for="tipo_usuario">Soy...</label>
     <div class="radio">
         <input type="radio" id="estudiante" name="tipo_usuario" value="estudiante" onclick="cargarGrados()" required>

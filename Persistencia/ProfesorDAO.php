@@ -69,26 +69,10 @@ class ProfesorDAO extends DAO{
     /**
      * @inheritDoc
      */
-    public function insertar($objeto){
-        $sql = "CALL CrearUsuario(?,?,?,?,?,?,?,?,?,?,?,?)";
-         $tipos = "issssssssisi";
-         $valores = [
-            $this -> maxId() + 1,
-            $objeto -> getNombre(),
-            $objeto -> getApellido(),
-            $objeto -> getCorreo(),
-            $objeto -> getClave(),
-            $objeto -> getEstadoRegistro(),
-            $objeto -> getFechaNacimiento(),
-            $objeto -> getTelefono(),
-            $objeto -> getImagen(),
-            $objeto -> getTipoUsuario(),
-            $objeto -> getEstado(),
-            'xxxxxx'
-         ];
-         
-         return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
+    public function insertar($id) {
+        return "INSERT INTO administrador(idAdministrador) VALUES ('{$id}');";
     }
+    
     
     /**
      * @inheritDoc
