@@ -64,30 +64,29 @@ class Estudiante extends Persona {
         return $Estudiantes;
     }
 
+    //Codigo documentado
     public static function consultarPorId($id_user){
-        $conexion = new Conexion();
-        $EstudianteDAO = new EstudianteDAO($conexion);
-        $conexion -> iniciarConexion();
-        $EstudianteDAO -> consultarPorId( $id_user);
-        if(!$fila = $conexion -> extraer()){
-            $conexion -> cerrarConexion();
-            return null;
-        }else{
-        $Estudiante = new Estudiante(
-            $id_user,
-            $fila[0],
-            $fila[1],
-            $fila[2],
-            $fila[3],
-            $fila[4],
-            $fila[5],
-            $fila[6],
-            $fila[7],
-            $fila[8]
-        );
-        $conexion -> cerrarConexion();
-        return $Estudiante;
-        }
+        $conexion = new Conexion(); //Se crea una nueva conexion
+        $EstudianteDAO = new EstudianteDAO($conexion);  //Se crea un nuevo objeto de tipo EstudianteDAO
+        $conexion -> iniciarConexion(); //Se inicia la conexion
+        $EstudianteDAO -> consultarPorId($id_user); //Se llama al metodo consultarPorId de EstudianteDAO
+        $fila = $conexion -> extraer(); //Se obtiene la fila de la consulta
+        $idGrado = $fila[0]; //Se obtiene el id del grado
+        $estudiante = new Estudiante(   //Se crea un nuevo objeto de tipo Estudiante
+            idUsuario: $id_user,
+            username: $fila[1],
+            nombre: $fila[2],
+            apellido: $fila[3],
+            correo: $fila[4],
+            estado: $fila[5],
+            fecha_nacimiento: $fila[6],
+            telefono: $fila[7],
+            imagen: $fila[8], //Se asignan los valores obtenidos de la consulta
+        ); 
+        $conexion -> cerrarConexion(); //Se cierra la conexion
+        $grado = Grado::consultar($idGrado);    //Se obtiene el grado
+        $estudiante -> setGrado($grado);    //Se asigna el grado al estudiante
+        return $estudiante; //Se retorna el estudiante
     }
 
     public function actualizar(){

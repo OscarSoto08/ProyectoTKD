@@ -13,10 +13,11 @@ $paginasSinSesion = glob('ui/session/pages/*.php');
 
 $paginasConSesion = [
     'ui/administrador/index.php',
-    'ui/administrador/pages/manage_users.php',
-    'ui/administrador/pages/manage_events.php',
-    'ui/administrador/pages/manage_courses.php',
-    'ui/administrador/pages/course.php',
+    'ui/administrador/pages/estudiantes.php',
+    'ui/administrador/pages/profesores.php',
+    'ui/administrador/pages/eventos.php',
+    'ui/administrador/pages/cursos.php',
+    'ui/administrador/pages/preguntas.php',
     'ui/estudiante/index.php',
     'ui/estudiante/pages/subcurso.php',
     'ui/profesor/index.php'

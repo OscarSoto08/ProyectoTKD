@@ -1,7 +1,7 @@
 <?php
 class Profesor extends Persona {
-    public function __construct($idUsuario = 0, $username, $nombre = "", $apellido = "", $correo = "", $clave = "", $estado = "", $fecha_nacimiento = "", $telefono = "", $tipo_usuario = null, $imagen = "") {
-        parent::__construct($idUsuario,$username, $nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
+    public function __construct($idUsuario = 0,$username="", $nombre = "", $apellido = "", $correo = "", $clave = "", $estado = "", $fecha_nacimiento = "", $telefono = "", $tipo_usuario = null, $imagen = "") {
+        parent::__construct($idUsuario,$username,$nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
     }
 	public static function autenticar(Persona $profesor){
         $conexion = new Conexion();

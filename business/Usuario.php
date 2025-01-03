@@ -27,21 +27,6 @@ class Usuario extends Persona{
         return true;
     }
 
-    public static function autenticar(Persona $Usuario){
-        $conexion = new Conexion();
-        $UsuarioDAO = new UsuarioDAO($conexion);
-        $conexion -> iniciarConexion();
-        $result = $UsuarioDAO -> verificar($Usuario -> getCorreo());
-        if($result && $conexion -> numFilas() == 1){
-            $registro = $conexion -> extraer();
-            $Usuario -> setIdUsuario($registro[0]);
-            $Usuario -> setEstado( $registro[1]);
-            $conexion -> cerrarConexion();
-            return true;
-        }
-        $conexion -> cerrarConexion();
-        return false;
-    }
 
     public static function consultarTodos(){
         $conexion = new Conexion();
@@ -92,23 +77,69 @@ class Usuario extends Persona{
         return $usuario;
     }
 
-    public static function verificar($usuario){
+    public static function verificar(Estudiante | Profesor | Usuario $usuario){
         $conexion = new Conexion();
         $UsuarioDAO = new UsuarioDAO($conexion);
         $conexion -> iniciarConexion();
-        if($UsuarioDAO -> verificar($usuario->getCorreo())){
-            $conexion -> cerrarConexion();
+        if($UsuarioDAO -> verificar($usuario -> getCorreo())){
             if($conexion -> numFilas() > 0){ #significa que hay al menos un registro con ese correo
                 $resultado = $conexion->extraer();
                 $usuario->setIdUsuario($resultado[0]);
                 $usuario->setEstado($resultado[1]);
+                $conexion -> cerrarConexion();
                 return true;
             }
         }
+        $conexion -> cerrarConexion();
         return false;
     }
 
-    public static function insertar(Usuario $Usuario){
+    public function autenticar(){
+        $conexion = new Conexion();
+        $UsuarioDAO = new UsuarioDAO($conexion);
+        $conexion -> iniciarConexion();
+        $UsuarioDAO -> autenticar($this -> getCorreo(), $this -> getClave());
+        if($conexion -> numFilas() == 1){
+            $fila = $conexion -> extraer();
+            $this -> idUsuario = $fila[0];
+            $this -> tipo_usuario = $fila[1];
+            $conexion -> cerrarConexion();
+            return true;
+        }
+        $conexion -> cerrarConexion();
+        return false;
+    }
+
+    public function validar(){
+        $errores = [];
+        if(strlen($this -> getNombre()) == 0){
+            array_push($errores, "El nombre no puede estar vacío");
+        }
+        if(strlen($this -> getApellido()) == 0){
+            array_push($errores, "El apellido no puede estar vacío");
+        }
+        if(strlen($this -> getCorreo()) == 0){
+            array_push($errores, "El correo no puede estar vacío");
+        }
+        if(strlen($this -> getClave()) == 0){
+            array_push($errores, "La clave no puede estar vacía");
+        }
+        if(strlen($this -> getTelefono()) == 0){
+            array_push($errores, "El teléfono no puede estar vacío");
+        }
+        if(strlen($this -> getFechaNac()) == 0){
+            array_push($errores, "La fecha de nacimiento no puede estar vacía");
+        }
+        if(strlen($this -> getEstado()) == 0){
+            array_push($errores, "El estado no puede estar vacío");
+        }
+        if(strlen($this -> getImagen()) == 0){
+            array_push($errores, "La imagen no puede estar vacía");
+        }
+        return $errores;
+    }
+
+    public static function insertar(Estudiante | Profesor $Usuario){
         $conexion = new Conexion();
         $UsuarioDAO = new UsuarioDAO($conexion);
         $conexion -> iniciarConexion();

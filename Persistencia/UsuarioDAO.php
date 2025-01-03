@@ -4,6 +4,7 @@ class UsuarioDAO extends DAO{
     /**
      * @inheritDoc
      */
+    //CRUD
     public function actualizar($objeto) {
         $sql = "UPDATE usuario SET `nombre` = ?, `apellido` = ?, `correo` = ?, `estado` = ?, `fecha_nacimiento` = ?, `telefono` = ? WHERE idUsuario = ?";
         $tipos = "ssssssi";
@@ -33,7 +34,7 @@ class UsuarioDAO extends DAO{
      * @inheritDoc
      */
     public function consultarTodos() {
-        $sql = "SELECT `idUsuario`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `fecha_nacimiento`, `telefono`, idTipo_usuario,`imagen` FROM usuario WHERE 1";
+        $sql = "SELECT `idUsuario`, `nombre`, `apellido`, `correo`, `clave`, `estado`, `fecha_nacimiento`, `telefono`, `idTipo_usuario`,`imagen` FROM usuario WHERE 1";
         $this -> conexion -> ejecutarConsulta($sql);
     }
     /**
@@ -59,7 +60,7 @@ class UsuarioDAO extends DAO{
         $telefono = $objeto->getTelefono();
         $imagen = $objeto->getImagen();
         $tipoUsuario = $objeto->getTipoUsuario();
-        $gradoId = $objeto->getGrado()->getIdGrado() ?? '';
+        $gradoId = ($objeto instanceof Estudiante) ? $objeto->getGrado()->getIdGrado() : null;
 
 
         $sql1 = "INSERT INTO Usuario (idUsuario, username, nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, imagen, idTipo_usuario)
@@ -81,12 +82,17 @@ class UsuarioDAO extends DAO{
         $objeto->setIdUsuario($id);
     }
 
+
+    //Otros métodos
     
-    /**
-     * @inheritDoc
-     */
+    public function autenticar($correo, $clave){
+        $sql = "SELECT idUsuario, idTipo_usuario FROM usuario WHERE correo = ? AND clave = ?";
+        $tipos = 'ss';
+        return $this -> conexion -> prepararConsulta($sql, $tipos, $correo, $clave);
+    }
+
     public function maxId() {
-        $sql = "SELECT MAX(idUsuario_temporal) FROM usuario_temporal;";
+        $sql = "SELECT MAX(idUsuario) FROM usuario;";
         $this -> conexion -> ejecutarConsulta($sql);
         $fila = $this -> conexion -> extraer();
         if($fila[0] == null){

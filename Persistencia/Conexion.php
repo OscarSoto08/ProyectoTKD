@@ -10,7 +10,7 @@ interface ConexionInterface{
     public function obtenerKey();
 }
 
-class MySQLConexion implements ConexionInterface{
+class Conexion implements ConexionInterface{
     private $mysqlconexion;
     private $resultado;
 

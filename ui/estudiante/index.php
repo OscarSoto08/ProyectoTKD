@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel del Estudiante - Taekwondo Kopulso</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css"> <!-- Estilos personalizados -->
-</head>
-<body>
-    <!-- Cabecera -->
-    <header class="bg-primary text-white py-3">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="h3">¡Bienvenido, Juan Pérez!</h1>
-            <a href="?cs=<?php echo base64_encode("true")?>" class="btn btn-light">Cerrar Sesión</a>
-        </div>
-    </header>
+<?php 
+include_once('ui/estudiante/components/header.php');
+?>  
 
     <!-- Navegación Principal -->
     <div class="container my-4">

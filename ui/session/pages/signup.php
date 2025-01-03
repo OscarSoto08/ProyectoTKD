@@ -35,10 +35,7 @@ if (isset($_POST['ingresar'])) {
         ),
     };
 
-    
-
-# 3. Verificación de si el usuario está en la plataforma o no
-if(Usuario::verificar($usuario)){ 
+if(Usuario::verificar($usuario)){ # 3 Si el usuario ya existe en la plataforma 
     switch($usuario -> getEstado()){ # 4. El estado determina el mensaje que saldrá en login
         case 'pendiente': 
             header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=1"); // status = 1: Estamos verificando tus datos
@@ -77,7 +74,7 @@ $codigo->insertar($codigo);
 #8. Se envia un correo para validar el código 
 $mailRegistro = new Signup_Mail(
 $usuario->getCorreo(),
-$usuario->getNombre(),
+$usuario->getUsername(),
 $codigo->getCodigo(),
 $usuario
 );

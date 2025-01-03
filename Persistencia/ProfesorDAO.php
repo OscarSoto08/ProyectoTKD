@@ -69,8 +69,8 @@ class ProfesorDAO extends DAO{
     /**
      * @inheritDoc
      */
-    public function insertar($id) {
-        return "INSERT INTO administrador(idAdministrador) VALUES ('{$id}');";
+    public function insertar($objeto) {
+        Usuario::insertar($objeto);
     }
     
     

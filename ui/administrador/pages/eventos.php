@@ -1,46 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Taekwondo - Eventos</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <i class="fas fa-fist-raised"></i> Club Taekwondo
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"  href="estudiantes.html"><i class="fas fa-users"></i> Estudiantes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profesores.html"><i class="fas fa-chalkboard-teacher"></i> Profesores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="eventos.html"><i class="fas fa-calendar-alt"></i> Eventos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cursos.html"><i class="fas fa-list"></i> Cursos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="preguntas.html"><i class="fas fa-question-circle"></i> Preguntas</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<?php
+include_once 'ui/administrador/componentes/head.php';
+?>
 
     <main class="container mt-4">
         <div class="card shadow-lg rounded-4">

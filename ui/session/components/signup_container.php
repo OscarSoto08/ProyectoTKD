@@ -14,9 +14,7 @@
 </a>
 <h1 class="opacity">Registro</h1>
 <form action="?pid=<?php echo base64_encode('ui/session/pages/signup.php');?>" method="post">
-    <label for="username">Nombre de usuario</label>
-    <input id="username" name="username" type="text" placeholder="NOMBRE" required />
-    <label for="correo">Correo de contacto</label>
+    <input id="username" name="username" type="text" placeholder="USERNAME" required />
     <input id="correo" name="correo" type="email" placeholder="CORREO" required />
     <label for="tipo_usuario">Soy...</label>
     <div class="radio">

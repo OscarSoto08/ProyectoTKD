@@ -1,67 +1,70 @@
 <?php
+ob_start();
 require 'ui/session/components/head.php';
 require 'ui/session/includes.php';
-//manejo de errores
-$errorAuth = false;
 
-if(isset($_SESSION['id']) && isset($_SESSION['tipoUsuario'])){ //Verificar que el usuario ya existe y que usuario es para redirigirlo a su index
-    if($_SESSION['tipoUsuario'] == 'administrador') header('Location: ?pid='. base64_encode('ui/administrador/index.php'));
-    if($_SESSION['tipoUsuario'] == 'estudiante') header('Location: ?pid='. base64_encode('ui/estudiante/index.php'));
-    if($_SESSION['tipoUsuario'] == 'profesor') header('Location: ?pid='. base64_encode('ui/profesor/index.php'));
+$error = "";
+$userDoesNotExist = false;
+
+if (isset($_SESSION['id']) && isset($_SESSION['tipoUsuario'])) {
+    switch ($_SESSION['tipoUsuario']) {
+        case 'administrador':
+            header('Location: ?pid='.base64_encode('ui/administrador/index.php'));
+            exit();
+        case 'estudiante':
+            header('Location: ?pid='.base64_encode('ui/estudiante/index.php'));
+            exit();
+        case 'profesor':
+            header('Location: ?pid='.base64_encode('ui/profesor/index.php'));
+            exit();
+    }
 }
 
 if (isset($_POST['autenticar'])) {
-$correo = $_POST['correo'];
-$clave = md5($_POST['clave']);
+    $correo = $_POST['correo'];
+    $clave = md5($_POST['clave']);
 
-$usuario = new Persona(null,null,null,$correo, $clave, null,null,null, null, null);
-$servUsuarios = ['Administrador', 'Estudiante', 'Profesor'];
-foreach($servUsuarios as $usuarioServ){
-    if($usuarioServ::autenticar($usuario)){
-        $errorAuth = false;
-        $_SESSION["id"] = $usuario -> getIdUsuario();
-        if($usuarioServ == 'Administrador'){  
-            $_SESSION['tipoUsuario'] = 'administrador';
-            header('Location: ?pid='. base64_encode('ui/administrador/index.php'));
-        }
-        if($usuarioServ == 'Estudiante'){
-            $_SESSION['tipoUsuario'] = 'estudiante';
-            header('Location: ?pid='. base64_encode('ui/estudiante/index.php'));
-        } 
-        if($usuarioServ == 'Profesor'){
-            $_SESSION['tipoUsuario'] = 'profesor';
-            header('Location: ?pid='. base64_encode('ui/profesor/index.php'));
-        } 
-        if($usuarioServ == 'Usuario'){
-            $status = 0;
-            switch ($usuario -> getEstado()) {
-                case 'pendiente':
-                    $status = 1;
-                    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status);
+    $usuario = new Usuario(correo: $correo, clave: $clave);
+
+    if (!Usuario::verificar($usuario)) {
+        $error = "El usuario no existe, regístrate.";
+        $userDoesNotExist = true;
+    } elseif ($usuario->autenticar() && !$userDoesNotExist) {
+        $_SESSION["id"] = $usuario->getIdUsuario();
+        $_SESSION["tipoUsuario"] = match ($usuario->getTipoUsuario()) {
+            1 => 'administrador',
+            2 => 'estudiante',
+            3 => 'profesor',
+            default => 'desconocido'
+        };
+
+        $estado = $usuario->getEstado();
+        if ($estado === 'permitido') {
+            switch ($_SESSION['tipoUsuario']) {
+                case 'administrador':
+                    header('Location: ?pid='.base64_encode('ui/administrador/index.php'));
                     exit();
-                case 'permitido':
-                    $status = 2;
-                    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status);
+                case 'estudiante':
+                    header('Location: ?pid='.base64_encode('ui/estudiante/index.php'));
                     exit();
-                case 'denegado': 
-                    $status = 3;
-                    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". $status);
+                case 'profesor':
+                    header('Location: ?pid='.base64_encode('ui/profesor/index.php'));
                     exit();
-                default:
-                    $status = 0;
-                    break;
             }
+        } elseif ($estado === 'pendiente') {
+            header('Location: ?pid='.base64_encode('ui/session/pages/login.php').'&status=1');
+        } else {
+            header('Location: ?pid='.base64_encode('ui/session/pages/login.php').'&status=3');
         }
-    }else{
-        $errorAuth = true;
+    } else {
+        $error = "Credenciales incorrectas.";
     }
-}
 }
 ?>
 
 <body>
     <section class="container">
-        <?php include 'ui/session/components/login_container.php' ?>
+        <?php include 'ui/session/components/login_container.php'; ?>
     </section>
 </body>
 </html>

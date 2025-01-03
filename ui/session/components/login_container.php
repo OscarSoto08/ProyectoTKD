@@ -33,17 +33,15 @@ if(isset($_GET['status'])){ ?>
         </a>
         <h1 class="opacity">Iniciar Sesion</h1>
         <form action="?pid=<?php echo base64_encode('ui/session/pages/login.php')?>" method="post">
-            <input type="email" name="correo" placeholder="USERNAME" required />
+            <input type="email" name="correo" placeholder="EMAIL" required />
             <input type="password" name="clave" placeholder="PASSWORD" required />
             <button class="opacity" type="submit" name="autenticar" value="true">INGRESAR</button>
         </form>
         <?php
-            if($errorAuth){
-                ?>
-                <div class="alert alert-danger" role="alert">
-                    Correo o clave incorrectos, intentelo nuevamente...
-                </div>
-                <?php
+            if($error != ""){
+                echo `<div class="alert alert-danger text-center" role="alert">
+                    {$error}
+                </div> `;
             }
         ?>
         <div class="register-forget opacity">
