@@ -27,17 +27,31 @@ include_once 'ui/administrador/componentes/head.php';
                     <table class="table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
-                                <th scope="col">Grado</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col">Teléfono</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col" class="text-center">Nombre</th>
+                                <th scope="col" class="text-center">Apellido</th>
+                                <th scope="col" class="text-center">Grado</th>
+                                <th scope="col" class="text-center">Correo</th>
+                                <th scope="col" class="text-center">Edad</th>
+                                <th scope="col" class="text-center">Teléfono</th>
+                                <th scope="col" class="text-center">Estado</th>
                             </tr>
                         </thead>
                         <tbody id="tablaEstudiantes">
+                            <?php 
+                            foreach (Estudiante::consultarTodos() as $usuario) {
+                            ?>    <tr>
+                                    <td class="text-center"><?php echo $usuario -> getIdUsuario() ?></td>
+                                    <td class="text-center"><?php echo $usuario -> getNombre() ?></td>
+                                    <td class="text-center"><?php echo $usuario -> getApellido() ?></td>
+                                    <td class="text-center"><?php echo $usuario -> getGrado() -> getNombre() ?></td>
+                                    <td class="text-center"><?php echo $usuario -> getCorreo() ?></td>
+                                    <td class="text-center"><?php echo Persona::calcularEdad(new Datetime($usuario -> getFechaNacimiento())) ?></td>
+                                    <td class="text-center"><?php echo $usuario -> getTelefono() ?></td>
+                                    <td class="text-center"><?php echo $usuario -> getEstado() ?></td>
+                                </tr> <?php
+                            }
+                            ?>
                             </tbody>
                     </table>
                 </div>

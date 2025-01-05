@@ -39,10 +39,28 @@ class Token{
         $conexion -> iniciarConexion();
         $resultado = $codigoDAO -> insertar($this);
         $token -> setId($conexion -> obtenerKey() + 1);
-        echo $token -> getId();
-        echo $token -> getCodigo();
+        // echo $token -> getId();
+        // echo $token -> getCodigo();
         $conexion -> cerrarConexion();
         return $resultado;
+    }
+
+    public function consultarPorCodigo($codigo){
+        $conexion = new Conexion();
+        $codigoDAO = new TokenDAO($conexion);
+        $conexion -> iniciarConexion();
+        $codigoDAO -> consultarPorCodigo($codigo);
+        // echo $codigo;
+        if($resultado = $conexion -> extraer()){
+            $this -> id = $resultado[0];
+            $this -> codigo = $codigo;
+            $this -> motivo = $resultado[1];
+            $this -> estado = $resultado[2];
+            $this -> fecha_creado = $resultado[3];
+            $this -> fecha_expirado = $resultado[4];
+            $this -> usuario =  Usuario::consultarPorId($resultado[5]);
+        }
+        $conexion -> cerrarConexion();
     }
 
 	//GETTERS

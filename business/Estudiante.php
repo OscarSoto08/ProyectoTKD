@@ -37,26 +37,25 @@ class Estudiante extends Persona {
 
 
         while($fila = $conexion -> extraer()){
-            $grado = null;  
-            if(array_key_exists(key: $fila[10], array: $grados)){
-                $grado = new Grado($fila[10], $grados[$fila[10]]);
+            $grado = null;
+            if(array_key_exists(key: $fila[9], array: $grados)){
+                $grado = new Grado($fila[9], $grados[$fila[9]]);
             }else{
-                $grado = Grado::consultar($fila[10]);
+                $grado = Grado::consultar($fila[9]);
                 array_push($grados, $grado);
             }
 
             $Estudiante = new Estudiante(
-                $fila[0],
-                $fila[1],
-                $fila[2],
-                $fila[3],
-                $fila[4],
-                $fila[5],
-                $fila[6],
-                $fila[7],
-                $fila[8],
-                $fila[9],
-                $grado
+                idUsuario: $fila[0],
+                username: $fila[1],
+                nombre: $fila[2],
+                apellido: $fila[3],
+                correo: $fila[4],
+                estado: $fila[5],
+                fecha_nacimiento: $fila[6],
+                telefono: $fila[7],
+                imagen: $fila[8],
+                grado: $grado
             );
             array_push($Estudiantes, $Estudiante);
         }

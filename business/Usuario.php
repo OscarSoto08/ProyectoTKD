@@ -6,16 +6,16 @@ class Usuario extends Persona{
 
     public function __construct($idUsuario = 0, $username="", $nombre = "", $apellido = "", $correo = "", $clave = "", $estado = "", $fecha_nacimiento = "", $telefono = "", $tipo_usuario = null, $imagen = "") {
         parent::__construct($idUsuario,$username,$nombre, $apellido, $correo, $clave, $estado, $fecha_nacimiento, $telefono, $tipo_usuario, $imagen);
-    }
-    
-	public static function actualizar(Usuario $Usuario){
+    }    
+
+	public function actualizar(){
         $conexion = new Conexion();
         $UsuarioDAO = new UsuarioDAO($conexion);
         $conexion -> iniciarConexion();
-        $respuesta = $UsuarioDAO -> actualizar($Usuario);
+        $respuesta = $UsuarioDAO -> actualizar($this);
         $conexion -> cerrarConexion();
-        return $respuesta;
     }
+
     public static function registrar(Usuario $Usuario){
         $conexion = new Conexion();
         $UsuarioDAO = new UsuarioDAO($conexion);
@@ -26,7 +26,6 @@ class Usuario extends Persona{
         $Usuario -> setIdUsuario($conexion -> obtenerKey());
         return true;
     }
-
 
     public static function consultarTodos(){
         $conexion = new Conexion();
@@ -63,15 +62,16 @@ class Usuario extends Persona{
         $fila = $conexion -> extraer();
         $usuario = new Usuario(
             $id_Usuario,
-            $fila[0],
-            $fila[1],
-            $fila[2],
-            $fila[3],
-            $fila[4],
-            $fila[5],
-            $fila[6],
-            $fila[7],
-            $fila[8]
+            username: $fila[0],
+            nombre: $fila[1],
+            apellido: $fila[2],
+            correo: $fila[3],
+            clave: $fila[4],
+            estado: $fila[5],
+            fecha_nacimiento: $fila[6],
+            telefono: $fila[7],
+            imagen: $fila[8],
+            tipo_usuario: $fila[9],
         );
         $conexion -> cerrarConexion();
         return $usuario;
@@ -81,17 +81,18 @@ class Usuario extends Persona{
         $conexion = new Conexion();
         $UsuarioDAO = new UsuarioDAO($conexion);
         $conexion -> iniciarConexion();
-        if($UsuarioDAO -> verificar($usuario -> getCorreo())){
-            if($conexion -> numFilas() > 0){ #significa que hay al menos un registro con ese correo
-                $resultado = $conexion->extraer();
-                $usuario->setIdUsuario($resultado[0]);
-                $usuario->setEstado($resultado[1]);
-                $conexion -> cerrarConexion();
-                return true;
-            }
+        $UsuarioDAO -> verificar($usuario -> getCorreo());
+        if($conexion -> numFilas() >= 1){ #significa que hay al menos un registro con ese correo
+            $resultado = $conexion->extraer();
+            $usuario->setIdUsuario($resultado[0]);
+            $usuario->setEstado($resultado[1]);
+            $conexion -> cerrarConexion();
+            return true;
+        }else{
+            $conexion -> cerrarConexion();
+            return false;
         }
-        $conexion -> cerrarConexion();
-        return false;
+        
     }
 
     public function autenticar(){

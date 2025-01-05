@@ -6,26 +6,34 @@ class UsuarioDAO extends DAO{
      */
     //CRUD
     public function actualizar($objeto) {
-        $sql = "UPDATE usuario SET `nombre` = ?, `apellido` = ?, `correo` = ?, `estado` = ?, `fecha_nacimiento` = ?, `telefono` = ? WHERE idUsuario = ?";
-        $tipos = "ssssssi";
-        $valores = [
-            $objeto -> getNombre(),
-            $objeto -> getApellido(),
-            $objeto -> getCorreo(),
-            $objeto -> getEstado(),
-            $objeto -> getFechaNacimiento(),
-            $objeto -> getTelefono(),
-            $objeto -> getIdUsuario()
-        ];
+        $id = $objeto->getIdUsuario();
+        $username = $objeto->getUsername() ?? '';
+        $nombre = $objeto->getNombre() ?? '';
+        $apellido = $objeto->getApellido() ?? '';
+        $correo = $objeto->getCorreo() ?? '';
+        $clave = $objeto->getClave() ?? '';
+        $estado = $objeto->getEstado() ?? '';
+        $fechaNacimiento = $objeto->getFechaNacimiento() ?? '';
+        $telefono = $objeto->getTelefono() ?? '';
+        $imagen = $objeto->getImagen() ?? '';
+        $tipoUsuario = $objeto->getTipoUsuario() ?? '';
+        $gradoId = ($objeto instanceof Estudiante) ? $objeto->getGrado()->getIdGrado() : null;
 
-        return $this -> conexion -> prepararConsulta($sql, $tipos, ...$valores);
+        echo "tipo usuario" . $tipoUsuario;
+        $sql = "UPDATE usuario SET username = '{$username}', nombre = '{$nombre}', apellido = '{$apellido}', correo = '{$correo}', clave = '{$clave}', estado = '{$estado}', fecha_nacimiento = '{$fechaNacimiento}', telefono = '{$telefono}', imagen = '{$imagen}', idTipo_usuario = '{$tipoUsuario}' WHERE idUsuario = '{$id}'";
+        
+        if($tipoUsuario == 2){
+            $this -> conexion -> ejecutarConsulta("UPDATE estudiante SET Grado_idGrado = '{$gradoId}' WHERE idEstudiante = '{$id}'");
+        }
+        
+        $this->conexion->ejecutarConsulta($sql);
     }
     
     /**
      * @inheritDoc
      */
     public function consultarPorId($id) {
-        $sql = "SELECT nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, imagen, idTipo_usuario, username FROM usuario WHERE idUsuario = ?";
+        $sql = "SELECT username, nombre, apellido, correo, clave, estado, fecha_nacimiento, telefono, imagen, idTipo_usuario FROM usuario WHERE idUsuario = ?";
         $tipos = "i";
         $this -> conexion -> prepararConsulta($sql, $tipos, $id);
     }
@@ -50,16 +58,16 @@ class UsuarioDAO extends DAO{
      */
     public function insertar($objeto) {
         $id = $this -> maxId() + 1;
-        $username = $objeto->getUsername();
-        $nombre = $objeto->getNombre();
-        $apellido = $objeto->getApellido();
-        $correo = $objeto->getCorreo();
-        $clave = $objeto->getClave();
-        $estado = $objeto->getEstado();
-        $fechaNacimiento = $objeto->getFechaNacimiento();
-        $telefono = $objeto->getTelefono();
-        $imagen = $objeto->getImagen();
-        $tipoUsuario = $objeto->getTipoUsuario();
+        $username = $objeto->getUsername() ?? '';
+        $nombre = $objeto->getNombre() ?? '';
+        $apellido = $objeto->getApellido() ?? '';
+        $correo = $objeto->getCorreo() ?? '';
+        $clave = $objeto->getClave() ?? '';
+        $estado = $objeto->getEstado() ?? '';
+        $fechaNacimiento = $objeto->getFechaNacimiento() ?? '';
+        $telefono = $objeto->getTelefono() ?? '';
+        $imagen = $objeto->getImagen() ?? '';
+        $tipoUsuario = $objeto->getTipoUsuario() ?? '';
         $gradoId = ($objeto instanceof Estudiante) ? $objeto->getGrado()->getIdGrado() : null;
 
 
@@ -102,10 +110,8 @@ class UsuarioDAO extends DAO{
     }
 
     public function verificar($correo){
-        $sql = "SELECT `idUsuario`, `estado` FROM usuario WHERE correo = ?";
-        $tipos = 's';
-        $valores = [$correo];
-        return $this -> conexion -> prepararConsulta($sql, $tipos,... $valores);
+        $sql = "SELECT `idUsuario`, `estado` FROM usuario WHERE correo = '{$correo}'";
+        $this -> conexion -> ejecutarConsulta($sql);
     }
 
     public function filtrar(Usuario $filtro){
@@ -128,4 +134,4 @@ class UsuarioDAO extends DAO{
                 FROM usuario 
                 WHERE idTipo_usuario = {$idTipo_usuario}");
     }
-}
+} 

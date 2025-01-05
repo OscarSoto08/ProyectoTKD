@@ -23,9 +23,9 @@ class Signup_Mail {
         $this->configurarSMTP();
     }
 
-    private function crearMensaje($codigo, $usuario) {
+    public function crearMensaje($codigo, $usuario) {
         $codigo_encode = base64_encode($codigo);
-        return "<!DOCTYPE html>
+        return  "<!DOCTYPE html>
 <html lang='es'>
 <head>
     <meta charset='UTF-8'>
@@ -36,7 +36,7 @@ class Signup_Mail {
     <table align='center' border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px; background-color: #fff; border: 1px solid #ddd; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 20px;'>
         <tr>
             <td style='padding: 20px; text-align: center; background-color: #FFC107; border-radius: 10px 10px 0 0;'>
-                <img src='https://i.ibb.co/PgqVdwS/image.png' alt='Logo' style='max-width: 100px; border-radius: 50%; object-fit: fill;'/>
+                <img src='https://ltakopulso.wuaze.com/img/image.png' alt='Logo' style='max-width: 100px; border-radius: 50%; object-fit: fill;'/>
             </td>
         </tr>
         <tr>
@@ -47,7 +47,7 @@ class Signup_Mail {
                     Para completar tu registro y comenzar a disfrutar de nuestros servicios, por favor haz clic en el botón de abajo.
                 </p>
                 <div style='text-align: center; margin: 20px 0;'>
-                    <a href='https://ltakopulso.wuaze.com/?pid=dWkvc2Vzc2lvbi9wYWdlcy92ZXJpZnlfY29kZS5waHA&token={$codigo_encode}&id={$usuario->getIdUsuario()}' style='display: inline-block; background-color: #FFC107; color: #000; text-decoration: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);'>
+                    <a href='http://localhost/ProyectoTKD/?pid=dWkvc2Vzc2lvbi9wYWdlcy92ZXJpZnlfY29kZS5waHA&Y29kaWdv={$codigo_encode}' style='display: inline-block; background-color: #FFC107; color: #000; text-decoration: none; padding: 12px 20px; font-size: 16px; font-weight: bold; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);'>
                         Completar Registro
                     </a>
                 </div>
@@ -64,10 +64,8 @@ class Signup_Mail {
     </table>
 </body>
 </html>
-
 ";
     }
-
     private function configurarSMTP() {
         try {
             // Server settings

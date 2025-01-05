@@ -5,7 +5,7 @@ class TokenDAO extends DAO{
     }
     
     public function cambiarEstado(Token $codigo){
-        $sql = "UPDATE `codigo_verificacion` SET `estado` = ? WHERE idCodigo_verificacion = ?";
+        $sql = "UPDATE `token` SET `estado` = ? WHERE idToken = ?";
         $tipo = 'si';
         $valores = [ $codigo -> getEstado(), $codigo -> getId()];
         return $this -> conexion -> prepararConsulta($sql, $tipo, ...$valores);
@@ -20,6 +20,12 @@ class TokenDAO extends DAO{
      * @inheritDoc
      */
     public function consultarPorId($id) {
+    }
+
+    public function consultarPorCodigo($codigo){
+        $sql = "SELECT idToken, motivo, estado, fecha_creado, fecha_expirado, idUsuario FROM `Token` WHERE codigo = ?";
+        $tipo = 's';
+        $this -> conexion -> prepararConsulta($sql, $tipo, $codigo);
     }
     
     /**

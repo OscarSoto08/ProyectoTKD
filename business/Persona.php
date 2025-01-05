@@ -68,4 +68,39 @@ class Persona{
             'imagen' => $this->imagen
         ];
 	}
+
+	public static function calcularEdad(DateTime $fechaInicio): string {
+		date_default_timezone_set('America/Bogota');
+		$fechaFin = new DateTime('now');
+        $diferencia = $fechaInicio->diff($fechaFin);
+
+        $anios = $diferencia->y;
+        $meses = $diferencia->m;
+        $dias = $diferencia->d;
+
+        $resultado = '';
+
+        if ($anios > 0) {
+            $resultado .= $anios . ' ' . ($anios == 1 ? 'año' : 'años') . ', ';
+        }
+
+        if ($meses > 0) {
+            $resultado .= $meses . ' ' . ($meses == 1 ? 'mes' : 'meses') . ', ';
+        }
+
+        if ($dias > 0) {
+            $resultado .= $dias . ' ' . ($dias == 1 ? 'día' : 'días');
+        }
+
+        // Eliminar la última coma y espacio si existen
+        $resultado = rtrim($resultado, ', ');
+
+        // Si no hay diferencia, mostrar un mensaje
+        if (empty($resultado)) {
+            return "Las fechas son iguales.";
+        }
+
+        return $resultado;
+    }
+	
 }

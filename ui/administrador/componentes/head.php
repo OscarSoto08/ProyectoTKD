@@ -9,4 +9,18 @@
     <link rel="stylesheet" href="ui/administrador/css/styles.css">
 </head>
 <body>
-<?php include_once 'ui/administrador/componentes/navbar.php'; ?>
+<?php 
+
+include_once 'ui/administrador/componentes/navbar.php'; 
+
+require_once 'Persistencia/DAO.php';
+require_once 'Persistencia/GradoDAO.php';
+require_once 'Persistencia/EstudianteDAO.php';
+require_once 'Persistencia/UsuarioDAO.php';
+require_once 'Persistencia/Conexion.php';
+require_once 'business/Persona.php';
+require_once 'business/Profesor.php';
+require_once 'business/Estudiante.php';
+require_once 'business/Usuario.php';
+require_once 'business/Grado.php';
+?>

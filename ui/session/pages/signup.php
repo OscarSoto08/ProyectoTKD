@@ -35,18 +35,9 @@ if (isset($_POST['ingresar'])) {
         ),
     };
 
-if(Usuario::verificar($usuario)){ # 3 Si el usuario ya existe en la plataforma 
-    switch($usuario -> getEstado()){ # 4. El estado determina el mensaje que saldrá en login
-        case 'pendiente': 
-            header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=1"); // status = 1: Estamos verificando tus datos
-            exit();
-        case 'permitido':
-            header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=2"); // status = 2. Datos validos, ya puedes iniciar sesión en la plataforma
-            exit();
-        case 'denegado':
-            header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=3"); // status = 3. Acceso restringido
-            exit();
-    }
+if(Usuario::verificar($usuario)){ # 3 Si el usuario ya existe en la plataforma
+    header("Location: ?pid=".base64_encode('ui/session/pages/login.php')."&status=". base64_encode($usuario -> getEstado())); 
+    exit();
 }
 
 
@@ -82,7 +73,7 @@ $mailRegistro -> enviarCorreo();
 $_SESSION['codigo'] = serialize($codigo);
 #9. Se redirige a verificar codigo para la lógica
 // echo("?pid=".base64_encode('ui/session/pages/verify_code.php')."&token=".base64_encode($codigo->getCodigo()));
-header("Location: ?pid=" . base64_encode('ui/session/pages/login.php') . "&status=4"); 
+header("Location: ?pid=" . base64_encode('ui/session/pages/login.php') . "&status=". base64_encode('porCompletar')); 
 }
 ?>
 

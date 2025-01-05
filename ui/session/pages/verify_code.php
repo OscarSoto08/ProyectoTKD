@@ -1,34 +1,52 @@
 <?php
+//Y29kaWdv = codigo
+
 require 'ui/session/components/head.php';
 require 'ui/session/includes.php';
-if(empty($_GET["token"])){
-    // header("Location: ?pid=". base64_encode("ui/error404.php"));
+$token = new Token();
+
+if(isset($_GET["Y29kaWdv"])){
+    $_SESSION["codigo"] = base64_decode($_GET["Y29kaWdv"]);
 }
-$usuario = Usuario::consultarPorId($_GET["id"]);
-echo $usuario -> getNombre();
-if(isset($_POST['completar'])){
+$codigo = $_SESSION["codigo"];
+
+$token -> consultarPorCodigo($codigo);
+$usuario = $token -> getUsuario();
+
+if(isset($_POST['completar'])):
+    // Recibir los datos del formulario
+    $id = $_POST['id'] ?? '';
     $nombre = $_POST['nombre'] ?? '';
     $apellido = $_POST['apellido'] ?? '';
-    $correo = $_POST['correo'] ?? '';
     $fecha_nacimiento = $_POST['fecha_nacimiento'] ?? '';
     $telefono = $_POST['telefono'] ?? '';
     $clave = md5($_POST['clave']) ?? '';
-    $claveConfirmar = md5($_POST["clave2"])??'';
+    $claveConfirmar = md5($_POST['clave2'])??'';
+    
+    if($clave == $claveConfirmar): // Si las contraseñas coinciden
+    
+    
+    // Actualizar los datos del usuario
+    $usuario->setNombre($nombre);
+    $usuario->setApellido($apellido);
+    $usuario->setFechaNacimiento($fecha_nacimiento);
+    $usuario->setTelefono($telefono);
+    $usuario->setClave($clave);
 
-    if($clave == $claveConfirmar):
-        
-        $usuario_update = Usuario::actualizar(new Usuario(
-            idUsuario: $id,
-            nombre: $nombre,
-            apellido: $apellido,
-            correo: $correo,
-            clave: $clave,
-            fecha_nacimiento: $fecha_nacimiento,
-            telefono: $telefono,
-        ));
-        header("Location: ?pid=". base64_encode("ui/session/pages/login.php"). "&status=3");
+    $usuario->actualizar();
+    
+
+    $token -> setEstado("invalido");
+    $token -> cambiarEstado($token);
+
+    session_destroy();
+    header("Location: ?pid=". base64_encode("ui/session/pages/login.php"). "&status=1");
+    
     endif;
-}
+endif;
+
+
+// echo "<h1>El id del usuario es: " . $usuario->getIdUsuario() . "</h1>";
 
 //Queda validar la contraseña repetida y la logica del metodo get token y actualizar los datos
 ?>
@@ -43,27 +61,29 @@ if(isset($_POST['completar'])){
 <?php
 if(isset($_POST["completar"])):
 if($clave != $claveConfirmar):
-    echo "id es: " . $_SESSION["ID"];
 echo "<div role='alert'class='alert mx-auto my-5 alert-danger'>Las contraseñas no coinciden </div>";
 endif;
 endif;
 ?> 
         <h1 class="opacity">Completa tu registro</h1>
+        <p>Llena los campos a continuación para completar tu perfil</p>
         <form action="?pid=<?php echo base64_encode('ui/session/pages/verify_code.php')?>" method="post">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" placeholder="NOMBRE" required />
-            <label for="apellido">Apellido</label>
-            <input id="apellido" name="apellido" type="email" placeholder="APELLIDO" required />
-            <label for="fecha_nacimiento">Fecha de nacimiento</label>
-            <input id="fecha_nacimiento" name="fecha_nacimiento" type="DATE" placeholder="FECHA NACIMIENTO" required />
-            <label for="clave">Contraseña</label>
-            <input id="clave" name="clave" type="password" placeholder="CLAVE" required />
-            <label for="clave2">Confirmar contraseña</label>
-            <input id="clave2" name="clave2" type="password" placeholder="CLAVE" required />
-            <label for="telefono">Telefono</label>
-            <input id="telefono" name="telefono" type="tel" placeholder="TELEFONO" required />
+            <input id="nombre" name="nombre" type="text" class="form-control" placeholder="Nombres" required />
             
-            <button class="opacity mt-4" name="completar">COMPLETAR</button>
+            <input id="apellido" name="apellido" type="text" class="form-control" placeholder="Apellidos (opcional)" />
+
+            <div class="form-group">
+                <h5 for="fecha_nacimiento" class="form-text"> Fecha de Nacimiento</h5>
+                <input id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" type="DATE" required />
+            </div>
+            
+            <input id="clave" name="clave" type="password"  class="form-control" placeholder="Contraseña" required />
+
+            <input id="clave2" name="clave2" type="password" class="form-control" placeholder="Confirmar Contraseña" required />
+
+            <input id="telefono" name="telefono" type="tel" class="form-control" placeholder="Telefono" required />
+            
+            <button class="opacity mt-4" name="completar">COMPLETAR REGISTRO</button>
         </form>
         </div>
        <div class="circle circle-two"></div>
